@@ -9,21 +9,21 @@ public class ConveyorSystem
 {
     //initiates motor controls
     // private static final SpeedController spin1 = new PWMVictorSPX(5);
-    private static final SpeedController motor = new PWMVictorSPX(6);
-private static final SpeedController motor = new PWMVictorSPX(7);
+    private static final SpeedController conveyMotor = new PWMVictorSPX(6);
+    private static final SpeedController conveyMotor = new PWMVictorSPX(7);
  
  public static void update()
 {
     if (OI.BALLPUSH.isHold()){
         System.out.println("pushed flapper button");
-motor.set(1);
+conveyMotor.set(1);
     }
     else if(OI.BALLREVERSE.isHold())
     {
-        motor.set(-.5);
+        conveyMotor.set(-.5);
     }
     else{
-        motor.set(0);
+        conveyMotor.set(0);
     }
 }
     public static void update()
@@ -34,9 +34,12 @@ motor.set(1);
             // turn on conveyor motor
             conveyMotor.set(1);
             System.out.println("Pushed conveyor button");
-        }  else if (OI.BALLREVERSE_BUTTON.isHold()){
+        }  
+        else if (OI.BALLREVERSE_BUTTON.isHold())
+        {
         conveyMotor.set(-1);
-        }else
+        }
+        else
         {
             // dont turn on motor
             conveyMotor.set(0);
@@ -45,4 +48,3 @@ motor.set(1);
     }
 }
 
-//number 37 might need curly brackets
