@@ -25,8 +25,8 @@ public static final Button PNEU_FOREWARD_BUTTON = new Button(COLOR_STICK, 6);
 public static final Button PNEU_BACKWARD_BUTTON = new Button(COLOR_STICK, 4);
  
 public static final Button INTAKE_BUTTON = new Button(RIGHT_STICK, 2);
-public static final Button SHOOT_BUTTON = new Button(COLOR_STICK, 5);
-
+public static final Button SHOOT_BUTTON = new Button(COLOR_STICK, 1);
+public static final Button BALL_BUTTON = new Button(COLOR_STICK, 4)
 // Since index starts at 0, using the codes above as index needs to subtract 1
 private static Button[] buttons = new Button[]
 {
