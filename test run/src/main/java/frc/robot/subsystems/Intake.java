@@ -14,8 +14,8 @@ public class Intake {
     private CANSparkMax inMotor2;
 
     public Intake() {
-        inMotor1 = new CANSparkMax(2, MotorType.kBrushless);
-        inMotor2 = new CANSparkMax(3, MotorType.kBrushless);
+        inMotor1 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
+        inMotor2 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
        
         inMotor1.set(0);
         inMotor2.set(0);
