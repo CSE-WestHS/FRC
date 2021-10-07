@@ -23,10 +23,11 @@ public static final Button YELLOW_BUTTON = new Button(COLOR_STICK, 3);
 //public static final Trigger PREVIOUS_BUTTON = new Trigger(COLORSTICK, 2);
 public static final Button PNEU_FOREWARD_BUTTON = new Button(COLOR_STICK, 6);
 public static final Button PNEU_BACKWARD_BUTTON = new Button(COLOR_STICK, 4);
-
+ 
 public static final Button INTAKE_BUTTON = new Button(RIGHT_STICK, 2);
-public static final Button SHOOT_BUTTON = new Button(COLOR_STICK, 5);
-
+public static final Button SHOOT_BUTTON = new Button(COLOR_STICK, 1);
+public static final Button BALL_BUTTON = new Button(COLOR_STICK, 4);
+public static final Button BALLREVERSE = new Button(COLOR_STICK, 3);
 // Since index starts at 0, using the codes above as index needs to subtract 1
 private static Button[] buttons = new Button[]
 {
@@ -40,6 +41,7 @@ private static Button[] buttons = new Button[]
     PNEU_BACKWARD_BUTTON,
     SHOOT_BUTTON,
     INTAKE_BUTTON,
+    
 };
 
 //Getting the inputs of the joystick and update the variables
