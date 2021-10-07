@@ -20,7 +20,7 @@ public class DriveSystem
     private static final DifferentialDrive wheelsMotor2 = new DifferentialDrive(new PWMVictorSPX(3),new PWMVictorSPX(0));
     private static double leftSpeed = 0;
     private static double rightSpeed = 0;
-    private static final double SPEED_MULTIPLIER = 1;
+    private static double SPEED_MULTIPLIER = 1;
 
     //Pretty obvious what this function does. Run this in the Robot.java teleopPeriodic() function to run the robot.
     public static void update()
