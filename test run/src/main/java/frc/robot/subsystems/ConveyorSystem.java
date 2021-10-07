@@ -12,16 +12,19 @@ public class ConveyorSystem
     private static final SpeedController conveyMotor = new PWMVictorSPX(6);
  
  public static void update()
-{
-    if (OI.BALL_BUTTON.isHold()){
+    {
+    if (OI.BALL_BUTTON.isHold())
+        {
         System.out.println("pushed flapper button");
 conveyMotor.set(1);
-    }
+         }
     else if(OI.BALLREVERSE.isHold())
-    {
+         {
         conveyMotor.set(-.5);
-    }
-    else{
+         }
+    else
+        {
         conveyMotor.set(0);
+         }
     }
 }
