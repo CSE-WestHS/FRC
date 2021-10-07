@@ -10,8 +10,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Intake {
-    private CANSparkMax broMo;
-    private CANSparkMax broMo2;
+    private CANSparkMax inMotor1;
+    private CANSparkMax inMotor2;
 
     public Intake() {
         inMotor1 = new CANSparkMax(2, MotorType.kBrushless);
