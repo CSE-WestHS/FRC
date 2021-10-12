@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.ConveyorSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -57,6 +59,8 @@ DriveSystem driveSystem;
     OI.update();
     DriveSystem.update();
     ShooterSystem.update();
+    Intake.update();
+    ConveyorSystem.update();
    // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
