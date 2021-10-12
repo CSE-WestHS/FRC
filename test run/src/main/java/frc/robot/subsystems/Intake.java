@@ -24,7 +24,7 @@ public class Intake {
         inMotor2.restoreFactoryDefaults();
     }
 
-    public void update() {
+    public static void update() {
         //activates intake when pressed
         if (OI.INTAKE_BUTTON.isHold()) {
             inMotor1.set(.15);
