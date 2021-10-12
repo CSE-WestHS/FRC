@@ -32,6 +32,7 @@ public class DriveSystem
         else 
         {
             stopWheels();
+             moveWheels(OI.RIGHT_STICK.getY() *SPEED_MULTIPLIER, OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
         }
         
     }
