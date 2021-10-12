@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.Timer;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.ShooterSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
