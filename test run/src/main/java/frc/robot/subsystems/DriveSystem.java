@@ -25,12 +25,19 @@ public class DriveSystem
     //Pretty obvious what this function does. Run this in the Robot.java teleopPeriodic() function to run the robot.
     public static void update()
     {
-        moveWheels(-OI.RIGHT_STICK.getY() *SPEED_MULTIPLIER, -OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
+        if (-OI.LEFT_STICK.getY() >= 1500) 
+        {
+             moveWheels(-OI.RIGHT_STICK.getY() *SPEED_MULTIPLIER, -OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
+        }
+        else 
+        {
+            stopWheels();
+        }
+        
     }
-
     public static void moveWheels(double leftSpeed, double rightSpeed)
     {
-        double _rightSpeed = -rightSpeed; //Set it to ngative to match the motor set up 
+        double _rightSpeed = -rightSpeed; //Set it to negative to match the motor set up 
         wheelsMotor2.tankDrive(leftSpeed, _rightSpeed);
         wheelsMotor1.tankDrive(leftSpeed, _rightSpeed);
     }
