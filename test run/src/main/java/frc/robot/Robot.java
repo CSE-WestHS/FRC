@@ -55,6 +55,7 @@ DriveSystem driveSystem;
   {
     OI.update();
     DriveSystem.update();
+    ShooterSystem.update();
    // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
