@@ -9,7 +9,7 @@ public class Trigger extends Button
         super(stick, buttonCode);
     }
 
-    @override
+    @Override
     public void setStates()
     {
         isPressed = stick.getRawAxis(code) == 1 ? isHold ? false : true : false;
