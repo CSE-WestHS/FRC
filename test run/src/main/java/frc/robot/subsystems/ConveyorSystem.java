@@ -28,7 +28,7 @@ public class ConveyorSystem
         motor.set(0);
          }
          
-         activates shooter when trigger pulled
+         //activates shooter when trigger pulled
         if(OI.BALLREVERSE_BUTTON.isHold())
         {
              //turn on conveyor motor
