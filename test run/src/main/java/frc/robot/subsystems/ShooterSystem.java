@@ -14,7 +14,7 @@ public class ShooterSystem
     public static void update()
     {
         //Activates shooter when trigger pulled
-        if(OI.SHOOT_BUTTON.isHold() & OI.COLOR_STICK.getThrottle()>0) {//If the button to turn on the shooter is held and the far left stick is pressed
+        if(OI.SHOOT_BUTTON.isHold() & OI.COLOR_STICK.getY()>0) {//If the button to turn on the shooter is held and the far left stick is pressed
         spin2.set((OI.COLOR_STICK.getY())); //.435 Good at ~5 feet
         spin1.set(-(OI.COLOR_STICK.getY())); //.435
         System.out.println("Shoot Button Pressed");
