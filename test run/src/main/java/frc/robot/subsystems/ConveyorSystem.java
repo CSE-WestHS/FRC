@@ -41,6 +41,6 @@ public class ConveyorSystem
         // } else {
              //dont turn motor on
           //   conveyMotor.set(0);
-         }
+         //}
     }
 }
