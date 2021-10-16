@@ -1,6 +1,6 @@
 package frc.robot.controls;
 
-import edu.wpi.first.wpilibj.joystick;
+import edu.wpi.first.wpilibj.Joystick;
 
 public class Trigger extends Button
 {
