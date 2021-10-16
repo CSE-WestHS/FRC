@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+/*package frc.robot.subsystems;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.until.Color;
     A color detection system to detect color using color sensor.
     It's not really a system. It's more like a state class to optimize code and make it look cleaner (DRY)
     It is used in ColorMoterSystem.java
-*/
+
 
 public class ColorDetection 
 {
@@ -79,3 +79,4 @@ public class ColorDetection
         }
     }
 }
+*/
