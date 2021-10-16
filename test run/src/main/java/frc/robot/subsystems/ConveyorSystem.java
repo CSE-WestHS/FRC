@@ -14,29 +14,33 @@ public class ConveyorSystem
  
  public static void update()
     {
-    if (OI.BALL_BUTTON.isHold())
-        {
-        System.out.println("Pushed flapper button");
+    //if (OI.BALL_BUTTON.isHold())
+      //  {
+        //System.out.println("Pushed flapper button");
     motor.set(1);
-         }
-    else if(OI.BALLREVERSE_BUTTON.isHold())
-         {
-        motor.set(-.5);
-         }
-    else
-        {
-        motor.set(0);
-         }
+     //    }
+    //else if(OI.BALLREVERSE_BUTTON.isHold())
+    // {
+    //  motor.set(-.5);
+    //   }
+    //else
+     //  {
+        //motor.set(0);
+        // }
+         
          //activates shooter when trigger pulled
-         if(OI.BALLREVERSE_BUTTON.isHold()){
+        // if(OI.BALLREVERSE_BUTTON.isHold())
+        //{
              //turn on conveyor motor
              conveyMotor.set(1);
-             System.out.println("Pushed conveyor button");
-         } else if(OI.BALLREVERSE_BUTTON.isHold()){
-             conveyMotor.set(-1);
-         } else {
+             //System.out.println("Pushed conveyor button");
+        // } 
+        // else if(OI.BALLREVERSE_BUTTON.isHold())
+         //{
+         //    conveyMotor.set(-1);
+        // } else {
              //dont turn motor on
-             conveyMotor.set(0);
+          //   conveyMotor.set(0);
          }
     }
 }
