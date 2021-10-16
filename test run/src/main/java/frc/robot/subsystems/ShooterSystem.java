@@ -16,14 +16,14 @@ public class ShooterSystem
         //Activates shooter when trigger pulled
        // System.out.println(OI.COLOR_STICK.getY());
       //  System.out.println(OI.SHOOT_BUTTON.isHold());
-      //  if(OI.SHOOT_BUTTON.isHold() ) {//If the button to turn on the shooter is held and the far left stick is pressed
+        if(OI.SHOOT_BUTTON.isHold() ) {//If the button to turn on the shooter is held and the far left stick is pressed
         spin2.set(.453); //.435 Good at ~5 feet
         spin1.set(-.453); //.435
       //  System.out.println("Shoot Button Pressed");
-      //  } else {
+        } else {
      //       System.out.println(-(OI.COLOR_STICK.getY()));
-     //       spin1.stopMotor();
-     //       spin2.stopMotor();
-      //  }
+           spin1.stopMotor();
+           spin2.stopMotor();
+       }
     } 
 }
