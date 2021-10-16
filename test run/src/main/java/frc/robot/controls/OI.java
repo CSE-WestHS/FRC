@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI 
 {
 //Joysticks takes in the port number? <-- Not very sure, ask the builders or even the instructors to know more 
-public static final Joystick COLOR_STICK = new Joystick(2);
-public static final Joystick LEFT_STICK = new Joystick(0); 
+public static final Joystick COLOR_STICK = new Joystick(0);
+public static final Joystick LEFT_STICK = new Joystick(2); 
 public static final Joystick RIGHT_STICK = new Joystick(1); 
 
 public static final Button BLUE_BUTTON = new Button(COLOR_STICK, 1); 
