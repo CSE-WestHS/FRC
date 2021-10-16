@@ -59,8 +59,8 @@ DriveSystem driveSystem;
     OI.update();
     DriveSystem.update();
     ShooterSystem.update();
-    Intake.update();
-    ConveyorSystem.update();
+    //Intake.update();
+    //ConveyorSystem.update();
    // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
