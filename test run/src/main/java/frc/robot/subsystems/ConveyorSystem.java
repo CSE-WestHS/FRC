@@ -19,7 +19,7 @@ public class ConveyorSystem
         System.out.println("Pushed flapper button");
     motor.set(1);
          }
-    else if(OI.BALLREVERSE.isHold())
+    else if(OI.BALLREVERSE_BUTTON.isHold())
          {
         motor.set(-.5);
          }
