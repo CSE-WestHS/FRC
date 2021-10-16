@@ -25,8 +25,8 @@ public class ShooterSystem
         else if(OI.SHOOT_BUTTON_HIGH.isHold())
         {
           //Activates shooter at high power (button 3 on right stick)
-          spin2.set(.666);
-          spin1.set(-.666);
+          spin2.set(.555);
+          spin1.set(-.555);
         }
          else 
         {
