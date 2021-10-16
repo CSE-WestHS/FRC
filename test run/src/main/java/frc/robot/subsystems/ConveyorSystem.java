@@ -16,7 +16,6 @@ public class ConveyorSystem
     {
     if (OI.BALL_BUTTON.isHold())
         {
-
     motor.set(1);
          }
     else if(OI.BALLREVERSE_BUTTON.isHold())
@@ -29,7 +28,7 @@ public class ConveyorSystem
          }
          
          //activates shooter when trigger pulled
-        if(OI.BALLREVERSE_BUTTON.isHold())
+        if(OI.BALL_BUTTON.isHold())
         {
              //turn on conveyor motor
              conveyMotor.set(1);
