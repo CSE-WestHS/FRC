@@ -18,8 +18,8 @@ public class ShooterSystem
         if(OI.SHOOT_BUTTON_LOW.isHold()) 
         {
             //Activates shooter at low power (button 4 on left stick)
-        spin2.set(.453); //.435 Good at ~5 feet
-        spin1.set(-.453); //.435
+        spin2.set(.5); //.435 Good at ~5 feet
+        spin1.set(-.5); //.435
 
         }
         else if(OI.SHOOT_BUTTON_HIGH.isHold())
