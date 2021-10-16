@@ -41,7 +41,7 @@ private static Button[] buttons = new Button[]
     PNEU_BACKWARD_BUTTON,
     SHOOT_BUTTON,
     INTAKE_BUTTON,
-    
+    BALL_BUTTON
 };
 
 //Getting the inputs of the joystick and update the variables
