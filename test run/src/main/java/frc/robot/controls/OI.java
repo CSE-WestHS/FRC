@@ -38,7 +38,7 @@ private static Button[] buttons = new Button[]
  //   BOTTOM_BUTTON,
     //NEXT_BUTTON,
     //PREVIOUS_BUTTON,
-    PNEU_FOREWARD_BUTTON,
+    PNEU_FORWARD_BUTTON,
     PNEU_BACKWARD_BUTTON,
     SHOOT_BUTTON_LOW,
     INTAKE_BUTTON,
