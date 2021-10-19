@@ -32,8 +32,9 @@ public class Intake
        // if (OI.INTAKE_BUTTON.isHold()) {
             inMotor1.set(.15);
             inMotor2.set(.15);
-        //    System.out.println("intake button pressed");
-        //} else {
+        //} 
+        //else 
+        //{
           //  inMotor1.set(0);
           //  inMotor2.set(0);
         //}
