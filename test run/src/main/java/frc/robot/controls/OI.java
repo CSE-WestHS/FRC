@@ -21,7 +21,7 @@ public static final Joystick RIGHT_STICK = new Joystick(1);
 // Controls what the pneumatic control buttons control... 
 //public static final Button NEXT_BUTTON = new Button(COLORSTICK, 5);
 //public static final Trigger PREVIOUS_BUTTON = new Trigger(COLORSTICK, 2);
-public static final Button PNEU_FOREWARD_BUTTON = new Button(RIGHT_STICK, 7);
+public static final Button PNEU_FORWARD_BUTTON = new Button(RIGHT_STICK, 7);
 public static final Button PNEU_BACKWARD_BUTTON = new Button(RIGHT_STICK, 8);
  
 public static final Button INTAKE_BUTTON = new Button(RIGHT_STICK, 2);
@@ -38,8 +38,8 @@ private static Button[] buttons = new Button[]
  //   BOTTOM_BUTTON,
     //NEXT_BUTTON,
     //PREVIOUS_BUTTON,
-   // PNEU_FOREWARD_BUTTON,
-    //PNEU_BACKWARD_BUTTON,
+    PNEU_FOREWARD_BUTTON,
+    PNEU_BACKWARD_BUTTON,
     SHOOT_BUTTON_LOW,
     INTAKE_BUTTON,
     BALL_BUTTON,
