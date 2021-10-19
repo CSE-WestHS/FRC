@@ -10,12 +10,12 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Intake {
-    private static CANSparkMaxLowLevel inMotor1;
-    private static CANSparkMaxLowLevel inMotor2;
+    private static final CANSparkMax inMotor1;
+    private static final CANSparkMax inMotor2;
 
     public Intake() {
-        inMotor1 = new CANSparkMaxLowLevel(2, MotorType.kBrushless);
-        inMotor2 = new CANSparkMaxLowLevel(3, MotorType.kBrushless);
+        inMotor1 = new CANSparkMax(2, MotorType.kBrushless);
+        inMotor2 = new CANSparkMax(3, MotorType.kBrushless);
        
         inMotor1.set(0);
         inMotor2.set(0);
