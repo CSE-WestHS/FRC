@@ -23,7 +23,7 @@ public static final Button YELLOW_BUTTON = new Button(COLOR_STICK, 3);
 //public static final Trigger PREVIOUS_BUTTON = new Trigger(COLORSTICK, 2);
 public static final Button PNEU_FOREWARD_BUTTON = new Button(COLOR_STICK, 6);
 public static final Button PNEU_BACKWARD_BUTTON = new Button(COLOR_STICK, 4);
- 
+public static final Button SPEED_BOOST_BUTTON = new Button(RIGHT_STICK, 1);
 public static final Button INTAKE_BUTTON = new Button(RIGHT_STICK, 2);
 public static final Button SHOOT_BUTTON = new Button(COLOR_STICK, 1);
 public static final Button BALL_BUTTON = new Button(COLOR_STICK, 4);
@@ -34,14 +34,16 @@ private static Button[] buttons = new Button[]
     BLUE_BUTTON,
     RED_BUTTON,
     YELLOW_BUTTON,
- //   BOTTOM_BUTTON,
+    //BOTTOM_BUTTON,
     //NEXT_BUTTON,
     //PREVIOUS_BUTTON,
     PNEU_FOREWARD_BUTTON,
     PNEU_BACKWARD_BUTTON,
+    SPEED_BOOST_BUTTON,
     SHOOT_BUTTON,
     INTAKE_BUTTON,
-    
+    BALL_BUTTON,
+    BALLREVERSE,
 };
 
 //Getting the inputs of the joystick and update the variables

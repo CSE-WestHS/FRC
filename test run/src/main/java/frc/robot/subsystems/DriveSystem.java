@@ -21,7 +21,12 @@ public class DriveSystem
     //private static double leftSpeed = 0;
     //private static double rightSpeed = 0;
     private static double SPEED_MULTIPLIER = 1;
-
+    {
+        if(OI.SPEED_BOOST_BUTTON.isHold())
+        set.SPEED_MULTIPLIER(1.20);
+    } else {
+        set.SPEED_MULTIPLIER(1);
+    }
     //Pretty obvious what this function does. Run this in the Robot.java teleopPeriodic() function to run the robot.
     public static void update()
     {
