@@ -22,9 +22,10 @@ public class Intake {
         inMotor1.restoreFactoryDefaults();
         inMotor2.restoreFactoryDefaults();
     }
+   
     public static void update() 
     {
-        //activates intake when pressed
+      /*  //activates intake when pressed
         if (OI.INTAKE_BUTTON.isHold()) {
             inMotor1.set(.15);
             inMotor2.set(.15);  
@@ -32,6 +33,7 @@ public class Intake {
         else {
             inMotor1.set(0);
             inMotor2.set(0);    
-        }   
+        */
+        //}   
     }   
 }
