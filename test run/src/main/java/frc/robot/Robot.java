@@ -5,7 +5,7 @@
 package frc.robot;
 
 //import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj.PWMSparkMax;
+import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.Timer;
 import frc.robot.controls.OI;
@@ -59,7 +59,7 @@ DriveSystem driveSystem;
     OI.update();
     DriveSystem.update();
     ShooterSystem.update();
-    //Intake.update();
+    Intake.update();
     ConveyorSystem.update();
     SolenoidSystem.update();
    // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
