@@ -29,14 +29,14 @@ public class Intake
     public static void update() 
     {
         //activates intake when pressed
-        if (OI.INTAKE_BUTTON.isHold()) {
+      //  if (OI.INTAKE_BUTTON.isHold()) {
             inMotor1.set(.15);
             inMotor2.set(.15);
-        } 
-        else 
-        {
-            inMotor1.set(0);
-            inMotor2.set(0);
-        }
+       // } 
+      //  else 
+      //  {
+      //      inMotor1.set(0);
+      //      inMotor2.set(0);
+      //  }
     }
 }
