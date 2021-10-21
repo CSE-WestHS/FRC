@@ -12,12 +12,10 @@ public class Intake {
     private static CANSparkMax inMotor1;
     private static CANSparkMax inMotor2;
 
-    public Intake() {
+    public Intake() 
+    {
         inMotor1 = new CANSparkMax(2, MotorType.kBrushless);
         inMotor2 = new CANSparkMax(3, MotorType.kBrushless);
-       
-        inMotor1.set(0);
-        inMotor2.set(0);
 
         inMotor1.restoreFactoryDefaults();
         inMotor2.restoreFactoryDefaults();
@@ -25,15 +23,18 @@ public class Intake {
    
     public static void update() 
     {
-      /*  //activates intake when pressed
-        if (OI.INTAKE_BUTTON.isHold()) {
+        //activates intake when pressed
+        if (OI.INTAKE_BUTTON.isHold()) 
+        {
             inMotor1.set(.15);
             inMotor2.set(.15);  
+            System.out.println("intake button pressed");
         } 
-        else {
-            inMotor1.set(0);
-            inMotor2.set(0);    
-        */
-        //}   
+        else 
+        {
+            inMotor1.stopMotor();
+            inMotor2.stopMotor();    
+        
+        }   
     }   
 }
