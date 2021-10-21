@@ -13,7 +13,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ConveyorSystem;
-import frc.robot.subsystem.SolenoidSystem;
+import frc.robot.subsystems.SolenoidSystem;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
