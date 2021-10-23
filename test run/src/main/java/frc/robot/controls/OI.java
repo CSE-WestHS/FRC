@@ -24,7 +24,7 @@ public static final Joystick RIGHT_STICK = new Joystick(1);
 public static final Button PNEU_FORWARD_BUTTON = new Button(RIGHT_STICK, 7);
 public static final Button PNEU_BACKWARD_BUTTON = new Button(RIGHT_STICK, 8);
  
-public static final Button INTAKE_BUTTON = new Button(RIGHT_STICK, 2);
+public static final Button INTAKE_BUTTON = new Button(LEFT_STICK, 2);
 public static final Button SHOOT_BUTTON_LOW = new Button(LEFT_STICK, 4);
 public static final Button BALL_BUTTON = new Button(RIGHT_STICK, 4);
 public static final Button BALLREVERSE_BUTTON = new Button(LEFT_STICK, 3);
