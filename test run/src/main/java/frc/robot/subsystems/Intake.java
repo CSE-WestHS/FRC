@@ -26,7 +26,7 @@ public class Intake {
         //activates intake when pressed
         if (OI.INTAKE_BUTTON.isHold()) 
         {
-            inMotor1.set(.15);
+            inMotor1.set(-0.15);
             inMotor2.set(.15);  
             System.out.println("intake button pressed");
         } 
