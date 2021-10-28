@@ -18,19 +18,27 @@ public class DriveSystem
     */
     private static final DifferentialDrive wheelsMotor1 = new DifferentialDrive(new PWMVictorSPX(2), new PWMVictorSPX(1));
     private static final DifferentialDrive wheelsMotor2 = new DifferentialDrive(new PWMVictorSPX(3),new PWMVictorSPX(0));
-    private static double leftSpeed = 0;
-    private static double rightSpeed = 0;
-    private static final double SPEED_MULTIPLIER = 1;
+    //private static double leftSpeed = 0;
+    //private static double rightSpeed = 0;
+    private static double SPEED_MULTIPLIER = 1;
 
     //Pretty obvious what this function does. Run this in the Robot.java teleopPeriodic() function to run the robot.
     public static void update()
     {
-        moveWheels(-OI.RIGHT_STICK.getY() *SPEED_MULTIPLIER, -OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
+    //    if (-OI.LEFT_STICK.getY() >= 500) 
+     //   {
+             moveWheels(OI.RIGHT_STICK.getY() *SPEED_MULTIPLIER, OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
+        /*}
+        else 
+        {
+            stopWheels();
+            
+        }*/
+        
     }
-
     public static void moveWheels(double leftSpeed, double rightSpeed)
     {
-        double _rightSpeed = -rightSpeed; //Set it to ngative to match the motor set up 
+        double _rightSpeed = -rightSpeed; //Set it to negative to match the motor set up 
         wheelsMotor2.tankDrive(leftSpeed, _rightSpeed);
         wheelsMotor1.tankDrive(leftSpeed, _rightSpeed);
     }

@@ -5,12 +5,15 @@
 package frc.robot;
 
 //import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj.PWMSparkMax;
+import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.Timer;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.DriveSystem;
-
+import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.ConveyorSystem;
+import frc.robot.subsystems.SolenoidSystem;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -55,6 +58,10 @@ DriveSystem driveSystem;
   {
     OI.update();
     DriveSystem.update();
+    ShooterSystem.update();
+    Intake.update();
+    ConveyorSystem.update();
+    SolenoidSystem.update();
    // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
