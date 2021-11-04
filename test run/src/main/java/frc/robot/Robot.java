@@ -41,8 +41,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
      //Drive for 5 seconds
-    if (m_timer.get() < 5.0) {
-      DriveSystem.moveWheels(0.2,0.5);
+    if (m_timer.get() < 10.0) {
+      DriveSystem.moveWheels(0.5,0.2);
     } else {
       DriveSystem.stopWheels();
    }
