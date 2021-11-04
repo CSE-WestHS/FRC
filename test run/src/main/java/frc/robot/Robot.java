@@ -7,7 +7,7 @@ package frc.robot;
 //import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.ShooterSystem;
@@ -22,7 +22,6 @@ import frc.robot.subsystems.SolenoidSystem;
  */
 public class Robot extends TimedRobot {
 DriveSystem driveSystem;
-
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -31,22 +30,22 @@ DriveSystem driveSystem;
   public void robotInit() {}
 
   /** This function is run once each time the robot enters autonomous mode. */
-  // @Override
-  // public void autonomousInit() {
-  //  m_timer.reset();
-  //  m_timer.start();
-  // }
+   @Override
+   public void autonomousInit() {
+    m_timer.reset();
+    m_timer.start();
+   }
 
-  /** This function is called periodically during autonomous. */
- // @Override
- // public void autonomousPeriodic() {
-    // Drive for 2 seconds
-   // if (m_timer.get() < 2.0) {
-     // m_robotDrive.arcadeDrive(0.5, 0.0); // drive forwards half speed
-    //} else {
-      //m_robotDrive.stopMotor(); // stop robot
-   // }
-  // }
+   // This function is called periodically during autonomous. 
+  @Override
+  public void autonomousPeriodic() {
+     //Drive for 5 seconds
+    if (m_timer.get() < 5.0) {
+      m_robotDrive.arcadeDrive(0.25, 0.0); // drive forwards half speed
+    } else {
+      m_robotDrive.stopMotor(); // stop robot
+   }
+  }
 
   /** This function is called once each time the robot enters teleoperated mode. */
   @Override
