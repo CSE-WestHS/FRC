@@ -21,7 +21,8 @@ import frc.robot.subsystems.SolenoidSystem;
  * directory.
  */
 public class Robot extends TimedRobot {
-DriveSystem driveSystem;
+
+  private final Timer m_timer = new Timer();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -41,9 +42,9 @@ DriveSystem driveSystem;
   public void autonomousPeriodic() {
      //Drive for 5 seconds
     if (m_timer.get() < 5.0) {
-      m_robotDrive.arcadeDrive(0.25, 0.0); // drive forwards half speed
+      DriveSystem.moveWheels(0.25,0.50);
     } else {
-      m_robotDrive.stopMotor(); // stop robot
+      DriveSystem.stopWheels();
    }
   }
 
