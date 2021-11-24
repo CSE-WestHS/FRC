@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
     OI.update();
-    ColorDetection.detectedColor();
+    ColorDetection.runDetection();
    // DriveSystem.update();
    // ShooterSystem.update();
     //Intake.update();

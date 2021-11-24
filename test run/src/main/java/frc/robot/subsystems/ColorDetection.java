@@ -14,18 +14,18 @@ import edu.wpi.first.wpilibj.until.Color;
    // It is used in ColorMoterSystem.java
 
 
-public class ColorDetection 
+public class ColorDetection{
 
-    Private final I2C.Port i2cPort = I2C.Port.kOnboard;
-    Private final ColorSensorV3 m_colorSenor = new ColorSensorV3(i2cPort);
-    Private final ColorMatch m_colorMatcher = new ColorMatch();
+    private final I2C.Port i2cPort = I2C.Port.kOnboard;
+    private final ColorSensorV3 m_colorSenor = new ColorSensorV3(i2cPort);
+    private final ColorMatch m_colorMatcher = new ColorMatch();
 
-    Private final Color BLUE_TARGET = ColorMatch.makeColor(0.143, 0.452, 0.429);
-    Private final Color GREEN_TARGET = ColorMatch.makeColor(0.267, 0.499, 0.240);
-    Private final Color RED_TARGET = ColorMatch.makeColor(0.525, 0.355, 0.120);
-    Private final Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    private final Color BLUE_TARGET = ColorMatch.makeColor(0.143, 0.452, 0.429);
+    private final Color GREEN_TARGET = ColorMatch.makeColor(0.267, 0.499, 0.240);
+    private final Color RED_TARGET = ColorMatch.makeColor(0.525, 0.355, 0.120);
+    private final Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
 
-    Private final Colors color;
+    private final Colors color;
 
     Public ColorDetectionSystem()
     {
