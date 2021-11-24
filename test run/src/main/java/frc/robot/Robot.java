@@ -57,11 +57,12 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
     OI.update();
-    DriveSystem.update();
-    ShooterSystem.update();
-    Intake.update();
-    ConveyorSystem.update();
-    SolenoidSystem.update();
+    ColorDetection.detectedColor();
+   // DriveSystem.update();
+   // ShooterSystem.update();
+    //Intake.update();
+   // ConveyorSystem.update();
+   // SolenoidSystem.update();
    // m_robotDrive.arcadeDrive(m_stick.getY(), m_stick.getX());
   }
 
