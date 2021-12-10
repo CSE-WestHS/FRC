@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+/*package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.firt.wolibj.Speed.Controller;
 import frc.robot.contols.OI;
@@ -10,7 +10,7 @@ import frc.robot.until.Debug;
     PrepOnStandby: reseting variables, motor on standby
     SpinThreeTimes: motor spins the color wheel 3 times
     SpinToSelectedColor: motor spins to selected color from color button input
-*/
+
 
 enum MotorStatus
 {
@@ -23,7 +23,7 @@ enum MotorStatus
 /*
     A color motor system to turn that color motor
         (Used in Robot.java)
-*/
+
 
 public class ColorMotorSystem
 {
@@ -71,7 +71,7 @@ public class ColorMotorSystem
         The below else if used for GREEN_BUTTON, 
         replaced with BOTTOM_RIGHT because Green button 
         reassigned to be used for pullingin pistons with intake system
-        */
+        
 
         else if (OI.BOTTOM_RIGHT.isPressed())
         {
@@ -122,7 +122,7 @@ public class ColorMotorSystem
             selected color (colorSelection).
 
             Used in update() function down below.
-        */
+        
         private void spinToColorSelected()
         {
             Debug.printOnce("Spin to color selecte!");
@@ -155,3 +155,4 @@ public class ColorMotorSystem
         }
 
 } 
+*/
