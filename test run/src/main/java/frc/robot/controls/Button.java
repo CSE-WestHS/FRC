@@ -1,6 +1,6 @@
 package frc.robot.controls;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 
 public class Button 
 {
@@ -14,15 +14,15 @@ public class Button
     boolean isHold; 
     
     int code; 
-    Joystick stick; 
+    XboxController controller; 
 
-    public Button(Joystick stick , int buttonCode)
+    public Button(XboxController controller , int buttonCode)
     {
         isPressed = false; 
         isReleased = false; 
         isHold = false; 
         
-        this.stick = stick; 
+        this.controller = controller; 
         code = buttonCode;
 
     }    
@@ -34,8 +34,8 @@ public class Button
 
     public void setStates()
     {
-        isPressed = stick.getRawButtonPressed(code); 
-        isReleased = stick.getRawButtonReleased(code);
+        isPressed = controller.getRawButtonPressed(code); 
+        isReleased = controller.getRawButtonReleased(code);
 
         if (isPressed)
         {

@@ -27,7 +27,7 @@ public class DriveSystem
     {
     //    if (-OI.LEFT_STICK.getY() >= 500) 
      //   {
-             moveWheels(OI.RIGHT_STICK.getY() *SPEED_MULTIPLIER, OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
+             moveWheels(OI.CONTROLLER.getY() *SPEED_MULTIPLIER, OI.LEFT_STICK.getY() *SPEED_MULTIPLIER);
         /*}
         else 
         {
