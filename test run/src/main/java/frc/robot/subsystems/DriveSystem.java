@@ -18,10 +18,10 @@ public class DriveSystem
     DifferentalDrive is a class that makes running the 2 motors together easier.
     If you want to know more, consider reading the frc wpilib documentation to know more.
     */ 
-    static CANSparkMax m_frontLeft = new CANSparkMax(1, MotorType.kBrushless);
-    static CANSparkMax m_rearLeft = new CANSparkMax(2, MotorType.kBrushless);
-    static CANSparkMax m_frontRight = new CANSparkMax(3, MotorType.kBrushless);
-    static CANSparkMax m_rearRight = new CANSparkMax(4, MotorType.kBrushless);
+    static CANSparkMax m_rearLeft = new CANSparkMax(1, MotorType.kBrushless);
+    static CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
+    static CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
+    static CANSparkMax m_frontRight = new CANSparkMax(4, MotorType.kBrushless);
     static SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
     static SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
     static DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
