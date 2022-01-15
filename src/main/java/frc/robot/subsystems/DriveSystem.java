@@ -3,11 +3,15 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.XboxController;
+
+import frc.robot.controls.OI;
 
 /**
  * The DriveSystem class is responsible for controlling the drivetrain of the
@@ -30,6 +34,11 @@ public class DriveSystem {
 
     private final DifferentialDrive m_drive = new DifferentialDrive(m_leftGroup, m_rightGroup);
     private final DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
+
+    private final XboxController m_controller = new XboxController(0);
+    // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
+    private final SlewRateLimiter m_linearVelocityLimiter = new SlewRateLimiter(1 / 3.0);
+    private final SlewRateLimiter m_angularVelocityLimiter = new SlewRateLimiter(1 / 3.0);
 
     /**
      * Constructor for the drive system.
@@ -71,6 +80,31 @@ public class DriveSystem {
         ChassisSpeeds speeds = new ChassisSpeeds(linearVelocity, 0.0, angularVelocity);
         DifferentialDriveWheelSpeeds wheelSpeeds = m_kinematics.toWheelSpeeds(speeds);
         setSpeed(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+    }
+
+    public void xbox_drive(){
+        // Get the x speed from the left analog stick.
+        // This is negative because Xbox controllers return negative values when pushed forward.
+        final double xSpeed = -m_linearVelocityLimiter.calculate(m_controller.getLeftY()) * kMaxSpeed;
+
+        // Get the rate of angular velocity.
+        // We are inverting because we want a positive value when we pull to the left.
+        // (CCW rotation is positive in mathematics, but Xbox controllers return
+        // positive when you pull right.)
+        final double angularVelocity = -m_angularVelocityLimiter.calculate(m_controller.getRightX())
+            * kMaxAngularSpeed;
+
+        drive(xSpeed, angularVelocity);
+    }
+
+    public void dual_joystick_drive(){
+        // Get left wheel speed from the left joystick.
+        final double leftSpeed = OI.RIGHT_STICK.getY() * kMaxSpeed;
+
+        // Get right wheel speed from the right joystick.
+        final double rightSpeed = OI.LEFT_STICK.getY() * kMaxSpeed;
+
+        setSpeed(leftSpeed, rightSpeed);
     }
 
     /**
