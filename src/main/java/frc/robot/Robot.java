@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; // TODO: uncomment when SmartDashboard has been added to the project
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.LimeLightSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,6 +20,7 @@ import frc.robot.subsystems.DriveSystem;
  */
 public class Robot extends TimedRobot {
   private final DriveSystem m_driveSystem = new DriveSystem();
+  private final LimeLightSystem m_light = new LimeLightSystem();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -58,6 +60,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_driveSystem.dual_joystick_drive();
+    m_light.start();
   }
 
   /**
