@@ -45,3 +45,5 @@ CAN Bus Faults
 - First, determine what the issue is. Green is typically good, blinking red typically means that there's actively a problem that we need to fix, and blinking yellow means that there was a problem, but we need to clear a fault.
   - [Status Lights Quick Reference](https://docs.wpilib.org/en/stable/docs/hardware/hardware-basics/status-lights-ref.html?highlight=faults#status-light-quick-reference)
 - Connect your computer to the robot and use [Phoenix Tuner software](https://docs.ctre-phoenix.com/en/stable/ch03_PrimerPhoenixSoft.html#what-is-phoenix-tuner) to self-test the CAN bus to clear a sticky fault (orange light).
+- Verifying the robot is connected to the robot controller
+  - [Verifying Robot Controller Connection](https://docs.ctre-phoenix.com/en/stable/ch05_PrepWorkstation.html)
