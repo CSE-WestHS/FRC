@@ -15,18 +15,15 @@ public class Intake{
     // these are the motors for the intake
     // Update when we finalize what motors need to be used
     public static CANSparkMax intakeMotor = new CANSparkMax(2, MotorType.kBrushless);;
-    public static CANSparkMax intakeMotor2 = new CANSparkMax(3, MotorType.kBrushless);;
     public static CANSparkMax sideFeed = new CANSparkMax(4, MotorType.kBrushless);;
     public static CANSparkMax upFeed = new CANSparkMax(5, MotorType.kBrushless);;
     public static CANSparkMax upFeed2 = new CANSparkMax(6, MotorType.kBrushless);;
     public Intake() {
         intakeMotor.set(0);
-        intakeMotor2.set(0);
         sideFeed.set(0);
         upFeed.set(0);
         upFeed2.set(0);
         intakeMotor.restoreFactoryDefaults();
-        intakeMotor2.restoreFactoryDefaults();
         sideFeed.restoreFactoryDefaults();
         upFeed.restoreFactoryDefaults();
         upFeed2.restoreFactoryDefaults();
@@ -40,7 +37,6 @@ public class Intake{
              * need to use
              */
             intakeMotor.set(0.45);
-            intakeMotor2.set(-0.45);
             sideFeed.set(0.45);
             upFeed.set(0.45);
             upFeed2.set(-0.45);
@@ -55,7 +51,6 @@ public class Intake{
              * need to use
              */
             intakeMotor.set(-0.45);
-            intakeMotor2.set(0.45);
             sideFeed.set(-0.45);
             upFeed.set(-0.45);
             upFeed2.set(0.45);
@@ -63,7 +58,6 @@ public class Intake{
         // this is the default state where all the motors are off
         {
             intakeMotor.set(0);
-            intakeMotor2.set(0);
             sideFeed.set(0);
             upFeed.set(0);
             upFeed2.set(0);
