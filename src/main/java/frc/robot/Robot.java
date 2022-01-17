@@ -4,9 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard; // TODO: uncomment when SmartDashboard has been added to the project
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
 
 /**
@@ -19,7 +21,10 @@ import frc.robot.subsystems.LimeLightSystem;
  * directory.
  */
 public class Robot extends TimedRobot {
+  private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
+
   private final DriveSystem m_driveSystem = new DriveSystem();
+  private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final LimeLightSystem m_light = new LimeLightSystem();
 
   /**
@@ -61,6 +66,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     m_driveSystem.dual_joystick_drive();
     m_light.start();
+
+    SmartDashboard.putNumber("LIDAR Distance CM", m_lidarSensor.getDistance());
   }
 
   /**
