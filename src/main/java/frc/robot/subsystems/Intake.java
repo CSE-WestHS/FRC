@@ -24,13 +24,16 @@ public class Intake{
         intakeMotor2.set(0);
         sideFeed.set(0);
         upFeed.set(0);
+        upFeed2.set(0);
         intakeMotor.restoreFactoryDefaults();
         intakeMotor2.restoreFactoryDefaults();
         sideFeed.restoreFactoryDefaults();
+        upFeed.restoreFactoryDefaults();
+        upFeed2.restoreFactoryDefaults();
     }
 
     public static void update() {
-        if (OI.INTAKE2022_BUTTON.isHold()) { // activates the intake and conveyor motors when pressed
+        if (OI.INTAKE_BUTTON.isHold()) { // activates the intake and conveyor motors when pressed
             /*
              * these are mock up speeds. Change these when
              * we know what motors and speeds and such we
@@ -41,7 +44,7 @@ public class Intake{
             sideFeed.set(0.45);
             upFeed.set(0.45);
             upFeed2.set(-0.45);
-            
+
         } else if (OI.SPITOUT_BUTTON.isHold())
         // puts the conveyor and intake motors on reverse
         // this spits out the ball(s)
