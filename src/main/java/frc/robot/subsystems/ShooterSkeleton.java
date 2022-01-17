@@ -14,19 +14,35 @@ to work. We will put in calculations for distance
 public class ShooterSkeleton {
     public static CANSparkMax shootMotor1 = new CANSparkMax(5, MotorType.kBrushless);;
     public static CANSparkMax shootMotor2 = new CANSparkMax(6, MotorType.kBrushless);;
+    public static double limeToPower = 0.5;
 
     public ShooterSkeleton() {
+        shootMotor1.setInverted(true);
         shootMotor1.set(0);
         shootMotor2.set(0);
     }
 
-    public static void update() {
+    /**
+     * Activates motors at a set power
+     * 
+     * @param power = -100 to 100
+     */
+    public static void setPower(double power) {
+        // Distance will be a numebr given to us by the limelight
+        // the equation given will be updated to make parameters from -1 to 1
+        // The mins and maxes will not be -1 and 1, this is too much power on the motors
+
+        double motorSpeed = power / 100.0;
         if (OI.SHOOT_BUTTON.isHold()) {
-            shootMotor1.set(50);
-            shootMotor2.set(50);
+            shootMotor1.set(motorSpeed);
+            shootMotor2.set(motorSpeed);
         } else {
             shootMotor1.set(0);
             shootMotor2.set(0);
         }
+    }
+
+    public static void limelightAdjust() {
+        // TODO be implemennted after limelight is implemented
     }
 }
