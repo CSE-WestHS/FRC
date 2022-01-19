@@ -1,4 +1,5 @@
 package frc.robot.subsystems;
+
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
@@ -27,36 +28,12 @@ public class Shooter {
      * 
      * @param power = -100 to 100
      */
-    public static void setPower(double distance) {
-        // Distance will be a numebr given to us by the limelight
-        // the equation given will be updated to make parameters from -1 to 1
+    public static void setPower(double power) {
         // The mins and maxes will not be -1 and 1, this is too much power on the motors
-
-        double motorSpeed = distance / 100.0;
         if (OI.SHOOT_BUTTON.isHold()) {
-            /*This if statement keeps the code from giving a larger
-            value than 1, which is the largest value the set command
-            can take
-            */
-            
-            if (motorSpeed > 1)
-            {
-                shootMotor1.set(1);
-                shootMotor2.set(-1);
-            }
-             /*This if statement keeps the code from giving a smaller
-            value than -1, which is the smallest value the set command
-            can take
-            */
-            else if ( motorSpeed < -1)  
-            {
-                shootMotor1.set(-1);
-                shootMotor2.set(1);
-            }
-            else {
-                shootMotor1.set(motorSpeed);
-                shootMotor2.set(motorSpeed);
-            }
+
+            shootMotor1.set(power);
+            shootMotor2.set(power);
 
         } else {
             shootMotor1.set(0);
@@ -64,9 +41,33 @@ public class Shooter {
         }
     }
 
-    public static void limelightAdjust() {
-        // TODO be implemennted after limelight is implemented
-        //Take in value from lidar
-        //
+    // This method is used in the shooting mechanism
+    public static double getPower() {
+        double distanceCM;
+        double power;
+        // LIDARSensor file needs to be added
+        // sets distance equal to the reading of the Lidar sensor in cm
+        distanceCM = LIDARSensor.getDistance();
+        // if the reading is between 0 and 1 meter
+        if (distanceCM >= 0 && distanceCM <= 100) {
+            power = 0.2;
+        }
+        // if reading is between 1 and 2 meters
+        else if (distanceCM > 100 && distanceCM <= 200) {
+            power = 0.3;
+        }
+        // if reading is between 2 and 3 meters
+        else if (distanceCM > 200 && distanceCM <= 300) {
+            power = 0.4;
+        }
+        // if reading is between 3 and 4 meters
+        else if (distanceCM > 300 && distanceCM <= 400) {
+            power = 0.5;
+        }
+        // if reading is greater than 4 meters
+        else {
+            power = 0.6;
+        }
+        return power;
     }
 }
