@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-//import frc.robot.subsystems.LimeLightSystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -13,8 +13,10 @@ to work. We will put in calculations for distance
  rename motors as needed
 */
 public class Shooter {
-    public static CANSparkMax shootMotor1 = new CANSparkMax(5, MotorType.kBrushless);;
-    public static CANSparkMax shootMotor2 = new CANSparkMax(6, MotorType.kBrushless);;
+    private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
+    private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
+    public static CANSparkMax shootMotor1 = new CANSparkMax(7, MotorType.kBrushless);;
+    public static CANSparkMax shootMotor2 = new CANSparkMax(8, MotorType.kBrushless);;
 
     public Shooter() {
         shootMotor1.setInverted(true);
@@ -45,13 +47,13 @@ public class Shooter {
      * This method takes in a distance reading from the LIDAR
      * Sensor and converts that into a power based on the reading
      */
-    public static double getPower() {
+    public double getPower() {
         double distanceCM;
         double power;
-        // LIDARSensor file needs to be added
+
         // sets distance equal to the reading of the Lidar sensor in cm
         // distances may be updated to feet
-        distanceCM = 100.0;// LIDARSensor.getDistance();
+        distanceCM = m_lidarSensor.getDistance();
         // if the reading is between 0 and 1 meter
         if (distanceCM >= 0 && distanceCM <= 100) {
             power = 0.2;
