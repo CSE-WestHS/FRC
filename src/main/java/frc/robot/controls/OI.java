@@ -14,7 +14,7 @@ public class OI {
     public static final Joystick RIGHT_STICK = new Joystick(1);
 
     public static final Button INTAKE_BUTTON = new Button(LEFT_STICK, 5);
-    public static final Button SPITOUT_BUTTON = new Button(RIGHT_STICK, 4);
+    public static final Button SPITOUT_BUTTON = new Button(LEFT_STICK, 6);
     public static final Button SHOOT_BUTTON = new Button(RIGHT_STICK, 7);
 
     // Since index starts at 0, using the codes above as index needs to subtract 1

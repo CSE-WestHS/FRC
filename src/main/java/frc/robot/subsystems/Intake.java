@@ -14,8 +14,8 @@ public class Intake{
      */
     // these are the motors for the intake
     // Update when we finalize what motors need to be used
-    public static CANSparkMax intakeMotor = new CANSparkMax(2, MotorType.kBrushless);;
-    public static CANSparkMax sideFeed = new CANSparkMax(4, MotorType.kBrushless);;
+    public static CANSparkMax intakeMotor = new CANSparkMax(8, MotorType.kBrushless);;
+    public static CANSparkMax sideFeed = new CANSparkMax(7, MotorType.kBrushless);;
     public static CANSparkMax upFeed = new CANSparkMax(5, MotorType.kBrushless);;
     public static CANSparkMax upFeed2 = new CANSparkMax(6, MotorType.kBrushless);;
     public Intake() {

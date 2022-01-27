@@ -15,8 +15,8 @@ to work. We will put in calculations for distance
 public class Shooter {
     private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
     private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
-    public static CANSparkMax shootMotor1 = new CANSparkMax(7, MotorType.kBrushless);;
-    public static CANSparkMax shootMotor2 = new CANSparkMax(8, MotorType.kBrushless);;
+    public static CANSparkMax shootMotor1 = new CANSparkMax(9, MotorType.kBrushless);;
+    public static CANSparkMax shootMotor2 = new CANSparkMax(10, MotorType.kBrushless);;
 
     public Shooter() {
         shootMotor1.setInverted(true);
