@@ -21,8 +21,8 @@ public class DriveToBall extends CommandBase {
     @Override
     // command runs while class is running, goes until done
     // main bulk of command that will be edited
-    // motor values will need to be edited
-    // TODO possibly implement pathfinder to help with movement toward balls
+    //TODO motor values will need to be edited
+    //TODO possibly implement pathfinder to help with movement toward balls
 
     public void execute() {
         m_driveSystem.setSpeed(0.45, 0.45);

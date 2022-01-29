@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase{
     /**
      * Activates motors at a set power
      * 
-     * @param power = -100 to 100
+     * @param power = -1 to 1
      */
     public static void setPower(double power) {
         // The mins and maxes will not be -1 and 1, this is too much power on the motors
