@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
-
+import edu.wpi.first.wpilibj.Timer;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -21,6 +21,7 @@ import frc.robot.subsystems.LimeLightSystem;
  * directory.
  */
 public class Robot extends TimedRobot {
+  private Timer timedRobot = new Timer();
   private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
   private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final DriveSystem m_driveSystem = new DriveSystem();
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    timedRobot.reset();
   }
 
   /**

@@ -3,8 +3,9 @@ package frc.robot.subsystems;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake{
+public class Intake extends SubsystemBase{
     /*
      * this is a proof of concept. we will most likely
      * change speeds, the number of motors, types of motors, etc

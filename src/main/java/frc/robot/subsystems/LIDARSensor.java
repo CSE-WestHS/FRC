@@ -2,8 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LIDARSensor {
+public class LIDARSensor extends SubsystemBase {
     /*
      * Adjust the Calibration Offset to compensate for differences in each unit.
      * We've found this is a reasonably constant value for readings in the 25 cm to 600 cm range.

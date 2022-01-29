@@ -4,9 +4,9 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
-public class LimeLightSystem {
+public class LimeLightSystem extends SubsystemBase {
     private static NetworkTable table;
     private static NetworkTableEntry tx;
     private static NetworkTableEntry ty;

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /*
 This is a skeleton of the shooter system
 We plan to update this once we get the limelight
@@ -12,7 +12,7 @@ to work. We will put in calculations for distance
  to power for the shooting. We will also add and
  rename motors as needed
 */
-public class Shooter {
+public class Shooter extends SubsystemBase{
     private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
     private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
     public static CANSparkMax shootMotor1 = new CANSparkMax(9, MotorType.kBrushless);;
