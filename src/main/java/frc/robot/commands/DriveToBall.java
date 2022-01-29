@@ -25,7 +25,7 @@ public class DriveToBall extends CommandBase {
     // TODO possibly implement pathfinder to help with movement toward balls
 
     public void execute() {
-        m_driveSystem.setSpeed(-0.45, -0.45);
+        m_driveSystem.setSpeed(0.45, 0.45);
     }
 
     // command runs when class is finished, or interrupted
@@ -33,7 +33,7 @@ public class DriveToBall extends CommandBase {
     public void end() {
         m_driveSystem.stopWheels();
     }
-
+// makes sure the command actually ends
     public boolean isFinished() {
         return true;
     }
