@@ -3,7 +3,7 @@
  * 
  * import edu.wpi.first.wpilibj2.command.CommandBase;
  * import frc.robot.subsystems.InsertSubsystemHere;
- * //This is a shell of a command class. This is just meant
+ * //This is a shell of what a command class should look like. This is just meant
  * //as a easy way to copy and paste to make new commands
  * //This is not meant to be its own command class
  * //TODO Delete this once all commands are made

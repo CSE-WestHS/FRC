@@ -29,7 +29,7 @@ public class Shooter extends SubsystemBase{
      * 
      * @param power = -1 to 1
      */
-    public static void setPower(double power) {
+    public void setPower(double power) {
         // The mins and maxes will not be -1 and 1, this is too much power on the motors
         if (OI.SHOOT_BUTTON.isHold()) {
 

@@ -28,7 +28,6 @@ public class PickUpBall extends CommandBase{
      }
      
      // makes sure the command actually ends
-     //TODO update return value
      public boolean isFinished() {
      return true;
     }
