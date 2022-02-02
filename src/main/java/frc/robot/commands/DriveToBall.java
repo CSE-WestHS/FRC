@@ -16,6 +16,8 @@ public class DriveToBall extends CommandBase {
     // command runs when class first starts, initializes motors
     public void initialize() {
         m_driveSystem.setSpeed(0, 0);
+        m_driveSystem.enc_left.reset();
+        m_driveSystem.enc_right.reset();
     }
 
     @Override
@@ -23,9 +25,16 @@ public class DriveToBall extends CommandBase {
     // main bulk of command that will be edited
     //TODO motor values will need to be edited
     //TODO possibly implement pathfinder to help with movement toward balls
-
+    //TODO finetune encoder distances.
     public void execute() {
-        m_driveSystem.setSpeed(0.45, 0.45);
+        if(m_driveSystem.enc_left.getDistance() < 7)
+        {
+            m_driveSystem.setSpeed(0.45, 0.45);
+        }
+        else
+        {
+            m_driveSystem.stopWheels();
+        }
     }
 
     // command runs when class is finished, or interrupted
@@ -35,6 +44,6 @@ public class DriveToBall extends CommandBase {
     }
 // makes sure the command actually ends
     public boolean isFinished() {
-        return true;
+        return m_driveSystem.enc_left.getStopped();
     }
 }

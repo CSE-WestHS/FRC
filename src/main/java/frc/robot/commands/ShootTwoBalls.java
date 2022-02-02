@@ -13,6 +13,7 @@ public class ShootTwoBalls extends CommandBase {
     public ShootTwoBalls(Shooter subsystem, Intake intake_system) {
         m_Shooter = subsystem;
         m_Intake = intake_system;
+
         addRequirements(m_Shooter, m_Intake);
     }
 
@@ -21,13 +22,25 @@ public class ShootTwoBalls extends CommandBase {
     public void initialize() {
         m_Intake.stopMotors();
         m_Shooter.setPower(0);
+        m_Intake.enc_upFeed.reset();
+        m_Intake.enc_sideFeed.reset();
+        m_Shooter.enc_Shoot.reset();
     }
 
     // command runs while class is running, goes until done
     // main bulk of command that will be edited
     // TODO finetune speeds for intake. Possibly change what motors run when.
+    //TODO finetune encoder distances.
     public void execute() {
+        if(m_Intake.enc_sideFeed.getDistance() < 5)
         m_Intake.runMotors(0.25, 0.25);
+        else if(m_Intake.enc_upFeed.getDistance() < 10){
+            m_Intake.runMotors(0, 0.25);
+        }
+        else
+        {
+            m_Intake.runMotors(0,0);
+        }
         power = m_Shooter.getPower();
         m_Shooter.setPower(power);
     }
@@ -40,6 +53,7 @@ public class ShootTwoBalls extends CommandBase {
 
     // makes sure the command actually ends
     public boolean isFinished() {
-        return true;
+        //TODO change return value when encoders are implemented;
+        return m_Intake.enc_upFeed.getStopped();
     }
 }

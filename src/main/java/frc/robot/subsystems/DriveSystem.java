@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -24,7 +24,8 @@ public class DriveSystem extends SubsystemBase {
 
     private static int smartCurrentLimit = 40; // amps, current limit for the smart motor controllers
     private static final double kTrackWidth = 0.381 * 2; // meters
-
+    public final Encoder enc_left = new Encoder(0, 1);
+    public final Encoder enc_right = new Encoder(4, 5);
     private final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
     private final CANSparkMax m_rearLeft = new CANSparkMax(1, MotorType.kBrushless);
     private final MotorControllerGroup m_leftGroup = new MotorControllerGroup(m_frontLeft, m_rearLeft);
@@ -46,6 +47,14 @@ public class DriveSystem extends SubsystemBase {
      */
     public DriveSystem() {
         m_frontLeft.clearFaults();
+        enc_left.reset();
+        enc_right.reset();
+
+        enc_left.setDistancePerPulse(1./256.);
+        enc_right.setDistancePerPulse(1./256.);
+        enc_right.setSamplesToAverage(3);
+        enc_left.setMaxPeriod(.1);
+        enc_right.setMaxPeriod(.1);
 
         m_frontLeft.setSmartCurrentLimit(smartCurrentLimit);
         m_rearLeft.setSmartCurrentLimit(smartCurrentLimit);
@@ -65,7 +74,8 @@ public class DriveSystem extends SubsystemBase {
      * @param rightSpeed The speed of the right side.
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
-        m_drive.tankDrive(leftSpeed, rightSpeed);
+        double error = enc_left.getDistance() - enc_right.getDistance();
+        m_drive.tankDrive(leftSpeed * error, rightSpeed * error);
     }
 
     /**

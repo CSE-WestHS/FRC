@@ -5,23 +5,22 @@ import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-/*
-This is a skeleton of the shooter system
-We plan to update this once we get the limelight
-to work. We will put in calculations for distance
- to power for the shooting. We will also add and
- rename motors as needed
-*/
+import edu.wpi.first.wpilibj.Encoder;
 public class Shooter extends SubsystemBase{
     private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
     private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
     public static CANSparkMax shootMotor1 = new CANSparkMax(9, MotorType.kBrushless);;
     public static CANSparkMax shootMotor2 = new CANSparkMax(10, MotorType.kBrushless);;
-
+    public Encoder enc_Shoot = new Encoder(4, 5);
     public Shooter() {
         shootMotor1.setInverted(true);
         shootMotor1.set(0);
         shootMotor2.set(0);
+
+        enc_Shoot.reset();
+        enc_Shoot.setDistancePerPulse(1./256.);
+        enc_Shoot.setSamplesToAverage(3);
+        enc_Shoot.setMaxPeriod(.1);
     }
 
     /**
