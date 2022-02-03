@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
 
 /**
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
   private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
   private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final DriveSystem m_driveSystem = new DriveSystem();
+  private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final LimeLightSystem m_light = new LimeLightSystem();
 
   /**
