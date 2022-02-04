@@ -5,7 +5,8 @@ import frc.robot.subsystems.Intake;
 
 public class PickUpBall extends CommandBase {
     private Intake m_Intake;
-    
+
+    // requires intake system
     public PickUpBall(Intake subsystem) {
         m_Intake = subsystem;
         addRequirements(m_Intake);
@@ -13,6 +14,7 @@ public class PickUpBall extends CommandBase {
 
     @Override
     // command runs when class first starts
+    // when it starts, reset encoder and turn off motors
     public void initialize() {
         m_Intake.stopMotors();
         m_Intake.enc_sideFeed.reset();
@@ -24,6 +26,9 @@ public class PickUpBall extends CommandBase {
     // TODO update values once we know how fast we need the intake motors to run
     // TODO finetune encoder distances.
     public void execute() {
+        // if the motor han't spun for 12 ticks (360*)
+        // run the intake and side motor at 45% power
+        // if else, turn motors off(used to check if command is done)
         if (m_Intake.enc_sideFeed.getDistance() < 12) {
             m_Intake.runMotors(0.45, 0);
         } else {
@@ -36,7 +41,8 @@ public class PickUpBall extends CommandBase {
         m_Intake.stopMotors();
     }
 
-    // makes sure the command actually ends
+    // sets condition for command to be done
+    // if the mots are stopped
     public boolean isFinished() {
         return m_Intake.enc_sideFeed.getStopped();
     }

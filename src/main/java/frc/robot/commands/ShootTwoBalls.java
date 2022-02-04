@@ -5,7 +5,7 @@ import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ShootTwoBalls extends CommandBase {
-
+    // requires intake and shooter
     private final Shooter m_Shooter;
     private final Intake m_Intake;
     private double power;
@@ -19,27 +19,30 @@ public class ShootTwoBalls extends CommandBase {
 
     @Override
     // command runs when class first starts
+    // turns off motors and resets encoders
     public void initialize() {
         m_Intake.stopMotors();
         m_Shooter.setPower(0);
         m_Intake.enc_upFeed.reset();
         m_Intake.enc_sideFeed.reset();
-        m_Shooter.enc_Shoot.reset();
     }
 
     // command runs while class is running, goes until done
     // main bulk of command that will be edited
     // TODO finetune speeds for intake. Possibly change what motors run when.
-    //TODO finetune encoder distances.
+    // TODO finetune encoder distances.
     public void execute() {
-        if(m_Intake.enc_sideFeed.getDistance() < 5)
-        m_Intake.runMotors(0.25, 0.25);
-        else if(m_Intake.enc_upFeed.getDistance() < 10){
+        // while the intake distance is less than 5 ticks (360* per tick)
+        // run all intake motors
+        // if distance is less than 10
+        // run just upFeed Motors
+        // else, turn off all motors (used for end condition)
+        if (m_Intake.enc_sideFeed.getDistance() < 5)
+            m_Intake.runMotors(0.25, 0.25);
+        else if (m_Intake.enc_upFeed.getDistance() < 10) {
             m_Intake.runMotors(0, 0.25);
-        }
-        else
-        {
-            m_Intake.runMotors(0,0);
+        } else {
+            m_Intake.runMotors(0, 0);
         }
         power = m_Shooter.getPower();
         m_Shooter.setPower(power);
@@ -51,9 +54,9 @@ public class ShootTwoBalls extends CommandBase {
         m_Shooter.setPower(0);
     }
 
-    // makes sure the command actually ends
+    // sets condition to end command
+    // ends if intake motors are off
     public boolean isFinished() {
-        //TODO change return value when encoders are implemented;
         return m_Intake.enc_upFeed.getStopped();
     }
 }

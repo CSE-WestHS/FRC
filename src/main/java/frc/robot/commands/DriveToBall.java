@@ -9,11 +9,18 @@ public class DriveToBall extends CommandBase {
 
     public DriveToBall(DriveSystem subsystem) {
         m_driveSystem = subsystem;
+        /*
+         * requires this subsystem to be used
+         * //if the required subsystem isn't available,
+         * the command it is running on will be interrupted
+         */
         addRequirements(m_driveSystem);
     }
 
     @Override
     // command runs when class first starts, initializes motors
+    // It resets both encoders for the motors
+    // It sets the motors to 0
     public void initialize() {
         m_driveSystem.setSpeed(0, 0);
         m_driveSystem.enc_left.reset();
@@ -23,15 +30,16 @@ public class DriveToBall extends CommandBase {
     @Override
     // command runs while class is running, goes until done
     // main bulk of command that will be edited
-    //TODO motor values will need to be edited
-    //TODO possibly implement pathfinder to help with movement toward balls
-    //TODO finetune encoder distances.
+    // TODO motor values will need to be edited
+    // TODO possibly implement pathfinder to help with movement toward balls
+    // TODO finetune encoder distances.
     public void execute() {
-        if(m_driveSystem.enc_left.getDistance() < 7)
-        {
+        // If the robot han't driven X feet, keep driving
+        // at 45% power
+        if (m_driveSystem.enc_left.getDistance() < 7) {
             m_driveSystem.setSpeed(0.45, 0.45);
-        }
-        else
+        } else // if not, stop the wheels
+        // This is used to check if the command is done running
         {
             m_driveSystem.stopWheels();
         }
@@ -42,7 +50,9 @@ public class DriveToBall extends CommandBase {
     public void end() {
         m_driveSystem.stopWheels();
     }
-// makes sure the command actually ends
+
+    // sets the condition for the command to end
+    // it stops when the wheels stop
     public boolean isFinished() {
         return m_driveSystem.enc_left.getStopped();
     }
