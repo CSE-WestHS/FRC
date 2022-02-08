@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -11,6 +10,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.XboxController;
+
 
 import frc.robot.controls.OI;
 
@@ -24,16 +24,12 @@ public class DriveSystem extends SubsystemBase {
 
     private static int smartCurrentLimit = 40; // amps, current limit for the smart motor controllers
     private static final double kTrackWidth = 0.381 * 2; // meters
-    public final Encoder enc_left = new Encoder(0, 1);
-    public final Encoder enc_right = new Encoder(4, 5);
-    private final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
+    public final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
     private final CANSparkMax m_rearLeft = new CANSparkMax(1, MotorType.kBrushless);
     private final MotorControllerGroup m_leftGroup = new MotorControllerGroup(m_frontLeft, m_rearLeft);
-
-    private final CANSparkMax m_frontRight = new CANSparkMax(4, MotorType.kBrushless);
+    public final CANSparkMax m_frontRight = new CANSparkMax(4, MotorType.kBrushless);
     private final CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
-
     private final DifferentialDrive m_drive = new DifferentialDrive(m_leftGroup, m_rightGroup);
     private final DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
 
@@ -41,20 +37,11 @@ public class DriveSystem extends SubsystemBase {
     // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
     private final SlewRateLimiter m_linearVelocityLimiter = new SlewRateLimiter(1 / 3.0);
     private final SlewRateLimiter m_angularVelocityLimiter = new SlewRateLimiter(1 / 3.0);
-
     /**
      * Constructor for the drive system.
      */
     public DriveSystem() {
         m_frontLeft.clearFaults();
-        enc_left.reset();
-        enc_right.reset();
-
-        enc_left.setDistancePerPulse(1./256.);
-        enc_right.setDistancePerPulse(1./256.);
-        enc_right.setSamplesToAverage(3);
-        enc_left.setMaxPeriod(.1);
-        enc_right.setMaxPeriod(.1);
 
         m_frontLeft.setSmartCurrentLimit(smartCurrentLimit);
         m_rearLeft.setSmartCurrentLimit(smartCurrentLimit);
@@ -74,7 +61,8 @@ public class DriveSystem extends SubsystemBase {
      * @param rightSpeed The speed of the right side.
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
-        double error = enc_left.getDistance() - enc_right.getDistance();
+        double error = m_frontLeft.getEncoder().getVelocity() - m_frontRight.getEncoder().getVelocity();
+
         m_drive.tankDrive(leftSpeed * error, rightSpeed * error);
     }
 

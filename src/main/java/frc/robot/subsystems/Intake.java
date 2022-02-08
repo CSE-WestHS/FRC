@@ -4,7 +4,6 @@ import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
@@ -21,8 +20,6 @@ public class Intake extends SubsystemBase {
     public static CANSparkMax sideFeed = new CANSparkMax(7, MotorType.kBrushless);;
     public static CANSparkMax upFeed = new CANSparkMax(5, MotorType.kBrushless);;
     public static CANSparkMax upFeed2 = new CANSparkMax(6, MotorType.kBrushless);;
-    public Encoder enc_sideFeed = new  Encoder(7,8);
-    public Encoder enc_upFeed = new  Encoder(9,10);
 
     public Intake() {
         intakeMotor.set(0);
@@ -34,14 +31,6 @@ public class Intake extends SubsystemBase {
         sideFeed.restoreFactoryDefaults();
         upFeed.restoreFactoryDefaults();
         upFeed2.restoreFactoryDefaults();
-        enc_sideFeed.setDistancePerPulse(1./256.);
-        enc_sideFeed.setSamplesToAverage(2);
-        enc_sideFeed.reset();
-        enc_upFeed.setDistancePerPulse(1./256.);
-        enc_upFeed.setSamplesToAverage(2);
-        enc_upFeed.reset();
-        enc_sideFeed.setMaxPeriod(.1);
-        enc_upFeed.setMaxPeriod(.1);
     }
 
     // turns off all motors

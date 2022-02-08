@@ -23,8 +23,8 @@ public class DriveToBall extends CommandBase {
     // It sets the motors to 0
     public void initialize() {
         m_driveSystem.setSpeed(0, 0);
-        m_driveSystem.enc_left.reset();
-        m_driveSystem.enc_right.reset();
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+        m_driveSystem.m_frontRight.getEncoder().setPosition(0);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DriveToBall extends CommandBase {
     public void execute() {
         // If the robot han't driven X feet, keep driving
         // at 45% power
-        if (m_driveSystem.enc_left.getDistance() < 7) {
+        if (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 7) {
             m_driveSystem.setSpeed(0.45, 0.45);
         } else // if not, stop the wheels
         // This is used to check if the command is done running
@@ -54,6 +54,6 @@ public class DriveToBall extends CommandBase {
     // sets the condition for the command to end
     // it stops when the wheels stop
     public boolean isFinished() {
-        return m_driveSystem.enc_left.getStopped();
+        return m_driveSystem.m_frontLeft.getEncoder().getPosition() == 0;
     }
 }

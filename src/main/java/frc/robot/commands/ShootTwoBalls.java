@@ -23,8 +23,8 @@ public class ShootTwoBalls extends CommandBase {
     public void initialize() {
         m_Intake.stopMotors();
         m_Shooter.setPower(0);
-        m_Intake.enc_upFeed.reset();
-        m_Intake.enc_sideFeed.reset();
+        Intake.sideFeed.getEncoder().setPosition(0);
+        Intake.upFeed.getEncoder().setPosition(0);
     }
 
     // command runs while class is running, goes until done
@@ -37,9 +37,9 @@ public class ShootTwoBalls extends CommandBase {
         // if distance is less than 10
         // run just upFeed Motors
         // else, turn off all motors (used for end condition)
-        if (m_Intake.enc_sideFeed.getDistance() < 5)
+        if (Intake.sideFeed.getEncoder().getPosition() < 5)
             m_Intake.runMotors(0.25, 0.25);
-        else if (m_Intake.enc_upFeed.getDistance() < 10) {
+        else if (Intake.upFeed.getEncoder().getPosition() < 10) {
             m_Intake.runMotors(0, 0.25);
         } else {
             m_Intake.runMotors(0, 0);
@@ -57,6 +57,6 @@ public class ShootTwoBalls extends CommandBase {
     // sets condition to end command
     // ends if intake motors are off
     public boolean isFinished() {
-        return m_Intake.enc_upFeed.getStopped();
+        return Intake.intakeMotor.getEncoder().getVelocity() == 0;
     }
 }
