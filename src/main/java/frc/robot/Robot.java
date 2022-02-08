@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends TimedRobot {
   private Timer timedRobot = new Timer();
   private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
-  private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final DriveSystem m_driveSystem = new DriveSystem();
   private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final LimeLightSystem m_light = new LimeLightSystem();
