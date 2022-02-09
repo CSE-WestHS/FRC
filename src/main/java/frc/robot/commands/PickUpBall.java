@@ -17,7 +17,7 @@ public class PickUpBall extends CommandBase {
     // when it starts, reset encoder and turn off motors
     public void initialize() {
         m_Intake.stopMotors();
-        Intake.intakeMotor.getEncoder().setPosition(0);
+        m_Intake.m_sideEncoder.restartEncoder();
 
     }
 
@@ -29,7 +29,7 @@ public class PickUpBall extends CommandBase {
         // if the motor han't spun for 12 ticks (360*)
         // run the intake and side motor at 45% power
         // if else, turn motors off(used to check if command is done)
-        if (Intake.intakeMotor.getEncoder().getPosition() < 12) {
+        if (m_Intake.m_sideEncoder.getDistance() < 12) {
             m_Intake.runMotors(0.45, 0);
         } else {
             m_Intake.stopMotors();
@@ -44,6 +44,6 @@ public class PickUpBall extends CommandBase {
     // sets condition for command to be done
     // if the mots are stopped
     public boolean isFinished() {
-        return Intake.intakeMotor.getEncoder().getVelocity() == 0;
+        return m_Intake.m_sideEncoder.getStopped();
     }
 }

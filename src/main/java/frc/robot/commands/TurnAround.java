@@ -28,7 +28,7 @@ public class TurnAround extends CommandBase {
   // set motors at opisite speeds at 35% power
   // else, turn off motrs
   public void execute() {
-    if (m_DriveSystem.m_frontLeft.getEncoder().getPosition() < 4) {
+    if (m_DriveSystem.m_leftEncoder.getDistance() < 4) {
       m_DriveSystem.setSpeed(0.35, -0.35);
     } else {
       m_DriveSystem.stopWheels();
@@ -44,6 +44,6 @@ public class TurnAround extends CommandBase {
   // sets end condition for command
   // finishes command if wheels are not running
   public boolean isFinished() {
-    return     m_DriveSystem.m_frontLeft.getEncoder().getVelocity() == 0;
+    return m_DriveSystem.m_leftEncoder.getStopped();
   }
 }

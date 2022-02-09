@@ -1,5 +1,5 @@
 package frc.robot.subsystems;
-
+import frc.robot.controls.Encoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -32,6 +32,8 @@ public class DriveSystem extends SubsystemBase {
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
     private final DifferentialDrive m_drive = new DifferentialDrive(m_leftGroup, m_rightGroup);
     private final DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
+    public final Encoder m_leftEncoder = new Encoder(m_frontLeft, 1.57);
+    public final Encoder m_rightEncoder = new Encoder(m_frontRight, 1.57);
 
     private final XboxController m_controller = new XboxController(0);
     // Slew rate limiters to make joystick inputs more gentle; 1/3 sec from 0 to 1.
@@ -51,7 +53,6 @@ public class DriveSystem extends SubsystemBase {
         m_leftGroup.setInverted(true); // invert the left side motors
         m_rightGroup.setInverted(true); // invert the right side motors
     }
-
     /**
      * Sets the desired wheel speeds.
      * 
@@ -61,7 +62,7 @@ public class DriveSystem extends SubsystemBase {
      * @param rightSpeed The speed of the right side.
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
-        double error = m_frontLeft.getEncoder().getVelocity() - m_frontRight.getEncoder().getVelocity();
+        double error = m_leftEncoder.getSpeed() - m_rightEncoder.getSpeed();
 
         m_drive.tankDrive(leftSpeed * error, rightSpeed * error);
     }

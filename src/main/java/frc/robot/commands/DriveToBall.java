@@ -54,6 +54,6 @@ public class DriveToBall extends CommandBase {
     // sets the condition for the command to end
     // it stops when the wheels stop
     public boolean isFinished() {
-        return m_driveSystem.m_frontLeft.getEncoder().getPosition() == 0;
+        return m_driveSystem.m_leftEncoder.getStopped();
     }
 }

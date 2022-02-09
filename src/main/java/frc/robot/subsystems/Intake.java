@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import frc.robot.controls.Encoder;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -20,7 +21,8 @@ public class Intake extends SubsystemBase {
     public static CANSparkMax sideFeed = new CANSparkMax(7, MotorType.kBrushless);;
     public static CANSparkMax upFeed = new CANSparkMax(5, MotorType.kBrushless);;
     public static CANSparkMax upFeed2 = new CANSparkMax(6, MotorType.kBrushless);;
-
+    public final Encoder m_sideEncoder = new Encoder(sideFeed, 0.785);
+    public final Encoder m_upEncoder = new Encoder(upFeed, 0.785);
     public Intake() {
         intakeMotor.set(0);
         sideFeed.set(0);
