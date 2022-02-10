@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -9,6 +10,7 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 
 import frc.robot.controls.OI;
@@ -32,6 +34,11 @@ public class DriveSystem {
     private final CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
 
+    private final RelativeEncoder m_encoder_frontLeft = m_frontLeft.getEncoder();
+    private final RelativeEncoder m_encoder_rearLeft = m_rearLeft.getEncoder();
+    private final RelativeEncoder m_encoder_frontRight = m_frontRight.getEncoder();
+    private final RelativeEncoder m_encoder_rearRight = m_rearRight.getEncoder();
+
     private final DifferentialDrive m_drive = new DifferentialDrive(m_leftGroup, m_rightGroup);
     private final DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
 
@@ -45,11 +52,19 @@ public class DriveSystem {
      */
     public DriveSystem() {
         m_frontLeft.clearFaults();
+        m_rearLeft.clearFaults();
+        m_frontRight.clearFaults();
+        m_rearRight.clearFaults();
 
         m_frontLeft.setSmartCurrentLimit(smartCurrentLimit);
         m_rearLeft.setSmartCurrentLimit(smartCurrentLimit);
         m_frontRight.setSmartCurrentLimit(smartCurrentLimit);
         m_rearRight.setSmartCurrentLimit(smartCurrentLimit);
+
+        SmartDashboard.putNumber("Drive/FrontLeft/Velocity", m_encoder_frontLeft.getVelocity());
+        SmartDashboard.putNumber("Drive/RearLeft/Velocity", m_encoder_rearLeft.getVelocity());
+        SmartDashboard.putNumber("Drive/FrontRight/Velocity", m_encoder_frontRight.getVelocity());
+        SmartDashboard.putNumber("Drive/RearRight/Velocity", m_encoder_rearRight.getVelocity());
 
         m_leftGroup.setInverted(true); // invert the left side motors
         m_rightGroup.setInverted(true); // invert the right side motors

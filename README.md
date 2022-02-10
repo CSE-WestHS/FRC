@@ -11,6 +11,10 @@
   - [Prep Workstation - Phoenix Specific Docs](https://docs.ctre-phoenix.com/en/stable/ch05_PrepWorkstation.html)
 
 
+Limelight Setup:
+- [Basic Setup](https://www.team3749.org/post/using-pixy2-and-arduino-for-vision-processing)
+- [Limelight Vision Docs](https://docs.limelightvision.io/en/latest/getting_started.html#)
+
 
 ## Building and Deploying Robot Code
 
@@ -24,10 +28,9 @@ Deploy the robot code to the robot using WPILib tools.
 - The deploy will take a few minutes - if successful, we will see a “Build Successful” message and the RioLog will open with the console output from the robot program as it runs.
 
 
-
 ## Running the Robot
 
-TODO: add docs
+Connect to the robot either using wifi, ethernet, or USB.  Open FRC Driver Station to confirm communication, and from WPILib tools, deploy the code.  Ensure that the teleop mode is enabled.
 
 
 ## Debugging
