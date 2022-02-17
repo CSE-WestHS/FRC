@@ -8,9 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.LIDARSensor;
-import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.LimeLightSystem;
+import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.Timer;
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +27,8 @@ public class Robot extends TimedRobot {
   private final LimeLightSystem m_light = new LimeLightSystem();
   private final RobotContainer m_robotContainer = new RobotContainer();
   private Command m_autonomousCommand;
+  private Shooter m_shooter;
+  private TurretSystem m_turret;
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -85,8 +85,12 @@ public void robotPeriodic()
   public void teleopPeriodic() {
     m_driveSystem.dual_joystick_drive();
     m_light.start();
-
     SmartDashboard.putNumber("LIDAR Distance CM", m_lidarSensor.getDistance());
+    Intake.buttonIntake();
+    m_shooter.setPower(m_shooter.getPower());
+    m_turret.courseCorrection();
+    m_turret.manualRotation();
+
   }
 
   /**
