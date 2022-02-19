@@ -27,10 +27,10 @@ public class DriveSystem {
     private static final double kTrackWidth = 0.381 * 2; // meters
 
     private final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
-    private final CANSparkMax m_rearLeft = new CANSparkMax(1, MotorType.kBrushless);
+    private final CANSparkMax m_rearLeft = new CANSparkMax(4, MotorType.kBrushless);
     private final MotorControllerGroup m_leftGroup = new MotorControllerGroup(m_frontLeft, m_rearLeft);
 
-    private final CANSparkMax m_frontRight = new CANSparkMax(4, MotorType.kBrushless);
+    private final CANSparkMax m_frontRight = new CANSparkMax(1, MotorType.kBrushless);
     private final CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
 
@@ -67,7 +67,7 @@ public class DriveSystem {
         SmartDashboard.putNumber("Drive/RearRight/Velocity", m_encoder_rearRight.getVelocity());
 
         m_leftGroup.setInverted(true); // invert the left side motors
-        m_rightGroup.setInverted(true); // invert the right side motors
+        m_rightGroup.setInverted(false); // invert the right side motors
     }
 
     /**
