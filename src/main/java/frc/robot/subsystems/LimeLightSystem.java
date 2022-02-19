@@ -12,10 +12,11 @@ public class LimeLightSystem extends SubsystemBase {
     private static NetworkTableEntry ty;
     private static NetworkTableEntry ta;
 
-    public LimeLightSystem(){
-       table = NetworkTableInstance.getDefault().getTable("limelight");
+    public LimeLightSystem() {
+        table = NetworkTableInstance.getDefault().getTable("limelight");
     }
-    public void start(){
+
+    public void start() {
         tx = table.getEntry("tx");
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
@@ -24,16 +25,16 @@ public class LimeLightSystem extends SubsystemBase {
         SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
         SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
     }
-    public double getX()
-    {
+
+    public double getX() {
         return table.getEntry("tx").getDouble(0.0);
     }
-    public double getY()
-    {
+
+    public double getY() {
         return table.getEntry("ty").getDouble(0.0);
     }
-    public double getArea()
-    {
+
+    public double getArea() {
         return table.getEntry("ta").getDouble(0.0);
     }
 }

@@ -3,9 +3,8 @@ package frc.robot.subsystems;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
+public class Intake {
     /*
      * this is a proof of concept. we will most likely
      * change speeds, the number of motors, types of motors, etc
@@ -40,7 +39,6 @@ public class Intake extends SubsystemBase {
         upFeed2.set(motorSpeed);
     }
 
-
     public void buttonIntake() {
         if (OI.UPFEED_BUTTON.isHold()) { // activates the upfeed motors when pressed
             /*
@@ -50,7 +48,7 @@ public class Intake extends SubsystemBase {
              */
 
             upFeed.set(0.45);
-            upFeed2.set(-0.45); 
+            upFeed2.set(-0.45);
 
         } else if (OI.SPITOUT_BUTTON.isHold())
         // puts the upfeed motors on reverse
@@ -63,7 +61,7 @@ public class Intake extends SubsystemBase {
              */
 
             upFeed.set(-0.45);
-            upFeed2.set(0.45); 
+            upFeed2.set(0.45);
         } else
         // this is the default state where all the motors are off
         {

@@ -97,9 +97,10 @@ public class DriveSystem {
         setSpeed(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
 
-    public void xbox_drive(){
+    public void xbox_drive() {
         // Get the x speed from the left analog stick.
-        // This is negative because Xbox controllers return negative values when pushed forward.
+        // This is negative because Xbox controllers return negative values when pushed
+        // forward.
         final double xSpeed = -m_linearVelocityLimiter.calculate(m_controller.getLeftY()) * kMaxSpeed;
 
         // Get the rate of angular velocity.
@@ -107,12 +108,12 @@ public class DriveSystem {
         // (CCW rotation is positive in mathematics, but Xbox controllers return
         // positive when you pull right.)
         final double angularVelocity = -m_angularVelocityLimiter.calculate(m_controller.getRightX())
-            * kMaxAngularSpeed;
+                * kMaxAngularSpeed;
 
         drive(xSpeed, angularVelocity);
     }
 
-    public void dual_joystick_drive(){
+    public void dual_joystick_drive() {
         // Get left wheel speed from the left joystick.
         final double leftSpeed = OI.RIGHT_STICK.getY() * kMaxSpeed;
 

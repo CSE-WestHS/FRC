@@ -4,16 +4,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.Intake;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -24,13 +22,12 @@ import frc.robot.subsystems.Intake;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private Timer timedRobot = new Timer();
   private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
   private final DriveSystem m_driveSystem = new DriveSystem();
   private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final LimeLightSystem m_light = new LimeLightSystem();
   private final Intake m_intake = new Intake();
-  private Command m_autonomousCommand;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -40,24 +37,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Place smartdashboard items here
   }
-  @Override
-public void robotPeriodic()
-{
-  CommandScheduler.getInstance().run();
-}
+
   /**
    * This function is run once each time the robot enters autonomous mode.
    */
   @Override
   public void autonomousInit() {
-    timedRobot.reset();
-    //Recieves the command we want to run from the RobotContainer
-  
-
-    // schedule the autonomous command if a command isn't already running
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
   }
 
   /**
@@ -65,7 +50,6 @@ public void robotPeriodic()
    */
   @Override
   public void autonomousPeriodic() {
-  
   }
 
   /**
@@ -73,11 +57,6 @@ public void robotPeriodic()
    */
   @Override
   public void teleopInit() {
-    // This makes sure that the autonomous stops running when
-    // teleop starts running. 
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
   }
 
   /**
