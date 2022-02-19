@@ -1,8 +1,6 @@
 package frc.robot.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.JoystickButton;
-//import frc.robot.subsystems.ControlModule;
 
 //OI class: A control system class
 //OI class checks control inputs such as joysticks and buttons and update the variables accordingly.
