@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -12,62 +13,45 @@ public class Intake {
      * we need to change, we will update the code to represent
      * the motors used on the conveyor system
      */
-    // these are the motors for the intake
-    // Update when we finalize what motors need to be used
-    public static CANSparkMax upFeed = new CANSparkMax(7, MotorType.kBrushless);
-    public static CANSparkMax upFeed2 = new CANSparkMax(9, MotorType.kBrushless);
+    private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
+    private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
+    private static int smartCurrentLimit = 40;
 
     public Intake() {
-        upFeed.clearFaults();
-        upFeed2.clearFaults();
+        intake1.clearFaults();
+        intake2.clearFaults();
 
-        upFeed.set(0);
-        upFeed2.set(0);
-        upFeed2.setInverted(true);
+        intake1.setSmartCurrentLimit(smartCurrentLimit);
+        intake2.setSmartCurrentLimit(smartCurrentLimit);
+
+        intake2.setInverted(true);
+
+        SmartDashboard.putNumber("Intake1/Voltage", intake1.getBusVoltage());
+        SmartDashboard.putNumber("Intake1/Temperature", intake1.getMotorTemperature());
+        SmartDashboard.putNumber("Intake1/Output", intake1.getAppliedOutput());
+
+        SmartDashboard.putNumber("Intake2/Voltage", intake2.getBusVoltage());
+        SmartDashboard.putNumber("Intake2/Temperature", intake2.getMotorTemperature());
+        SmartDashboard.putNumber("Intake2/Output", intake2.getAppliedOutput());
     }
 
-    // turns off all motors
     public void stopMotors() {
-        upFeed.set(0);
-        upFeed2.set(0);
+        intake1.set(0);
+        intake2.set(0);
     }
 
-    // turns on all motors to a custom value
     public void runMotors(double motorSpeed) {
-
-        upFeed.set(motorSpeed);
-        upFeed2.set(motorSpeed);
+        intake1.set(motorSpeed);
+        intake2.set(motorSpeed);
     }
 
     public void buttonIntake() {
-        if (OI.UPFEED_BUTTON.isHold()) { // activates the upfeed motors when pressed
-            /*
-             * these are mock up speeds. Change these when
-             * we know what motors and speeds and such we
-             * need to use
-             */
-
-            upFeed.set(0.45);
-            upFeed2.set(-0.45);
-
-        } else if (OI.SPITOUT_BUTTON.isHold())
-        // puts the upfeed motors on reverse
-        // this spits out the ball(s)
-        {
-            /*
-             * these are mock up speeds. Change these when
-             * we know what motors and speeds and such we
-             * need to use
-             */
-
-            upFeed.set(-0.45);
-            upFeed2.set(0.45);
-        } else
-        // this is the default state where all the motors are off
-        {
-
-            upFeed.set(0);
-            upFeed2.set(0);
+        if (OI.UPFEED_BUTTON.isHold()) {
+            runMotors(1.0);
+        } else if (OI.SPITOUT_BUTTON.isHold()) {
+            runMotors(-1.0);
+        } else {
+            stopMotors();
         }
     }
 }
