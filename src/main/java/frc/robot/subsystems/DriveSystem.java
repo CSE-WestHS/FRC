@@ -61,11 +61,6 @@ public class DriveSystem {
         m_frontRight.setSmartCurrentLimit(smartCurrentLimit);
         m_rearRight.setSmartCurrentLimit(smartCurrentLimit);
 
-        SmartDashboard.putNumber("Drive/FrontLeft/Velocity", m_encoder_frontLeft.getVelocity());
-        SmartDashboard.putNumber("Drive/RearLeft/Velocity", m_encoder_rearLeft.getVelocity());
-        SmartDashboard.putNumber("Drive/FrontRight/Velocity", m_encoder_frontRight.getVelocity());
-        SmartDashboard.putNumber("Drive/RearRight/Velocity", m_encoder_rearRight.getVelocity());
-
         m_leftGroup.setInverted(true); // invert the left side motors
         m_rightGroup.setInverted(false); // invert the right side motors
     }
@@ -79,6 +74,11 @@ public class DriveSystem {
      * @param rightSpeed The speed of the right side.
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
+        SmartDashboard.putNumber("Drive/FrontLeft/Velocity", m_encoder_frontLeft.getVelocity());
+        SmartDashboard.putNumber("Drive/RearLeft/Velocity", m_encoder_rearLeft.getVelocity());
+        SmartDashboard.putNumber("Drive/FrontRight/Velocity", m_encoder_frontRight.getVelocity());
+        SmartDashboard.putNumber("Drive/RearRight/Velocity", m_encoder_rearRight.getVelocity());
+
         m_drive.tankDrive(leftSpeed, rightSpeed);
     }
 
@@ -115,10 +115,10 @@ public class DriveSystem {
 
     public void dual_joystick_drive() {
         // Get left wheel speed from the left joystick.
-        final double leftSpeed = OI.RIGHT_STICK.getY() * kMaxSpeed;
+        final double leftSpeed = OI.rightJoystick.getY() * kMaxSpeed;
 
         // Get right wheel speed from the right joystick.
-        final double rightSpeed = OI.LEFT_STICK.getY() * kMaxSpeed;
+        final double rightSpeed = OI.leftJoystick.getY() * kMaxSpeed;
 
         setSpeed(leftSpeed, rightSpeed);
     }

@@ -25,14 +25,6 @@ public class Intake {
         intake2.setSmartCurrentLimit(smartCurrentLimit);
 
         intake2.setInverted(true);
-
-        SmartDashboard.putNumber("Intake1/Voltage", intake1.getBusVoltage());
-        SmartDashboard.putNumber("Intake1/Temperature", intake1.getMotorTemperature());
-        SmartDashboard.putNumber("Intake1/Output", intake1.getAppliedOutput());
-
-        SmartDashboard.putNumber("Intake2/Voltage", intake2.getBusVoltage());
-        SmartDashboard.putNumber("Intake2/Temperature", intake2.getMotorTemperature());
-        SmartDashboard.putNumber("Intake2/Output", intake2.getAppliedOutput());
     }
 
     public void stopMotors() {
@@ -46,10 +38,18 @@ public class Intake {
     }
 
     public void buttonIntake() {
-        if (OI.UPFEED_BUTTON.isHold()) {
-            runMotors(1.0);
-        } else if (OI.SPITOUT_BUTTON.isHold()) {
-            runMotors(-1.0);
+        SmartDashboard.putNumber("Intake1/Voltage", intake1.getBusVoltage());
+        SmartDashboard.putNumber("Intake1/Temperature", intake1.getMotorTemperature());
+        SmartDashboard.putNumber("Intake1/Output", intake1.getAppliedOutput());
+
+        SmartDashboard.putNumber("Intake2/Voltage", intake2.getBusVoltage());
+        SmartDashboard.putNumber("Intake2/Temperature", intake2.getMotorTemperature());
+        SmartDashboard.putNumber("Intake2/Output", intake2.getAppliedOutput());
+
+        if (OI.intakeButton.isPressed()) {
+            runMotors(0.45);
+        } else if (OI.spitoutButton.isPressed()) {
+            runMotors(-0.45);
         } else {
             stopMotors();
         }
