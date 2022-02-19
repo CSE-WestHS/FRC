@@ -2,10 +2,10 @@ package frc.robot.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-//OI class: A control system class
-//OI class checks control inputs such as joysticks and buttons and update the variables accordingly.
-// You will find this class being used essentially everywhere (unless it is not).
-
+/**
+ * The OI (Operator Input) class is responsible defining basic operator controls
+ * used throughout the program.
+ */
 public class OI {
     // Joysticks takes in the port number
 

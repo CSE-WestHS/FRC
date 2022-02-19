@@ -6,14 +6,11 @@ import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+/**
+ * The Intake class is responsible for controlling the intake system of the
+ * robot.
+ */
 public class Intake {
-    /*
-     * this is a proof of concept. we will most likely
-     * change speeds, the number of motors, types of motors, etc
-     * when the build is done enough to where we can know what
-     * we need to change, we will update the code to represent
-     * the motors used on the conveyor system
-     */
     private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
     private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
@@ -21,6 +18,9 @@ public class Intake {
     // Slew rate limiters to make inputs more gentle; 1/3 sec from 0 to 1.
     private final SlewRateLimiter m_linearVelocityLimiter = new SlewRateLimiter(1 / 3.0);
 
+    /**
+     * Constructor for the intake system.
+     */
     public Intake() {
         intake1.clearFaults();
         intake2.clearFaults();
@@ -31,11 +31,19 @@ public class Intake {
         intake2.setInverted(true);
     }
 
+    /**
+     * Set intake motor speed to 0.
+     */
     public void stopMotors() {
         intake1.set(0);
         intake2.set(0);
     }
 
+    /**
+     * Set intake motor speeds.
+     * 
+     * @param motorSpeed Speed of intake motors from -1 to 1.
+     */
     public void runMotors(double motorSpeed) {
         final double xSpeed = -m_linearVelocityLimiter.calculate(motorSpeed) * 2;
 
@@ -43,6 +51,9 @@ public class Intake {
         intake2.set(xSpeed);
     }
 
+    /**
+     * Use buttons to activate intake system.
+     */
     public void buttonIntake() {
         SmartDashboard.putNumber("Intake1/Voltage", intake1.getBusVoltage());
         SmartDashboard.putNumber("Intake1/Temperature", intake1.getMotorTemperature());

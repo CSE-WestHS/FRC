@@ -2,6 +2,9 @@ package frc.robot.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * The Button class provides convenience methods to act on named buttons.
+ */
 public class Button {
     int code;
     Joystick joystick;
