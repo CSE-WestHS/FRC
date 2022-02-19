@@ -19,11 +19,12 @@ public class Intake extends SubsystemBase {
     public static CANSparkMax upFeed2 = new CANSparkMax(9, MotorType.kBrushless);
 
     public Intake() {
+        upFeed.clearFaults();
+        upFeed2.clearFaults();
+
         upFeed.set(0);
         upFeed2.set(0);
         upFeed2.setInverted(true);
-        upFeed.restoreFactoryDefaults();
-        upFeed2.restoreFactoryDefaults();
     }
 
     // turns off all motors
