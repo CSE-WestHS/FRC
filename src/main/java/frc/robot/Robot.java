@@ -13,6 +13,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.Intake;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -28,7 +29,7 @@ public class Robot extends TimedRobot {
   private final DriveSystem m_driveSystem = new DriveSystem();
   private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final LimeLightSystem m_light = new LimeLightSystem();
-  private final RobotContainer m_robotContainer = new RobotContainer();
+  private final Intake m_intake = new Intake();
   private Command m_autonomousCommand;
   /**
    * This function is run when the robot is first started up and should be used
@@ -51,7 +52,7 @@ public void robotPeriodic()
   public void autonomousInit() {
     timedRobot.reset();
     //Recieves the command we want to run from the RobotContainer
-    Command m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+  
 
     // schedule the autonomous command if a command isn't already running
     if (m_autonomousCommand != null) {
@@ -86,6 +87,7 @@ public void robotPeriodic()
   public void teleopPeriodic() {
     m_driveSystem.dual_joystick_drive();
     m_light.start();
+    m_intake.buttonIntake();
 
     SmartDashboard.putNumber("LIDAR Distance CM", m_lidarSensor.getDistance());
   }

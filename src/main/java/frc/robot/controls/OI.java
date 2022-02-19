@@ -16,13 +16,13 @@ public class OI {
     public static final Button INTAKE_BUTTON = new Button(LEFT_STICK, 5);
     public static final Button SPITOUT_BUTTON = new Button(LEFT_STICK, 6);
     public static final Button SHOOT_BUTTON = new Button(RIGHT_STICK, 7);
-
+    public static final Button UPFEED_BUTTON = new Button(LEFT_STICK, 4);
     // Since index starts at 0, using the codes above as index needs to subtract 1
     private static Button[] buttons = new Button[] {
             INTAKE_BUTTON,
             SPITOUT_BUTTON,
             SHOOT_BUTTON,
-
+            UPFEED_BUTTON,
     };
 
     // Getting the inputs of the joystick and update the variables
