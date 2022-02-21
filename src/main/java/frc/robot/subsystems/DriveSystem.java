@@ -31,7 +31,7 @@ public class DriveSystem {
     private final MotorControllerGroup m_leftGroup = new MotorControllerGroup(m_frontLeft, m_rearLeft);
 
     private final CANSparkMax m_frontRight = new CANSparkMax(1, MotorType.kBrushless);
-    private final CANSparkMax m_rearRight = new CANSparkMax(5, MotorType.kBrushless);
+    private final CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
 
     private final RelativeEncoder m_encoder_frontLeft = m_frontLeft.getEncoder();
