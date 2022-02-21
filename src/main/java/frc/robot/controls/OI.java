@@ -12,6 +12,7 @@ public class OI {
     public static final Joystick leftJoystick = new Joystick(0);
     public static final Joystick rightJoystick = new Joystick(1);
 
-    public static final Button intakeButton = new Button(leftJoystick, 5);
+    public static final Button intakeButton = new Button(rightJoystick, 3);
+    public static final Button ElevatorButton = new Button(rightJoystick, 4);
     public static final Button spitoutButton = new Button(leftJoystick, 6);
 }

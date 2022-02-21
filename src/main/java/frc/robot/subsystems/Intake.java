@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class Intake {
     private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
+    private static CANSparkMax Elevator = new CANSparkMax(5, MotorType.kBrushless);
     private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
 
@@ -24,9 +25,11 @@ public class Intake {
     public Intake() {
         intake1.clearFaults();
         intake2.clearFaults();
+        Elevator.clearFaults();
 
         intake1.setSmartCurrentLimit(smartCurrentLimit);
         intake2.setSmartCurrentLimit(smartCurrentLimit);
+        Elevator.setSmartCurrentLimit(smartCurrentLimit);
 
         intake2.setInverted(true);
     }
@@ -37,6 +40,7 @@ public class Intake {
     public void stopMotors() {
         intake1.set(0);
         intake2.set(0);
+        Elevator.set(0);
     }
 
     /**
@@ -67,6 +71,8 @@ public class Intake {
             runMotors(0.45);
         } else if (OI.spitoutButton.isPressed()) {
             runMotors(-0.45);
+        }else if(OI.ElevatorButton.isPressed()){
+            Elevator.set(0.45);
         } else {
             stopMotors();
         }
