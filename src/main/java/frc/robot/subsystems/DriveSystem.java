@@ -62,9 +62,9 @@ public class DriveSystem extends SubsystemBase {
      * @param rightSpeed The speed of the right side.
      */
     public void setSpeed(double leftSpeed, double rightSpeed) {
-        double error = m_leftEncoder.getSpeed() - m_rightEncoder.getSpeed();
-
-        m_drive.tankDrive(leftSpeed * error, rightSpeed * error);
+        double error = m_leftEncoder.getDistance() - m_rightEncoder.getDistance();
+        double kP = 1;
+        m_drive.tankDrive(leftSpeed + (kP * error), rightSpeed - (kP * error));
     }
 
     /**
@@ -103,7 +103,6 @@ public class DriveSystem extends SubsystemBase {
 
         // Get right wheel speed from the right joystick.
         final double rightSpeed = OI.LEFT_STICK.getY() * kMaxSpeed;
-
         setSpeed(leftSpeed, rightSpeed);
     }
 
