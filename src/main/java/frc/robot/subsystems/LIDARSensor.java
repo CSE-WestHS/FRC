@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LIDARSensor {
     /*
@@ -27,6 +28,10 @@ public class LIDARSensor {
         // Configure for measuring rising to falling pulses
         counter.setSemiPeriodMode(true);
         counter.reset();
+    }
+
+    public void smartdashboard() {
+        SmartDashboard.putNumber("LIDAR/DistanceCM", getDistance());
     }
 
     /**

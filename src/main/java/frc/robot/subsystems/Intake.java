@@ -2,17 +2,17 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import frc.robot.controls.OI;
 /**
  * The Intake class is responsible for controlling the intake system of the
  * robot.
  */
 public class Intake {
+    private static CANSparkMax elevator = new CANSparkMax(5, MotorType.kBrushless);
     private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
-    private static CANSparkMax Elevator = new CANSparkMax(5, MotorType.kBrushless);
     private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
 
@@ -25,13 +25,27 @@ public class Intake {
     public Intake() {
         intake1.clearFaults();
         intake2.clearFaults();
-        Elevator.clearFaults();
+        elevator.clearFaults();
 
         intake1.setSmartCurrentLimit(smartCurrentLimit);
         intake2.setSmartCurrentLimit(smartCurrentLimit);
-        Elevator.setSmartCurrentLimit(smartCurrentLimit);
+        elevator.setSmartCurrentLimit(smartCurrentLimit);
 
         intake2.setInverted(true);
+    }
+
+    public void smartdashboard() {
+        SmartDashboard.putNumber("Intake/Mecanum/Current", intake1.getOutputCurrent());
+        SmartDashboard.putNumber("Intake/LowerBelt/Current", intake2.getOutputCurrent());
+        SmartDashboard.putNumber("Intake/Elevator/Current", elevator.getOutputCurrent());
+
+        SmartDashboard.putNumber("Intake/Mecanum/Voltage", intake1.getBusVoltage());
+        SmartDashboard.putNumber("Intake/LowerBelt/Voltage", intake2.getBusVoltage());
+        SmartDashboard.putNumber("Intake/Elevator/Voltage", elevator.getBusVoltage());
+
+        SmartDashboard.putNumber("Intake/Mecanum/Speed", intake1.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Intake/LowerBelt/Speed", intake2.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Intake/Elevator/Speed", elevator.getEncoder().getVelocity());
     }
 
     /**
@@ -40,7 +54,7 @@ public class Intake {
     public void stopMotors() {
         intake1.set(0);
         intake2.set(0);
-        Elevator.set(0);
+        elevator.set(0);
     }
 
     /**
@@ -59,20 +73,12 @@ public class Intake {
      * Use buttons to activate intake system.
      */
     public void buttonIntake() {
-        SmartDashboard.putNumber("Intake1/Voltage", intake1.getBusVoltage());
-        SmartDashboard.putNumber("Intake1/Temperature", intake1.getMotorTemperature());
-        SmartDashboard.putNumber("Intake1/Output", intake1.getAppliedOutput());
-
-        SmartDashboard.putNumber("Intake2/Voltage", intake2.getBusVoltage());
-        SmartDashboard.putNumber("Intake2/Temperature", intake2.getMotorTemperature());
-        SmartDashboard.putNumber("Intake2/Output", intake2.getAppliedOutput());
-
         if (OI.intakeButton.isPressed()) {
             runMotors(0.45);
         } else if (OI.spitoutButton.isPressed()) {
             runMotors(-0.45);
-        }else if(OI.ElevatorButton.isPressed()){
-            Elevator.set(0.45);
+        } else if (OI.elevatorButton.isPressed()) {
+            elevator.set(0.45);
         } else {
             stopMotors();
         }
