@@ -11,6 +11,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
+import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     // Place smartdashboard items here
+    CameraServer.startAutomaticCapture();
   }
 
   /**

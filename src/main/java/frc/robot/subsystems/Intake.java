@@ -40,7 +40,6 @@ public class Intake {
     public void stopMotors() {
         intake1.set(0);
         intake2.set(0);
-        Elevator.set(0);
     }
 
     /**
@@ -71,10 +70,14 @@ public class Intake {
             runMotors(0.45);
         } else if (OI.spitoutButton.isPressed()) {
             runMotors(-0.45);
-        }else if(OI.ElevatorButton.isPressed()){
-            Elevator.set(0.45);
         } else {
             stopMotors();
         }
+        if(OI.ElevatorButton.isPressed()){
+            Elevator.set(0.45);
+        }
+            else{
+                Elevator.set(0);
+            }
+        }
     }
-}

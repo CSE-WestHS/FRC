@@ -20,7 +20,7 @@ import frc.robot.controls.OI;
  * robot.
  */
 public class DriveSystem {
-    public static final double kMaxSpeed = 3.0; // meters per second
+    public static final double kMaxSpeed = 1.0; // meters per second
     public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
 
     private static int smartCurrentLimit = 40; // amps, current limit for the smart motor controllers
@@ -79,6 +79,7 @@ public class DriveSystem {
         SmartDashboard.putNumber("Drive/FrontRight/Velocity", m_encoder_frontRight.getVelocity());
         SmartDashboard.putNumber("Drive/RearRight/Velocity", m_encoder_rearRight.getVelocity());
 
+        //double error = m_frontLeft.getEncoder().getVelocity() - m_frontRight.getEncoder().getVelocity();
         m_drive.tankDrive(leftSpeed, rightSpeed);
     }
 
@@ -94,7 +95,7 @@ public class DriveSystem {
     public void drive(double linearVelocity, double angularVelocity) {
         ChassisSpeeds speeds = new ChassisSpeeds(linearVelocity, 0.0, angularVelocity);
         DifferentialDriveWheelSpeeds wheelSpeeds = m_kinematics.toWheelSpeeds(speeds);
-        setSpeed(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+        setSpeed(wheelSpeeds.leftMetersPerSecond , wheelSpeeds.rightMetersPerSecond );
     }
 
     public void xbox_drive() {
