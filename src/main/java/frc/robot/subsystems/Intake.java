@@ -22,6 +22,7 @@ public class Intake {
     /**
      * Constructor for the intake system.
      */
+
     public Intake() {
         intake1.clearFaults();
         intake2.clearFaults();
@@ -79,5 +80,6 @@ public class Intake {
             else{
                 Elevator.set(0);
             }
+main
         }
     }
