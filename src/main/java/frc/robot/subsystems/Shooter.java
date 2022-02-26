@@ -29,9 +29,9 @@ public class Shooter {
      * 
      * @param power = -100 to 100
      */
-    public static void setPower(double power) {
+    public void setPower(double power) {
         // The mins and maxes will not be -1 and 1, this is too much power on the motors
-        if (OI.SHOOT_BUTTON.isHold()) {
+        if (OI.SHOOT_BUTTON.isPressed()) {
 
             shootMotor1.set(power);
             shootMotor2.set(power);

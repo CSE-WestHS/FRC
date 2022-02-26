@@ -80,6 +80,5 @@ public class Intake {
             else{
                 Elevator.set(0);
             }
-main
         }
     }
