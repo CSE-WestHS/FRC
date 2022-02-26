@@ -1,15 +1,15 @@
 package frc.robot.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
-//import frc.robot.subsystems.ControlModule;
 
-//OI class: A control system class
-//OI class checks control inputs such as joysticks and buttons and update the variables accordingly.
-// You will find this class being used essentially everywhere (unless it is not).
-
+/**
+ * The OI (Operator Input) class is responsible defining basic operator controls
+ * used throughout the program.
+ */
 public class OI {
     // Joysticks takes in the port number
 
+Shoot-Skeleton
     public static final Joystick LEFT_STICK = new Joystick(0);
     public static final Joystick RIGHT_STICK = new Joystick(1);
 
@@ -25,19 +25,10 @@ public class OI {
 
     };
 
-    // Getting the inputs of the joystick and update the variables
-    public static void update() {
-        // if (NEXT_BUTTON.isPressed)
-        // {
-        // ControlModule.changeMode(false);
-        // }
-        // else if(PREVIOUS_BUTTON.isPressed)
-        // {
-        // ControlModule.changeMode(true);
-        // }
-        // System.out.println(COLOR_STICK.getTrigger());
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i].setStates();
-        }
-    }
+
+ main
+
+    public static final Button intakeButton = new Button(rightJoystick, 3);
+    public static final Button ElevatorButton = new Button(rightJoystick, 4);
+    public static final Button spitoutButton = new Button(leftJoystick, 6);
 }
