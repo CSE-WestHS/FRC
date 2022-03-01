@@ -27,7 +27,6 @@ public class LimeLightSystem {
         SmartDashboard.putNumber("LimelightX", tx.getDouble(0.0));
         SmartDashboard.putNumber("LimelightY", ty.getDouble(0.0));
         SmartDashboard.putNumber("LimelightArea", ta.getDouble(0.0));
- Shoot-Skeleton
     }
     public double getX()
     {
@@ -41,5 +40,4 @@ public class LimeLightSystem {
     {
         return table.getEntry("ta").getDouble(0.0);
     }
- main
 }

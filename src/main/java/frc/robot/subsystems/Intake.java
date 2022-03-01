@@ -1,85 +1,85 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-/**
- * The Intake class is responsible for controlling the intake system of the
- * robot.
- */
-public class Intake {
-    private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
-    private static CANSparkMax Elevator = new CANSparkMax(5, MotorType.kBrushless);
-    private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
-    private static int smartCurrentLimit = 40;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-    // Slew rate limiters to make inputs more gentle; 1/3 sec from 0 to 1.
-    private final SlewRateLimiter m_linearVelocityLimiter = new SlewRateLimiter(1 / 3.0);
-
-    /**
-     * Constructor for the intake system.
+public class Intake extends SubsystemBase {
+    /*
+     * this is a proof of concept. we will most likely
+     * change speeds, the number of motors, types of motors, etc
+     * when the build is done enough to where we can know what
+     * we need to change, we will update the code to represent
+     * the motors used on the conveyor system
      */
-
+    // these are the motors for the intake
+    // Update when we finalize what motors need to be used
+    public static CANSparkMax intakeMotor = new CANSparkMax(8, MotorType.kBrushless);;
+    public static CANSparkMax sideFeed = new CANSparkMax(7, MotorType.kBrushless);;
+    public static CANSparkMax upFeed = new CANSparkMax(5, MotorType.kBrushless);;
     public Intake() {
-        intake1.clearFaults();
-        intake2.clearFaults();
-        Elevator.clearFaults();
-
-        intake1.setSmartCurrentLimit(smartCurrentLimit);
-        intake2.setSmartCurrentLimit(smartCurrentLimit);
-        Elevator.setSmartCurrentLimit(smartCurrentLimit);
-
-        intake2.setInverted(true);
+        intakeMotor.set(0);
+        sideFeed.set(0);
+        upFeed.set(0);
+        intakeMotor.restoreFactoryDefaults();
+        sideFeed.restoreFactoryDefaults();
+        upFeed.restoreFactoryDefaults();
     }
 
-    /**
-     * Set intake motor speed to 0.
-     */
+    // turns off all motors
     public void stopMotors() {
-        intake1.set(0);
-        intake2.set(0);
+        intakeMotor.set(0);
+        sideFeed.set(0);
+        upFeed.set(0);
     }
 
-    /**
-     * Set intake motor speeds.
-     * 
-     * @param motorSpeed Speed of intake motors from -1 to 1.
-     */
+    // turns on all motors to a custom value
     public void runMotors(double motorSpeed) {
-        final double xSpeed = -m_linearVelocityLimiter.calculate(motorSpeed) * 2;
-
-        intake1.set(motorSpeed);
-        intake2.set(xSpeed);
+        intakeMotor.set(motorSpeed);
+        sideFeed.set(motorSpeed);
+        upFeed.set(motorSpeed);
     }
 
-    /**
-     * Use buttons to activate intake system.
-     */
-    public void buttonIntake() {
-        SmartDashboard.putNumber("Intake1/Voltage", intake1.getBusVoltage());
-        SmartDashboard.putNumber("Intake1/Temperature", intake1.getMotorTemperature());
-        SmartDashboard.putNumber("Intake1/Output", intake1.getAppliedOutput());
+    // turns on intakeMotor and sideFeed to 1 value, and upFeeds 1 and 2 to another
+    // speed
+    // useful if you just want to turn on one set of motors
+    public void runMotors(double intakeSpeed, double upFeedSpeed) {
+        intakeMotor.set(intakeSpeed);
+        sideFeed.set(intakeSpeed);
+        upFeed.set(upFeedSpeed);
+    }
 
-        SmartDashboard.putNumber("Intake2/Voltage", intake2.getBusVoltage());
-        SmartDashboard.putNumber("Intake2/Temperature", intake2.getMotorTemperature());
-        SmartDashboard.putNumber("Intake2/Output", intake2.getAppliedOutput());
+    public static void buttonIntake() {
+        if (OI.intakeButton.isPressed()) { // activates the intake and conveyor motors when pressed
+            /*
+             * these are mock up speeds. Change these when
+             * we know what motors and speeds and such we
+             * need to use
+             */
+            intakeMotor.set(0.45);
+            sideFeed.set(0.45);
+            upFeed.set(0.45);
 
-        if (OI.intakeButton.isPressed()) {
-            runMotors(0.45);
-        } else if (OI.spitoutButton.isPressed()) {
-            runMotors(-0.45);
-        } else {
-            stopMotors();
-        }
-        if(OI.ElevatorButton.isPressed()){
-            Elevator.set(0.45);
-        }
-            else{
-                Elevator.set(0);
-            }
-main
+        } else if (OI.spitoutButton.isPressed())
+        // puts the conveyor and intake motors on reverse
+        // this spits out the ball(s)
+        {
+            /*
+             * these are mock up speeds. Change these when
+             * we know what motors and speeds and such we
+             * need to use
+             */
+            intakeMotor.set(-0.45);
+            sideFeed.set(-0.45);
+            upFeed.set(-0.45);
+        } else
+        // this is the default state where all the motors are off
+        {
+            intakeMotor.set(0);
+            sideFeed.set(0);
+            upFeed.set(0);
         }
     }
+}
