@@ -12,7 +12,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
 import edu.wpi.first.cameraserver.CameraServer;
-
+import frc.robot.subsystems.Shooter;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -26,7 +26,7 @@ public class Robot extends TimedRobot {
   private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
   private final LimeLightSystem m_light = new LimeLightSystem();
   private final Intake m_intake = new Intake();
-
+  private final Shooter m_shooter = new Shooter();
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -42,6 +42,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+    m_driveSystem.m_frontRight.getEncoder().setPosition(0);
   }
 
   /**
@@ -49,7 +51,61 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-  }
+
+    // If the robot han't driven X feet, keep driving
+    // at 45% power
+     while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1) {
+      m_driveSystem.setSpeed(-0.75, -0.75);
+    }
+    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+     while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5) 
+      {
+        m_driveSystem.setSpeed(0.75, 0.75); 
+        }
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+        // if(Intake.intake1.getEncoder().getPosition() < 10)
+        
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 25)
+        {
+          m_driveSystem.setSpeed(-0.75,-0.75);
+        }
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 15)
+      {
+       m_driveSystem.setSpeed(0.5,-0.5);
+      }
+        //else {
+
+     /* m_Intake.m_sideEncoder.restartEncoder();
+      if (m_Intake.m_sideEncoder.getDistance() < 12) {
+        m_Intake.runMotors(0.45, 0);
+      } else {
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+        m_driveSystem.m_frontRight.getEncoder().setPosition(0);
+        if (m_driveSystem.m_leftEncoder.getDistance() < 4) {
+          m_driveSystem.setSpeed(0.35, -0.35);
+        } else {
+          Intake.sideFeed.getEncoder().setPosition(0);
+          Intake.upFeed.getEncoder().setPosition(0);
+          if (m_Intake.m_sideEncoder.getDistance() < 5) {
+            m_Intake.runMotors(0.25, 0.25);
+            double power = m_shooter.getPower();
+            m_shooter.setPower(power);
+          } else if (m_Intake.m_upEncoder.getDistance() < 10) {
+            m_Intake.runMotors(0, 0.25);
+            double power = m_shooter.getPower();
+            m_shooter.setPower(power);
+          } else {
+            m_Intake.runMotors(0, 0);
+            double power = m_shooter.getPower();
+            m_shooter.setPower(power);
+          }
+          double power = m_shooter.getPower();
+          m_shooter.setPower(power);
+        } */
+     // }
+    }
 
   /**
    * This function is called once each time the robot enters teleoperated mode.
@@ -66,6 +122,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.dual_joystick_drive();
     m_light.start();
     m_intake.buttonIntake();
+    m_shooter.setPower(.9,.75);
 
     SmartDashboard.putNumber("LIDAR Distance CM", m_lidarSensor.getDistance());
   }
