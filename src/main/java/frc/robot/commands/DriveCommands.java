@@ -11,7 +11,7 @@ public class DriveCommands {
 
     /**
      * Drives from starting position to the target position.
-     * This function is called periodically during autonomous mode.
+     * This function is called once during autonomous init.
      * 
      * @param speed
      */

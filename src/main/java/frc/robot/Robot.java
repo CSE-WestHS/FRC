@@ -60,6 +60,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
+
+    m_driveCommands.driveStartToBall(0.75);
   }
 
   /**
@@ -67,7 +69,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    m_driveCommands.driveStartToBall(0.75);
+    // whatever we want to do/check during autonomous
   }
 
   /**
