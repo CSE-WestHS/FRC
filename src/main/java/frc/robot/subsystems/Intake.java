@@ -8,11 +8,11 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * The Intake class is responsible for controlling the intake system of the
- * robot.
+ * robot this includes both the piece that brings the ball in, the pice that moves it to th.
  */
 public class Intake {
     public static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
-    private static CANSparkMax Elevator = new CANSparkMax(5, MotorType.kBrushless);
+    public static CANSparkMax Elevator = new CANSparkMax(5, MotorType.kBrushless);
     private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
 
@@ -74,11 +74,12 @@ public class Intake {
         } else {
             stopMotors();
         }
-        if(OI.ElevatorButton.isPressed()){
+        if (OI.ElevatorButton.isPressed()) {
             Elevator.set(0.65);
-        }
-            else{
-                Elevator.set(0);
-            }
+        } else if (OI.elevatorSpitoutbutton.isPressed()) {
+            Elevator.set(-0.65);
+        } else {
+            Elevator.set(0);
         }
     }
+}
