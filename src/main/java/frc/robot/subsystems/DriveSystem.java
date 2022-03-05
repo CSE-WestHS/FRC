@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+//the imports are what this class needs from other classes to function properly
+//these can come from other parts of the robot or the internet
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -24,20 +26,24 @@ public class DriveSystem {
 
     private static int smartCurrentLimit = 40; // amps, current limit for the smart motor controllers
     private static final double kTrackWidth = 0.381 * 2; // meters
-
+    // creates 2 left side motors, which are CANSparkMax Neo brushless
     public final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
     private final CANSparkMax m_rearLeft = new CANSparkMax(4, MotorType.kBrushless);
+    // creates the left group, which uses the 2 left motors
     private final MotorControllerGroup m_leftGroup = new MotorControllerGroup(m_frontLeft, m_rearLeft);
-
+    // creates 2 right side motors, which are CANSparkMax Neo brushless
     public final CANSparkMax m_frontRight = new CANSparkMax(1, MotorType.kBrushless);
     private final CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
+    // creates the right group, which uses the 2 right motors
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
-
+    // accesses the encoders that come from the Neo brushless motors
     private final RelativeEncoder m_encoder_frontLeft = m_frontLeft.getEncoder();
     private final RelativeEncoder m_encoder_rearLeft = m_rearLeft.getEncoder();
     private final RelativeEncoder m_encoder_frontRight = m_frontRight.getEncoder();
     private final RelativeEncoder m_encoder_rearRight = m_rearRight.getEncoder();
 
+    // creates the Differential drive, which access both the left motors and the
+    // right motors
     private final DifferentialDrive m_drive = new DifferentialDrive(m_leftGroup, m_rightGroup);
     private final DifferentialDriveKinematics m_kinematics = new DifferentialDriveKinematics(kTrackWidth);
 
@@ -95,7 +101,7 @@ public class DriveSystem {
     public void drive(double linearVelocity, double angularVelocity) {
         ChassisSpeeds speeds = new ChassisSpeeds(linearVelocity, 0.0, angularVelocity);
         DifferentialDriveWheelSpeeds wheelSpeeds = m_kinematics.toWheelSpeeds(speeds);
-        setSpeed(wheelSpeeds.leftMetersPerSecond , wheelSpeeds.rightMetersPerSecond );
+        setSpeed(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
     }
 
     public void xbox_drive() {
@@ -125,7 +131,7 @@ public class DriveSystem {
     }
 
     /**
-     * Stop the robot.
+     * Stop the motors on the robot.
      */
     public void stopWheels() {
         m_drive.stopMotor();

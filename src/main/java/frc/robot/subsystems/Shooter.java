@@ -7,11 +7,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.controls.OI;
-
 public class Shooter {
-    //private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
-    //private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
+    // private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
+    // private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
     private static CANSparkMax shootMotor1 = new CANSparkMax(6, MotorType.kBrushless);
     private static CANSparkMax shootMotor2 = new CANSparkMax(10, MotorType.kBrushless);
     private final MotorControllerGroup shootGroup = new MotorControllerGroup(shootMotor1, shootMotor2);
@@ -79,11 +77,7 @@ public class Shooter {
      * 
      * @param power = -1.0 to 1.0
      */
-    public void shootButtonControl() {
-        if (OI.shootButton.isPressed()) {
-            shootGroup.set(getPower());
-        } else {
-            shootGroup.set(0);
-        }
+    public void motorPower(double power) {
+        shootGroup.set(power);
     }
 }

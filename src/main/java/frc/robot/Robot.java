@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
   private final Shooter m_shooter = new Shooter();
 
   private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem);
+  private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -73,6 +75,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopInit() {
+    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+    m_driveSystem.m_frontRight.getEncoder().setPosition(0);
   }
 
   /**
@@ -83,7 +87,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.dual_joystick_drive();
     m_elevator.elevatorButtonControl();
     m_intake.intakeButtonControl();
-    m_shooter.shootButtonControl();
+    m_shootCommand.shootButtonControl();
   }
 
   /**

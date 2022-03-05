@@ -9,6 +9,7 @@ import frc.robot.controls.OI;
 public class Elevator {
     private static CANSparkMax elevatorMotor = new CANSparkMax(5, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
+    private static double speed = 0.65;
 
     public Elevator() {
         elevatorMotor.clearFaults();
@@ -22,13 +23,24 @@ public class Elevator {
     }
 
     /**
+     * Set elevator motor speed.
+     * 
+     * @param power Speed of elevator motors from -1 to 1.
+     */
+    public void motorPower(double power) {
+        elevatorMotor.set(power);
+    }
+
+    /**
      * Control elevator motors using joystick input.
      */
     public void elevatorButtonControl() {
         if (OI.elevatorButton.isPressed()) {
-            elevatorMotor.set(0.65);
+            motorPower(speed);
+        } else if (OI.elevatorSpitoutbutton.isPressed()) {
+            motorPower(-speed);
         } else {
-            elevatorMotor.set(0);
+            motorPower(0);
         }
     }
 }

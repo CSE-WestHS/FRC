@@ -9,7 +9,8 @@ import frc.robot.controls.OI;
 
 /**
  * The Intake class is responsible for controlling the intake system of the
- * robot.
+ * robot this includes both the piece that brings the ball in, the pice that
+ * moves it to th.
  */
 public class Intake {
     private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
