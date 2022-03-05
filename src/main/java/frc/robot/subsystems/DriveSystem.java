@@ -19,17 +19,17 @@ import frc.robot.controls.OI;
  * robot.
  */
 public class DriveSystem {
-    public static final double kMaxSpeed = 3.0; // meters per second
+    public static final double kMaxSpeed = 0.75; // meters per second
     public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
 
     private static int smartCurrentLimit = 40; // amps, current limit for the smart motor controllers
     private static final double kTrackWidth = 0.381 * 2; // meters
 
-    private final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
+    public final CANSparkMax m_frontLeft = new CANSparkMax(2, MotorType.kBrushless);
     private final CANSparkMax m_rearLeft = new CANSparkMax(4, MotorType.kBrushless);
     private final MotorControllerGroup m_leftGroup = new MotorControllerGroup(m_frontLeft, m_rearLeft);
 
-    private final CANSparkMax m_frontRight = new CANSparkMax(1, MotorType.kBrushless);
+    public final CANSparkMax m_frontRight = new CANSparkMax(1, MotorType.kBrushless);
     private final CANSparkMax m_rearRight = new CANSparkMax(3, MotorType.kBrushless);
     private final MotorControllerGroup m_rightGroup = new MotorControllerGroup(m_frontRight, m_rearRight);
 
@@ -95,7 +95,7 @@ public class DriveSystem {
     public void drive(double linearVelocity, double angularVelocity) {
         ChassisSpeeds speeds = new ChassisSpeeds(linearVelocity, 0.0, angularVelocity);
         DifferentialDriveWheelSpeeds wheelSpeeds = m_kinematics.toWheelSpeeds(speeds);
-        setSpeed(wheelSpeeds.leftMetersPerSecond, wheelSpeeds.rightMetersPerSecond);
+        setSpeed(wheelSpeeds.leftMetersPerSecond , wheelSpeeds.rightMetersPerSecond );
     }
 
     public void xbox_drive() {

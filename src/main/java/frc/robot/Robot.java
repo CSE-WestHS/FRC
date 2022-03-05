@@ -4,13 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 
+import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
+import frc.robot.subsystems.Shooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,9 +27,13 @@ public class Robot extends TimedRobot {
   private DigitalInput lidarDIO = new DigitalInput(0);
 
   private final DriveSystem m_driveSystem = new DriveSystem();
+  private final Elevator m_elevator = new Elevator();
   private final LIDARSensor m_lidarSensor = new LIDARSensor(lidarDIO);
   private final LimeLightSystem m_limelight = new LimeLightSystem();
   private final Intake m_intake = new Intake();
+  private final Shooter m_shooter = new Shooter();
+
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -33,10 +41,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    CameraServer.startAutomaticCapture();
+
     m_driveSystem.smartdashboard();
+    m_elevator.smartdashboard();
+    m_intake.smartdashboard();
     m_lidarSensor.smartdashboard();
     m_limelight.smartdashboard();
-    m_intake.smartdashboard();
+    m_shooter.smartdashboard();
   }
 
   /**
@@ -44,6 +56,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+    m_driveSystem.m_frontRight.getEncoder().setPosition(0);
   }
 
   /**
@@ -51,6 +65,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    m_driveCommands.driveStartToBall(0.75);
   }
 
   /**
@@ -66,7 +81,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_driveSystem.dual_joystick_drive();
-    m_intake.buttonIntake();
+    m_elevator.elevatorButtonControl();
+    m_intake.intakeButtonControl();
+    m_shooter.shootButtonControl();
   }
 
   /**

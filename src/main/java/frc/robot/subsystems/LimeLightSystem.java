@@ -20,16 +20,16 @@ public class LimeLightSystem {
         SmartDashboard.putNumber("Limelight/y-offset", getY());
         SmartDashboard.putNumber("Limelight/area", getArea());
     }
-
-    public double getX() {
+    public double getX()
+    {
         return table.getEntry("tx").getDouble(0.0);
     }
-
-    public double getY() {
+    public double getY()
+    {
         return table.getEntry("ty").getDouble(0.0);
     }
-
-    public double getArea() {
+    public double getArea()
+    {
         return table.getEntry("ta").getDouble(0.0);
     }
 }
