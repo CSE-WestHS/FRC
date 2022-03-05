@@ -14,6 +14,9 @@ public class Button {
         code = buttonCode;
     }
 
+    /**
+     * Returns true if the button is currently pressed.
+     */
     public boolean isPressed() {
         return joystick.getRawButton(code);
     }

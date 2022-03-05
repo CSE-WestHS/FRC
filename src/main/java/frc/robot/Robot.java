@@ -4,14 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.commands.DriveCommands;
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
-import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -22,12 +25,17 @@ import frc.robot.subsystems.Shooter;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
+  private DigitalInput lidarDIO = new DigitalInput(0);
+
   private final DriveSystem m_driveSystem = new DriveSystem();
-  private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
-  private final LimeLightSystem m_light = new LimeLightSystem();
+  private final Elevator m_elevator = new Elevator();
+  private final LIDARSensor m_lidarSensor = new LIDARSensor(lidarDIO);
+  private final LimeLightSystem m_limelight = new LimeLightSystem();
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
+
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem);
+  private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -35,8 +43,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Place smartdashboard items here
     CameraServer.startAutomaticCapture();
+
+    m_driveSystem.smartdashboard();
+    m_elevator.smartdashboard();
+    m_intake.smartdashboard();
+    m_lidarSensor.smartdashboard();
+    m_limelight.smartdashboard();
+    m_shooter.smartdashboard();
   }
 
   /**
@@ -46,6 +60,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
+
+    m_driveCommands.driveStartToBall(0.75);
   }
 
   /**
@@ -53,59 +69,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-
-    // If the robot han't driven X feet, keep driving
-    // at 45% power
-    while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1) {
-      m_driveSystem.setSpeed(-0.75, -0.75);
-    }
-    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-    while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5) {
-      m_driveSystem.setSpeed(0.75, 0.75);
-    }
-    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-    // if(Intake.intake1.getEncoder().getPosition() < 10)
-
-    while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 8/(6*Math.PI)) {
-      m_driveSystem.setSpeed(-0.75, -0.75);
-    }
-    m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-
-    while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 15) {
-      m_driveSystem.setSpeed(0.5, -0.5);
-    }
-    // else {
-
-    /*
-     * m_Intake.m_sideEncoder.restartEncoder();
-     * if (m_Intake.m_sideEncoder.getDistance() < 12) {
-     * m_Intake.runMotors(0.45, 0);
-     * } else {
-     * m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-     * m_driveSystem.m_frontRight.getEncoder().setPosition(0);
-     * if (m_driveSystem.m_leftEncoder.getDistance() < 4) {
-     * m_driveSystem.setSpeed(0.35, -0.35);
-     * } else {
-     * Intake.sideFeed.getEncoder().setPosition(0);
-     * Intake.upFeed.getEncoder().setPosition(0);
-     * if (m_Intake.m_sideEncoder.getDistance() < 5) {
-     * m_Intake.runMotors(0.25, 0.25);
-     * double power = m_shooter.getPower();
-     * m_shooter.setPower(power);
-     * } else if (m_Intake.m_upEncoder.getDistance() < 10) {
-     * m_Intake.runMotors(0, 0.25);
-     * double power = m_shooter.getPower();
-     * m_shooter.setPower(power);
-     * } else {
-     * m_Intake.runMotors(0, 0);
-     * double power = m_shooter.getPower();
-     * m_shooter.setPower(power);
-     * }
-     * double power = m_shooter.getPower();
-     * m_shooter.setPower(power);
-     * }
-     */
-    // }
+    // whatever we want to do/check during autonomous
   }
 
   /**
@@ -123,11 +87,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_driveSystem.dual_joystick_drive();
-    m_light.start();
-    m_intake.buttonIntake();
-    m_shooter.shootBall(.9, .75);
-
-    SmartDashboard.putNumber("LIDAR Distance CM", m_lidarSensor.getDistance());
+    m_elevator.elevatorButtonControl();
+    m_intake.intakeButtonControl();
+    m_shootCommand.shootButtonControl();
   }
 
   /**

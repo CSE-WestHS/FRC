@@ -1,59 +1,48 @@
 package frc.robot.subsystems;
 
-//import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.controls.OI;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.Timer;
+import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter {
     // private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
     // private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
-    private static CANSparkMax shootMotor1 = new CANSparkMax(6, MotorType.kBrushless);;
-    private static CANSparkMax shootMotor2 = new CANSparkMax(10, MotorType.kBrushless);;
-    private static Timer m_tTimer = new Timer();
+    private static CANSparkMax shootMotor1 = new CANSparkMax(6, MotorType.kBrushless);
+    private static CANSparkMax shootMotor2 = new CANSparkMax(10, MotorType.kBrushless);
+    private final MotorControllerGroup shootGroup = new MotorControllerGroup(shootMotor1, shootMotor2);
+
+    private final RelativeEncoder m_encoder_shoot1 = shootMotor1.getEncoder();
+    private final RelativeEncoder m_encoder_shoot2 = shootMotor2.getEncoder();
+
+    private static int smartCurrentLimit = 40;
 
     public Shooter() {
-        shootMotor1.setInverted(true);
-        shootMotor2.setInverted(true);
-        shootMotor1.set(0);
-        shootMotor2.set(0);
+        shootMotor1.clearFaults();
+        shootMotor2.clearFaults();
+
+        shootMotor1.setSmartCurrentLimit(smartCurrentLimit);
+        shootMotor2.setSmartCurrentLimit(smartCurrentLimit);
+
+        shootGroup.setInverted(true);
     }
 
-    /**
-     * Activates motors at a set power
-     * 
-     * @param power = -100 to 100
-     */
-    public void shootBall(double lowPower, double highPower) {
-        // The mins and maxes will not be -1 and 1, this is too much power on the motors
-
-        if (OI.shootButton.isPressed() || OI.shootButton2.isPressed()) {
-            
-            m_tTimer.start();
-            if (m_tTimer.get() < 1) {
-                shootMotor1.set(lowPower);
-                shootMotor2.set(highPower);
-            } else {
-                shootMotor1.set(lowPower);
-                shootMotor2.set(highPower);
-                Intake.Elevator.set(0.65);
-            }
-        } else {
-            m_tTimer.reset();
-            shootMotor1.set(0);
-            shootMotor2.set(0);
-        }
+    public void smartdashboard() {
+        SmartDashboard.putNumber("Shooter/Lower/Velocity", m_encoder_shoot1.getVelocity());
+        SmartDashboard.putNumber("Shooter/Upper/Velocity", m_encoder_shoot2.getVelocity());
     }
 
-    // This method's main use is in the shooting mechanism
     /*
      * This method takes in a distance reading from the LIDAR
      * Sensor and converts that into a power based on the reading
+     * 
+     * Tested powers are between 0.75 and 0.9
      */
     public double getPower() {
-        // double distanceCM;
-        double power = 0;
+        // Constant to be changed when lidar is tested
+        double power = 0.825;
 
         // sets distance equal to the reading of the Lidar sensor in cm
         // distances may be updated to feet
@@ -81,5 +70,14 @@ public class Shooter {
          * }
          */
         return power;
+    }
+
+    /**
+     * Activates motors at a set power
+     * 
+     * @param power = -1.0 to 1.0
+     */
+    public void motorPower(double power) {
+        shootGroup.set(power);
     }
 }
