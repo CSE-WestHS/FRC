@@ -9,6 +9,12 @@ public class DriveCommands {
         this.m_driveSystem = driveSystem;
     }
 
+    /**
+     * Drives from starting position to the target position.
+     * This function is called periodically during autonomous mode.
+     * 
+     * @param speed
+     */
     public void driveStartToBall(double speed) {
         // If the robot han't driven X feet, keep driving
         // at 45% power

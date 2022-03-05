@@ -19,11 +19,11 @@ public class ShootCommand {
         m_shooter = shooter;
     }
 
+    /**
+     * Trigger shoot command sequence via joystick button.
+     */
     public void shootButtonControl() {
-        // The mins and maxes will not be -1 and 1, this is too much power on the motors
-
         if (OI.shootButton.isPressed() || OI.shootButton2.isPressed()) {
-
             m_tTimer.start();
             if (m_tTimer.get() < 1) {
                 m_shooter.motorPower(m_shooter.getPower());
