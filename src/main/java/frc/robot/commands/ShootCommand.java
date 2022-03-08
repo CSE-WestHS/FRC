@@ -34,7 +34,6 @@ public class ShootCommand {
         } else {
             m_tTimer.reset();
             m_shooter.motorPower(0);
-            m_elevator.motorPower(0);
         }
     }
 }

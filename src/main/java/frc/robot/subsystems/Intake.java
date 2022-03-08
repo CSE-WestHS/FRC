@@ -74,6 +74,6 @@ public class Intake {
             runLowerMotors(-0.45);
         } else {
             stopMotors();
-        }
+        } 
     }
 }
