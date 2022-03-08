@@ -36,7 +36,7 @@ public class Elevator {
      */
     public void elevatorButtonControl() {
         if (OI.elevatorButton.isPressed()) {
-            motorPower(0.65);
+            motorPower(speed);
         } else if (OI.elevatorSpitoutbutton.isPressed()) {
             motorPower(-speed);
         } else {

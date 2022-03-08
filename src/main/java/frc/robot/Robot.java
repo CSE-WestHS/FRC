@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
 
-  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight);
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem);
   private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
 
   /**
@@ -90,8 +90,7 @@ public class Robot extends TimedRobot {
     m_elevator.elevatorButtonControl();
     m_intake.intakeButtonControl();
     m_shootCommand.shootButtonControl();
-    m_driveCommands.buttonTurn();
-  }
+    }
 
   /**
    * This function is called once each time the robot enters test mode.
