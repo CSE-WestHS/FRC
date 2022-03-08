@@ -1,10 +1,11 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Intake;
 
 public class DriveCommands {
     DriveSystem m_driveSystem;
-
+    Intake m_intake;
     public DriveCommands(DriveSystem driveSystem) {
         this.m_driveSystem = driveSystem;
     }
@@ -17,24 +18,29 @@ public class DriveCommands {
     public void driveStartToBall(double speed) {
         // If the robot han't driven X feet, keep driving
         // at 45% power
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 4) {
             m_driveSystem.setSpeed(-speed, -speed);
         }
+        
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > -2) {
             m_driveSystem.setSpeed(speed, speed);
         }
+        //m_intake.runLowerMotors(0.65);
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         // if(Intake.intake1.getEncoder().getPosition() < 10)
 
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 25) {
             m_driveSystem.setSpeed(-speed, -speed);
+
         }
+        /*
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
 
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 15) {
             m_driveSystem.setSpeed(2 / 3 * speed, -2 / 3 * speed);
         }
+        */
         // else {
 
         /*

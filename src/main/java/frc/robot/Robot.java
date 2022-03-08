@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.swing.plaf.TreeUI;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -42,8 +44,11 @@ public class Robot extends TimedRobot {
    * for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit(){
+  boolean cameraConnected = true;
+  if (cameraConnected) {
     CameraServer.startAutomaticCapture();
+  }
 
     m_driveSystem.smartdashboard();
     m_elevator.smartdashboard();
@@ -61,7 +66,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
 
-    m_driveCommands.driveStartToBall(0.75);
+    m_driveCommands.driveStartToBall(0.5);
   }
 
   /**
@@ -70,6 +75,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     // whatever we want to do/check during autonomous
+       // m_driveCommands.driveStartToBall(0.75);
   }
 
   /**

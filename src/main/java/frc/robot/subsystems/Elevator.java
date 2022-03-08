@@ -27,8 +27,8 @@ public class Elevator {
      * 
      * @param power Speed of elevator motors from -1 to 1.
      */
-    public void motorPower(double power) {
-        elevatorMotor.set(power);
+    public void motorPower(double m_power) {
+        elevatorMotor.set(m_power);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Elevator {
      */
     public void elevatorButtonControl() {
         if (OI.elevatorButton.isPressed()) {
-            motorPower(speed);
+            motorPower(0.65);
         } else if (OI.elevatorSpitoutbutton.isPressed()) {
             motorPower(-speed);
         } else {

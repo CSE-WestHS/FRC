@@ -59,10 +59,9 @@ public class Intake {
      * @param motorSpeed Speed of intake motors from -1 to 1.
      */
     public void runLowerMotors(double motorSpeed) {
-        final double xSpeed = -m_linearVelocityLimiter.calculate(motorSpeed) * 2;
 
         intake1.set(motorSpeed);
-        intake2.set(xSpeed);
+        intake2.set(motorSpeed);
     }
 
     /**
