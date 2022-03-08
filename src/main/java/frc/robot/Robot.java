@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import javax.swing.plaf.TreeUI;
-
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -36,7 +34,7 @@ public class Robot extends TimedRobot {
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
 
-  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem);
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight);
   private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
 
   /**
@@ -44,11 +42,8 @@ public class Robot extends TimedRobot {
    * for any initialization code.
    */
   @Override
-  public void robotInit(){
-  boolean cameraConnected = true;
-  if (cameraConnected) {
-    CameraServer.startAutomaticCapture();
-  }
+  public void robotInit() {
+  CameraServer.startAutomaticCapture();
 
     m_driveSystem.smartdashboard();
     m_elevator.smartdashboard();
@@ -66,7 +61,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
 
-    m_driveCommands.driveStartToBall(0.5);
+    m_driveCommands.driveStartToBall(0.75);
   }
 
   /**
@@ -75,7 +70,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     // whatever we want to do/check during autonomous
-       // m_driveCommands.driveStartToBall(0.75);
   }
 
   /**
@@ -96,6 +90,7 @@ public class Robot extends TimedRobot {
     m_elevator.elevatorButtonControl();
     m_intake.intakeButtonControl();
     m_shootCommand.shootButtonControl();
+    m_driveCommands.buttonTurn();
   }
 
   /**
