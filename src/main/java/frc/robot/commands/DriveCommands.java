@@ -1,12 +1,17 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSystem;
-
+import frc.robot.subsystems.LimeLightSystem;
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.controls.OI;
 public class DriveCommands {
     DriveSystem m_driveSystem;
+    DigitalInput m_DigitalInput;
+    LimeLightSystem m_LimeLightSystem;
 
-    public DriveCommands(DriveSystem driveSystem) {
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem) {
         this.m_driveSystem = driveSystem;
+        this.m_LimeLightSystem = m_LimeLightSystem;
     }
 
     /**
@@ -67,5 +72,20 @@ public class DriveCommands {
          * }
          */
         // }
+    }
+
+    public void turnToGoal() {
+        if (m_LimeLightSystem.getX() < 0) {
+            m_driveSystem.setSpeed(0.4, -0.4);
+        } else if (m_LimeLightSystem.getX() > 0) {
+            m_driveSystem.setSpeed(-0.4, 0.4);
+        } else {
+            m_driveSystem.stopWheels();
+        }
+    }
+    public void buttonTurn() {
+        if (OI.turnButton.isPressed()){
+            turnToGoal();
+        }
     }
 }
