@@ -96,12 +96,22 @@ public class DriveCommands {
         {
             m_driveSystem.setSpeed(-speed, -speed);
         }
+        //if the distance is good
+        //stop the wheels
+        else {
+            m_driveSystem.stopWheels();
+        }
     }
     //adjusts the distance of the robot if the button is pressed
     public void buttonAdjustDist(){
         if(OI.adjustButton.isPressed())
         {
+            this.m_driveSystem.autonomousFlag = true;
             adjustDistance();
+        }
+        else
+        {
+            this.m_driveSystem.autonomousFlag = false;
         }
     }
 }
