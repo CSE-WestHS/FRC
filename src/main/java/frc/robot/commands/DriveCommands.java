@@ -1,12 +1,15 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSystem;
-
+import frc.robot.subsystems.LIDARSensor;
+import frc.robot.subsystems.LimeLightSystem;
+import frc.robot.controls.OI;
 public class DriveCommands {
     DriveSystem m_driveSystem;
-
-    public DriveCommands(DriveSystem driveSystem) {
+    LimeLightSystem m_limeLight;
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_limeLight) {
         this.m_driveSystem = driveSystem;
+        this.m_limeLight = m_limeLight;
     }
 
     /**
@@ -67,5 +70,25 @@ public class DriveCommands {
          * }
          */
         // }
+    }
+    public void adjustDistance()
+    {
+        double desiredDistance = 120.0;
+        double currentDistance = m_limeLight.calculateDistanceFromGoal();
+        double distanceError = desiredDistance - currentDistance;
+        if(distanceError > 2)
+        {
+            m_driveSystem.setSpeed(0.4, 0.4);
+        }
+        else if(distanceError < 2)
+        {
+            m_driveSystem.setSpeed(-0.4, 0.4);
+        }
+    }
+    public void buttonAdjustDist(){
+        if(OI.adjustButton.isPressed())
+        {
+            adjustDistance();
+        }
     }
 }
