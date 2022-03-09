@@ -15,12 +15,6 @@ public class LimeLightSystem {
         table = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
-    public void smartdashboard() {
-        SmartDashboard.putNumber("Limelight/x-offset", getX());
-        SmartDashboard.putNumber("Limelight/y-offset", getY());
-        SmartDashboard.putNumber("Limelight/area", getArea());
-    }
-
     /**
      * @return The x-offset of the target.
      */
@@ -43,5 +37,27 @@ public class LimeLightSystem {
     public double getArea()
     {
         return table.getEntry("ta").getDouble(0.0);
+    }
+    public double calculateDistanceFromGoal() {
+        //height of the frc 2022 reflective tape off floor
+        double goalHeightInches = 104.0;
+        //Distance in inches from Limelight to floor
+        double limeLightDistOffFloor = 38.0;
+        double targetOffsetAngle_Vertical = getY();
+        //angle the Limelight is mounted from being vertical
+        double limeLightAngleMount = 27;
+        //gets the angle LimeLight is to the goal
+        double angleToGoalDegrees = limeLightAngleMount + targetOffsetAngle_Vertical;
+        //changes angles to radians
+        double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+        //calculates the distance the LimeLight is to the target
+        double distToGoal = (goalHeightInches - limeLightDistOffFloor)/Math.tan(angleToGoalRadians);
+        return distToGoal;
+    }
+    public void smartdashboard() {
+        SmartDashboard.putNumber("Limelight/x-offset", getX());
+        SmartDashboard.putNumber("Limelight/y-offset", getY());
+        SmartDashboard.putNumber("Limelight/area", getArea());
+        SmartDashboard.putNumber("Limelight/distance from goal", calculateDistanceFromGoal());
     }
 }

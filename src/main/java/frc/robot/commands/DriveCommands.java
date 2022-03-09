@@ -105,7 +105,51 @@ public class DriveCommands {
             this.m_driveSystem.autonomousFlag = true;
             turnToGoal();
         } else {
+            this.m_driveSystem.autonomousFlag = false;
+        }
+    }
             //lets the drive system know the wheels aren't in use
+    public void adjustDistance()
+    {
+        //the optimal distance is 120 inches or 12 feet
+        double desiredDistance = 120.0;
+        //our current distance is calculated by the limeLight calculaton function
+        double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
+        //the distance error is the desired distance - the current distance
+        //we want the distance error to b as close to 0 as possible
+        double distanceError = desiredDistance - currentDistance;
+        //speed our robot will go
+        double speed = 0.4;
+        //margin of error in inches
+        double errorRange = 2;
+
+        //if the error is greater than 2 inches too far
+        //go forewards at 40% speed
+        if(distanceError > errorRange)
+        {
+            m_driveSystem.setSpeed(speed, speed);
+        }
+        //if the distance error is greater than 2 inches too close
+        //go backwards at 40% speed
+        else if(distanceError < -errorRange)
+        {
+            m_driveSystem.setSpeed(-speed, -speed);
+        }
+        //if the distance is good
+        //stop the wheels
+        else {
+            m_driveSystem.stopWheels();
+        }
+    }
+    //adjusts the distance of the robot if the button is pressed
+    public void buttonAdjustDist(){
+        if(OI.adjustButton.isPressed())
+        {
+            this.m_driveSystem.autonomousFlag = true;
+            adjustDistance();
+        }
+        else
+        {
             this.m_driveSystem.autonomousFlag = false;
         }
     }
