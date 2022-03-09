@@ -76,13 +76,16 @@ public class DriveCommands {
     }
 
     public void turnToGoal() {
-        if (m_LimeLightSystem.getX() < 0) {
-            m_driveSystem.setSpeed(0.4, -0.4);
-        } else if (m_LimeLightSystem.getX() > 0) {
-            m_driveSystem.setSpeed(-0.4, 0.4);
+        double speed = 0.3;
+        double range = 3;
+        if (m_LimeLightSystem.getX() < -range) {
+            m_driveSystem.setSpeed(speed, -speed);
+        } else if (m_LimeLightSystem.getX() > range) {
+            m_driveSystem.setSpeed(-speed, speed);
         } else {
             m_driveSystem.stopWheels();
         }
+
     }
 
     public void buttonTurn() {
