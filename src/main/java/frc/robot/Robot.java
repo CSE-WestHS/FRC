@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
     m_intake.intakeButtonControl();
     m_shootCommand.shootButtonControl();
     m_driveCommands.buttonTurn();
-    m_driveCommands.buttonAdjustDist();
+    m_driveCommands.buttonLineUp();
   }
 
   /**

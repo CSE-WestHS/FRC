@@ -121,7 +121,7 @@ public class DriveCommands {
         //speed our robot will go
         double speed = 0.4;
         //margin of error in inches
-        double errorRange = 2;
+        double errorRange = 6;
 
         //if the error is greater than 2 inches too far
         //go forewards at 40% speed
@@ -142,11 +142,21 @@ public class DriveCommands {
         }
     }
     //adjusts the distance of the robot if the button is pressed
-    public void buttonAdjustDist(){
+    public void buttonLineUp(){
         if(OI.adjustButton.isPressed())
         {
+         //margin of error the robot has in turning
+        double range = 3;
             this.m_driveSystem.autonomousFlag = true;
+           // if(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
+           while(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
+           {
+                turnToGoal();
+            }
+          //  else {
+            
             adjustDistance();
+        //    }
         }
         else
         {
