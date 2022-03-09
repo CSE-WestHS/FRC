@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSystem;
-import frc.robot.subsystems.LIDARSensor;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.controls.OI;
 public class DriveCommands {
@@ -73,18 +72,27 @@ public class DriveCommands {
     }
     public void adjustDistance()
     {
+        //the optimal distance is 120 inches or 12 feet
         double desiredDistance = 120.0;
+        //our current distance is calculated by the limeLight calculaton function
         double currentDistance = m_limeLight.calculateDistanceFromGoal();
+        //the distance error is the desired distance - the current distance
+        //we want the distance error to b as close to 0 as possible
         double distanceError = desiredDistance - currentDistance;
+        //if the error is greater than 2 inches too far
+        //go forewards at 40% speed
         if(distanceError > 2)
         {
             m_driveSystem.setSpeed(0.4, 0.4);
         }
-        else if(distanceError < 2)
+        //if the distance error is greater than 2 inches too close
+        //go backwards at 40% speed
+        else if(distanceError < -2)
         {
             m_driveSystem.setSpeed(-0.4, 0.4);
         }
     }
+    //adjusts the distance of the robot if the button is pressed
     public void buttonAdjustDist(){
         if(OI.adjustButton.isPressed())
         {
