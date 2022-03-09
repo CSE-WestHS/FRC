@@ -76,23 +76,36 @@ public class DriveCommands {
     }
 
     public void turnToGoal() {
+        //speed the robot will turn
         double speed = 0.3;
+        //margin of error the robot has in turning
         double range = 3;
+        //if the robot is too far to the left
+        //turn right
         if (m_LimeLightSystem.getX() < -range) {
             m_driveSystem.setSpeed(speed, -speed);
-        } else if (m_LimeLightSystem.getX() > range) {
+        } 
+        //if the robot is too far right
+        // turn left
+        else if (m_LimeLightSystem.getX() > range) {
             m_driveSystem.setSpeed(-speed, speed);
-        } else {
+        }
+        // if robot is at the desired angle
+        //stop moving
+         else {
             m_driveSystem.stopWheels();
         }
 
     }
+//if turn button is pressed, run the turn command
 
     public void buttonTurn() {
         if (OI.turnButton.isPressed()) {
+            //lets the drive system know the wheels are being used
             this.m_driveSystem.autonomousFlag = true;
             turnToGoal();
         } else {
+            //lets the drive system know the wheels aren't in use
             this.m_driveSystem.autonomousFlag = false;
         }
     }
