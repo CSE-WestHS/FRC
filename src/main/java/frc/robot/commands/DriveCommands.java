@@ -2,13 +2,17 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controls.OI;
+
 public class DriveCommands {
     DriveSystem m_driveSystem;
-    LimeLightSystem m_limeLight;
-    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_limeLight) {
+    DigitalInput m_DigitalInput;
+    LimeLightSystem m_LimeLightSystem;
+
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem) {
         this.m_driveSystem = driveSystem;
-        this.m_limeLight = m_limeLight;
+        this.m_LimeLightSystem = m_LimeLightSystem;
     }
 
     /**
@@ -70,12 +74,13 @@ public class DriveCommands {
          */
         // }
     }
+
     public void adjustDistance()
     {
         //the optimal distance is 120 inches or 12 feet
         double desiredDistance = 120.0;
         //our current distance is calculated by the limeLight calculaton function
-        double currentDistance = m_limeLight.calculateDistanceFromGoal();
+        double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
         //the distance error is the desired distance - the current distance
         //we want the distance error to b as close to 0 as possible
         double distanceError = desiredDistance - currentDistance;
@@ -86,13 +91,13 @@ public class DriveCommands {
 
         //if the error is greater than 2 inches too far
         //go forewards at 40% speed
-        if(distanceError < errorRange)
+        if(distanceError > errorRange)
         {
             m_driveSystem.setSpeed(speed, speed);
         }
         //if the distance error is greater than 2 inches too close
         //go backwards at 40% speed
-        else if(distanceError > -errorRange)
+        else if(distanceError < -errorRange)
         {
             m_driveSystem.setSpeed(-speed, -speed);
         }

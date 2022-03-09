@@ -15,12 +15,6 @@ public class LimeLightSystem {
         table = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
-    public void smartdashboard() {
-        SmartDashboard.putNumber("Limelight/x-offset", getX());
-        SmartDashboard.putNumber("Limelight/y-offset", getY());
-        SmartDashboard.putNumber("Limelight/area", getArea());
-    }
-
     /**
      * @return The x-offset of the target.
      */
@@ -51,7 +45,7 @@ public class LimeLightSystem {
         double limeLightDistOffFloor = 38.0;
         double targetOffsetAngle_Vertical = getY();
         //angle the Limelight is mounted from being vertical
-        double limeLightAngleMount = 33;
+        double limeLightAngleMount = 27;
         //gets the angle LimeLight is to the goal
         double angleToGoalDegrees = limeLightAngleMount + targetOffsetAngle_Vertical;
         //changes angles to radians
@@ -59,5 +53,11 @@ public class LimeLightSystem {
         //calculates the distance the LimeLight is to the target
         double distToGoal = (goalHeightInches - limeLightDistOffFloor)/Math.tan(angleToGoalRadians);
         return distToGoal;
+    }
+    public void smartdashboard() {
+        SmartDashboard.putNumber("Limelight/x-offset", getX());
+        SmartDashboard.putNumber("Limelight/y-offset", getY());
+        SmartDashboard.putNumber("Limelight/area", getArea());
+        SmartDashboard.putNumber("Limelight/distance from goal", calculateDistanceFromGoal());
     }
 }
