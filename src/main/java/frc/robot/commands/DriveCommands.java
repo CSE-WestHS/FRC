@@ -79,17 +79,22 @@ public class DriveCommands {
         //the distance error is the desired distance - the current distance
         //we want the distance error to b as close to 0 as possible
         double distanceError = desiredDistance - currentDistance;
+        //speed our robot will go
+        double speed = 0.4;
+        //margin of error in inches
+        double errorRange = 2;
+
         //if the error is greater than 2 inches too far
         //go forewards at 40% speed
-        if(distanceError > 2)
+        if(distanceError > errorRange)
         {
-            m_driveSystem.setSpeed(0.4, 0.4);
+            m_driveSystem.setSpeed(speed, speed);
         }
         //if the distance error is greater than 2 inches too close
         //go backwards at 40% speed
-        else if(distanceError < -2)
+        else if(distanceError < -errorRange)
         {
-            m_driveSystem.setSpeed(-0.4, 0.4);
+            m_driveSystem.setSpeed(-speed, -speed);
         }
     }
     //adjusts the distance of the robot if the button is pressed
