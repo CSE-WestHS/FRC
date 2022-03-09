@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
 
-  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight);
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake);
   private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
 
   /**
@@ -61,8 +61,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
 
-    m_driveCommands.driveStartToBall(0.75);
-  }
+    }
 
   /**
    * This function is called periodically during autonomous.
@@ -90,7 +89,6 @@ public class Robot extends TimedRobot {
     m_elevator.elevatorButtonControl();
     m_intake.intakeButtonControl();
     m_shootCommand.shootButtonControl();
-    m_driveCommands.buttonTurn();
     m_driveCommands.buttonLineUp();
   }
 

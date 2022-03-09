@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controls.OI;
 
@@ -9,20 +10,16 @@ public class DriveCommands {
     DriveSystem m_driveSystem;
     DigitalInput m_DigitalInput;
     LimeLightSystem m_LimeLightSystem;
+    Intake m_intake;
 
-    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem) {
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
+        this.m_intake = m_intake;
     }
 
-    /**
-     * Drives from starting position to the target position.
-     * 
-     * @param speed
-     */
-    public void driveStartToBall(double speed) {
-        // If the robot han't driven X feet, keep driving
-        // at 45% power
+    public void dropIntake(double speed) {
+        m_intake.runLowerMotors(0.65);
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1) {
             m_driveSystem.setSpeed(-speed, -speed);
         }
@@ -31,49 +28,42 @@ public class DriveCommands {
             m_driveSystem.setSpeed(speed, speed);
         }
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-        // if(Intake.intake1.getEncoder().getPosition() < 10)
 
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 25) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1) {
             m_driveSystem.setSpeed(-speed, -speed);
         }
+        m_driveSystem.stopWheels();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 15) {
-            m_driveSystem.setSpeed(2 / 3 * speed, -2 / 3 * speed);
-        }
-        // else {
-
-        /*
-         * m_Intake.m_sideEncoder.restartEncoder();
-         * if (m_Intake.m_sideEncoder.getDistance() < 12) {
-         * m_Intake.runMotors(0.45, 0);
-         * } else {
-         * m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-         * m_driveSystem.m_frontRight.getEncoder().setPosition(0);
-         * if (m_driveSystem.m_leftEncoder.getDistance() < 4) {
-         * m_driveSystem.setSpeed(0.35, -0.35);
-         * } else {
-         * Intake.sideFeed.getEncoder().setPosition(0);
-         * Intake.upFeed.getEncoder().setPosition(0);
-         * if (m_Intake.m_sideEncoder.getDistance() < 5) {
-         * m_Intake.runMotors(0.25, 0.25);
-         * double power = m_shooter.getPower();
-         * m_shooter.setPower(power);
-         * } else if (m_Intake.m_upEncoder.getDistance() < 10) {
-         * m_Intake.runMotors(0, 0.25);
-         * double power = m_shooter.getPower();
-         * m_shooter.setPower(power);
-         * } else {
-         * m_Intake.runMotors(0, 0);
-         * double power = m_shooter.getPower();
-         * m_shooter.setPower(power);
-         * }
-         * double power = m_shooter.getPower();
-         * m_shooter.setPower(power);
-         * }
-         */
-        // }
+  
     }
+    public void driveSetDistance(double rotations, double speed)
+    {
+        while(m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations)
+        {
+           m_driveSystem.setSpeed(speed, speed); 
+        }
+        m_driveSystem.stopWheels();
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+    }
+    public void turnAround() {
+        while(m_driveSystem.m_frontLeft.getEncoder().getPosition() < 10)
+        {
+            m_driveSystem.setSpeed(0.5, -0.5); 
+        }
+            m_driveSystem.stopWheels();
+            m_intake.stopMotors();
+            m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+    }
+    public void autonomous()
+    {
+        
+    }
+    /**
+     * Drives from starting position to the target position.
+     * 
+     * @param speed
+     */ 
+
 
     public void turnToGoal() {
         //speed the robot will turn
@@ -97,18 +87,6 @@ public class DriveCommands {
         }
 
     }
-//if turn button is pressed, run the turn command
-
-    public void buttonTurn() {
-        if (OI.turnButton.isPressed()) {
-            //lets the drive system know the wheels are being used
-            this.m_driveSystem.autonomousFlag = true;
-            turnToGoal();
-        } else {
-            this.m_driveSystem.autonomousFlag = false;
-        }
-    }
-            //lets the drive system know the wheels aren't in use
     public void adjustDistance()
     {
         //the optimal distance is 120 inches or 12 feet
@@ -142,21 +120,25 @@ public class DriveCommands {
         }
     }
     //adjusts the distance of the robot if the button is pressed
+    public void lineUp(){
+         //margin of error the robot has in turning
+         double range = 3;
+         this.m_driveSystem.autonomousFlag = true;
+       //  if(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
+        while(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
+        {
+             turnToGoal();
+         }
+       //  else {
+         
+         adjustDistance();
+     //    }
+    }
     public void buttonLineUp(){
         if(OI.adjustButton.isPressed())
         {
-         //margin of error the robot has in turning
-        double range = 3;
             this.m_driveSystem.autonomousFlag = true;
-           // if(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
-           while(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
-           {
-                turnToGoal();
-            }
-          //  else {
-            
-            adjustDistance();
-        //    }
+            lineUp();
         }
         else
         {
