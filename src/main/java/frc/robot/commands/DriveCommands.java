@@ -86,13 +86,13 @@ public class DriveCommands {
 
         //if the error is greater than 2 inches too far
         //go forewards at 40% speed
-        if(distanceError > errorRange)
+        if(distanceError < errorRange)
         {
             m_driveSystem.setSpeed(speed, speed);
         }
         //if the distance error is greater than 2 inches too close
         //go backwards at 40% speed
-        else if(distanceError < -errorRange)
+        else if(distanceError > -errorRange)
         {
             m_driveSystem.setSpeed(-speed, -speed);
         }
