@@ -4,6 +4,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controls.OI;
+
 public class DriveCommands {
     DriveSystem m_driveSystem;
     DigitalInput m_DigitalInput;
@@ -83,9 +84,13 @@ public class DriveCommands {
             m_driveSystem.stopWheels();
         }
     }
+
     public void buttonTurn() {
-        if (OI.turnButton.isPressed()){
+        if (OI.turnButton.isPressed()) {
+            this.m_driveSystem.autonomousFlag = true;
             turnToGoal();
+        } else {
+            this.m_driveSystem.autonomousFlag = false;
         }
     }
 }
