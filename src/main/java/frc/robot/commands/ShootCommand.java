@@ -14,7 +14,7 @@ public class ShootCommand {
 
     private double elevatorPower = 0.65;
 
-    private static Timer m_tTimer = new Timer();
+    private static Timer m_Timer = new Timer();
 
     public ShootCommand(Elevator elevator, Shooter shooter, Intake intake) {
         m_elevator = elevator;
@@ -23,16 +23,16 @@ public class ShootCommand {
     }
 
     public void shootOneBall() {
-        m_tTimer.start();
-        while (m_tTimer.get() < 1) {
+        m_Timer.start();
+        while (m_Timer.get() < 1) {
             m_shooter.motorPower(m_shooter.getPower());
         }
-        while (m_tTimer.get() < 3) {
+        while (m_Timer.get() < 3) {
             m_shooter.motorPower(m_shooter.getPower());
             m_elevator.motorPower(elevatorPower);
         }
-        m_tTimer.stop();
-        m_tTimer.reset();
+        m_Timer.stop();
+        m_Timer.reset();
         m_shooter.motorPower(0);
         m_elevator.motorPower(0);
     }
@@ -49,15 +49,15 @@ public class ShootCommand {
      */
     public void shootButtonControl() {
         if (OI.shootButton.isPressed() || OI.shootButton2.isPressed()) {
-            m_tTimer.start();
-            if (m_tTimer.get() < 1) {
+            m_Timer.start();
+            if (m_Timer.get() < 1) {
                 m_shooter.motorPower(m_shooter.getPower());
             } else {
                 m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
             }
         } else {
-            m_tTimer.reset();
+            m_Timer.reset();
             m_shooter.motorPower(0);
             m_elevator.motorPower(0);
         }
