@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-  CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
 
     m_driveSystem.smartdashboard();
     m_elevator.smartdashboard();

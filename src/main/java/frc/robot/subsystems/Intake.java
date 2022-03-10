@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -16,9 +15,6 @@ public class Intake {
     private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
     private static CANSparkMax intake2 = new CANSparkMax(9, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
-
-    // Slew rate limiters to make inputs more gentle; 1/3 sec from 0 to 1.
-    private final SlewRateLimiter m_linearVelocityLimiter = new SlewRateLimiter(1 / 3.0);
 
     /**
      * Constructor for the intake system.
@@ -74,6 +70,6 @@ public class Intake {
             runLowerMotors(-0.45);
         } else {
             stopMotors();
-        } 
+        }
     }
 }

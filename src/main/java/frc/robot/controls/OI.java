@@ -17,5 +17,4 @@ public class OI {
     public static final Button shootButton2 = new Button(leftJoystick, 1);
     public static final Button spitoutButton = new Button(rightJoystick, 2);
     public static final Button turnButton = new Button(leftJoystick, 2);
-    
 }
