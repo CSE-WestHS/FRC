@@ -13,6 +13,7 @@ public class DriveCommands {
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
     private static Timer m_Timer = new Timer();
+
     public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
@@ -44,8 +45,8 @@ public class DriveCommands {
     }
 
     public void driveSetDistance(double rotations, double speed) {
-    m_Timer.reset();
-    m_Timer.start();
+        m_Timer.reset();
+        m_Timer.start();
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations || m_Timer.get() < 15) {
             m_driveSystem.setSpeed(speed, speed);
         }
@@ -76,7 +77,7 @@ public class DriveCommands {
         double desiredDistance = 120.0;
         double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
         double distanceError = desiredDistance - currentDistance;
-        double errorRange = 6;        
+        double errorRange = 6;
         m_Timer.reset();
         m_Timer.start();
         while (distanceError > errorRange || distanceError < -errorRange || m_Timer.get() < 15) {
@@ -157,8 +158,8 @@ public class DriveCommands {
             turnToGoal();
         }
         // else {
-            m_Timer.reset();
-            m_Timer.stop();
+        m_Timer.reset();
+        m_Timer.stop();
         adjustDistance();
         // }
     }
