@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
 
-  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight);
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake);
   private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
 
   /**
