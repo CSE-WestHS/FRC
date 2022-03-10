@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   private final Shooter m_shooter = new Shooter();
 
   private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake);
-  private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter);
+  private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter, m_intake);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -60,7 +60,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
-
+    m_driveCommands.autonomousDrive();
+    m_shootCommand.autonomousShoot();
     }
 
   /**
@@ -78,6 +79,10 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
+    m_intake.stopMotors();
+    m_driveSystem.stopWheels();
+    m_elevator.motorPower(0);
+    m_shooter.motorPower(0);
   }
 
   /**
