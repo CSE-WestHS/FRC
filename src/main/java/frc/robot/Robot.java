@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
     m_driveCommands.autonomousDrive();
     m_shootCommand.autonomousShoot();
-    }
+  }
 
   /**
    * This function is called periodically during autonomous.

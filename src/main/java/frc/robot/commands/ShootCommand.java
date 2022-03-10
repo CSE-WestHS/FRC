@@ -21,13 +21,13 @@ public class ShootCommand {
         m_shooter = shooter;
         m_intake = intake;
     }
-    public void shootOneBall()
-    {
+
+    public void shootOneBall() {
         m_tTimer.start();
-        while(m_tTimer.get() < 1) {
+        while (m_tTimer.get() < 1) {
             m_shooter.motorPower(m_shooter.getPower());
         }
-        while(m_tTimer.get() < 3) {
+        while (m_tTimer.get() < 3) {
             m_shooter.motorPower(m_shooter.getPower());
             m_elevator.motorPower(elevatorPower);
         }
@@ -36,12 +36,14 @@ public class ShootCommand {
         m_shooter.motorPower(0);
         m_elevator.motorPower(0);
     }
+
     public void autonomousShoot() {
         shootOneBall();
         m_intake.runLowerMotors(0.65);
         shootOneBall();
         m_intake.stopMotors();
     }
+
     /**
      * Trigger shoot command sequence via joystick button.
      */

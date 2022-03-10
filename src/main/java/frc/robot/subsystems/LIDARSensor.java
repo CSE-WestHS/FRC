@@ -11,7 +11,7 @@ public class LIDARSensor {
      * 600 cm range. You can also use the offset to zero out the distance between
      * the sensor and edge of the robot.
      */
-    private static final int CALIBRATION_OFFSET = -18;    
+    private static final int CALIBRATION_OFFSET = -18;
     private Counter counter;
     private int printedWarningCount = 5;
 

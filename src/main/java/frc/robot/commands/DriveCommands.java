@@ -19,7 +19,7 @@ public class DriveCommands {
     }
 
     public void dropIntake(double speed) {
-        
+
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1) {
             m_driveSystem.setSpeed(-speed, -speed);
         }
@@ -62,7 +62,7 @@ public class DriveCommands {
         double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
         double distanceError = desiredDistance - currentDistance;
         double errorRange = 6;
-        while(distanceError > errorRange || distanceError < -errorRange) {
+        while (distanceError > errorRange || distanceError < -errorRange) {
             lineUp();
         }
     }
