@@ -26,7 +26,9 @@ public class Shooter {
         shootMotor1.setSmartCurrentLimit(smartCurrentLimit);
         shootMotor2.setSmartCurrentLimit(smartCurrentLimit);
 
-        shootGroup.setInverted(true);
+        shootGroup.setInverted(false);
+        //turns off wheels
+        motorPower(0);
     }
 
     public void smartdashboard() {

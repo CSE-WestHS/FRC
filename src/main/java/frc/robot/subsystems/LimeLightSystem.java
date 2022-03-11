@@ -52,7 +52,7 @@ public class LimeLightSystem {
         double distToGoal = (goalHeightInches - limeLightDistOffFloor) / Math.tan(angleToGoalRadians);
         return distToGoal;
     }
-
+//puts information on the SmartDashboard 
     public void smartdashboard() {
         SmartDashboard.putNumber("Limelight/x-offset", getX());
         SmartDashboard.putNumber("Limelight/y-offset", getY());

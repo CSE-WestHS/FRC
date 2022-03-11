@@ -1,41 +1,46 @@
 package frc.robot.commands;
 
+//the imports are what this class needs from other classes to function properly
+//these can come from other parts of the robot or the internet
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.controls.OI;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveCommands {
+    //this class requires a DriveSystem, LimeLight, and Intake to run
     DriveSystem m_driveSystem;
-    DigitalInput m_DigitalInput;
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
     private static Timer m_Timer = new Timer();
-
+//Constructor for DriveCommands Class
     public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
         this.m_intake = m_intake;
         m_Timer.reset();
     }
-
+    //This command moves the robot forewards a small bit
+    //then backwards for a small bit
+    //then forewards for a small bit
+    //then stops motors
+    //the timer is 
     public void dropIntake(double speed) {
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 || m_Timer.get() < 3) {
-            m_driveSystem.setSpeed(-speed, -speed);
-        }
-        m_Timer.reset();
-        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5 || m_Timer.get() < 3) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 && m_Timer.get() < 3) {
             m_driveSystem.setSpeed(speed, speed);
         }
         m_Timer.reset();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 || m_Timer.get() < 3) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5 && m_Timer.get() < 3) {
             m_driveSystem.setSpeed(-speed, -speed);
+        }
+        m_Timer.reset();
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 && m_Timer.get() < 3) {
+            m_driveSystem.setSpeed(speed, speed);
         }
         m_Timer.reset();
         m_Timer.stop();
@@ -47,7 +52,7 @@ public class DriveCommands {
     public void driveSetDistance(double rotations, double speed) {
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations || m_Timer.get() < 15) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations && m_Timer.get() < 15) {
             m_driveSystem.setSpeed(speed, speed);
         }
         m_Timer.reset();
@@ -59,7 +64,7 @@ public class DriveCommands {
     public void turnAround() {
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 10 || m_Timer.get() < 10) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 10 && m_Timer.get() < 10) {
             m_driveSystem.setSpeed(0.5, -0.5);
         }
         m_Timer.reset();
@@ -152,7 +157,6 @@ public class DriveCommands {
         m_Timer.start();
         // margin of error the robot has in turning
         double range = 3;
-        this.m_driveSystem.autonomousFlag = true;
         // if(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
         while (m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range || m_Timer.get() < 5) {
             turnToGoal();
