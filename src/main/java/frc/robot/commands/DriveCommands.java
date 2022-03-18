@@ -9,63 +9,78 @@ import frc.robot.controls.OI;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveCommands {
-    //this class requires a DriveSystem, LimeLight, and Intake to run
+    // this class requires a DriveSystem, LimeLight, and Intake to run
     DriveSystem m_driveSystem;
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
     private static Timer m_Timer = new Timer();
-//Constructor for DriveCommands Class
+
+    // Constructor for DriveCommands Class
     public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
         this.m_intake = m_intake;
         m_Timer.reset();
     }
-    //This command moves the robot forewards a small bit
-    //then backwards for a small bit
-    //then forewards for a small bit
-    //then stops motors
-    //the timer is 
-    public void dropIntake(double speed) {
-        m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 && m_Timer.get() < 3) {
-            m_driveSystem.setSpeed(speed, speed);
-        }
-        m_Timer.reset();
-        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5 && m_Timer.get() < 3) {
-            m_driveSystem.setSpeed(-speed, -speed);
-        }
-        m_Timer.reset();
-        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
 
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 && m_Timer.get() < 3) {
+    // This command moves the robot forewards a small bit
+    // then backwards for a small bit
+    // then forewards for a small bit
+    // then stops motors
+    // the timer is
+    public void dropIntake(double speed) {
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+        m_Timer.start();
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 10 && m_Timer.get() < 3) {
             m_driveSystem.setSpeed(speed, speed);
         }
+        /*
+         * m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+         * m_Timer.reset();
+         * while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5 &&
+         * m_Timer.get() < 3) {
+         * m_driveSystem.setSpeed(-speed, -speed);
+         * }
+         * m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+         * m_Timer.reset();
+         * while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 &&
+         * m_Timer.get() < 3) {
+         * m_driveSystem.setSpeed(speed, speed);
+         * }
+         */
         m_Timer.reset();
         m_Timer.stop();
         m_driveSystem.stopWheels();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_intake.runLowerMotors(0.65);
+
     }
 
     public void driveSetDistance(double rotations, double speed) {
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations && m_Timer.get() < 15) {
-            m_driveSystem.setSpeed(speed, speed);
+        if (rotations > 0) {
+            while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations && m_Timer.get() < 5) {
+                m_driveSystem.setSpeed(speed, speed);
+            }
+        } else {
+            while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > rotations && m_Timer.get() < 5) {
+                m_driveSystem.setSpeed(speed, speed);
+            }
+            m_Timer.reset();
+            m_Timer.stop();
+            m_driveSystem.stopWheels();
+            m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         }
-        m_Timer.reset();
-        m_Timer.stop();
-        m_driveSystem.stopWheels();
-        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     }
 
     public void turnAround() {
+        m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 10 && m_Timer.get() < 10) {
-            m_driveSystem.setSpeed(0.5, -0.5);
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 20 && m_Timer.get() < 5) {
+            m_driveSystem.setSpeed(-0.5, 0.5);
         }
         m_Timer.reset();
         m_Timer.stop();
@@ -75,21 +90,34 @@ public class DriveCommands {
     }
 
     public void autonomousDrive() {
-
-        dropIntake(0.5);
-        driveSetDistance(25, 0.6);
-        turnAround();
-        double desiredDistance = 120.0;
-        double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
-        double distanceError = desiredDistance - currentDistance;
-        double errorRange = 6;
-        m_Timer.reset();
-        m_Timer.start();
-        while (distanceError > errorRange || distanceError < -errorRange || m_Timer.get() < 15) {
-            lineUp();
-        }
-        m_Timer.reset();
         m_Timer.stop();
+        m_Timer.reset();
+        dropIntake(-0.5);
+        m_Timer.start();
+        while (m_Timer.get() < 0.5) {
+        }
+        m_Timer.stop();
+        m_Timer.reset();
+        driveSetDistance(27, -0.5);
+        driveSetDistance(-7, 0.5);
+        turnAround();
+        driveSetDistance(20, -0.5);
+        /*
+         * double desiredDistance = 120.0;
+         * double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
+         * double distanceError = desiredDistance - currentDistance;
+         * double errorRange = 6;
+         * m_Timer.reset();
+         * m_Timer.start();
+         * while ((distanceError > errorRange || distanceError < -errorRange)) {
+         * currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
+         * distanceError = desiredDistance - currentDistance;
+         * lineUp();
+         * }
+         * m_Timer.reset();
+         * m_Timer.stop();
+         */
+
     }
 
     /**

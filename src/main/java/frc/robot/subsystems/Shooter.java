@@ -44,7 +44,7 @@ public class Shooter {
      */
     public double getPower() {
         // Constant to be changed when lidar is tested
-        double power = 0.825;
+        double power = 0.5;
 
         // sets distance equal to the reading of the Lidar sensor in cm
         // distances may be updated to feet
@@ -80,6 +80,7 @@ public class Shooter {
      * @param power = -1.0 to 1.0
      */
     public void motorPower(double power) {
-        shootGroup.set(power);
+       // shootGroup.set(power);
+       shootMotor1.set(power);
     }
 }

@@ -143,6 +143,9 @@ public class DriveSystem {
      * Stop the motors on the robot.
      */
     public void stopWheels() {
-        m_drive.stopMotor();
+        m_frontLeft.stopMotor();
+        m_frontRight.stopMotor();
+        m_rearLeft.stopMotor();
+        m_rearRight.stopMotor();
     }
 }
