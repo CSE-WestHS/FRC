@@ -75,9 +75,9 @@ public class Intake {
      * Use buttons to activate intake system.
      */
     public void intakeButtonControl() {
-        if (OI.intakeButton.isPressedEvent()) {
+        if (OI.intakeButton.isPressed()) {
             runLowerMotors(0.45);
-        } else if (OI.spitoutButton.isPressedEvent()) {
+        } else if (OI.spitoutButton.isPressed()) {
             runLowerMotors(-0.45);
         } else {
             stopMotors();

@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   private final LimeLightSystem m_limelight = new LimeLightSystem();
   private final Intake m_intake = new Intake();
   private final Shooter m_shooter = new Shooter();
-  private final Lift m_lift = new Lift();
+  private final Winch m_winch = new Winch();
 //creates an instance of the DriveCommands and ShootCommand
   private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake);
   private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter, m_intake);
@@ -53,7 +53,7 @@ public void robotPeriodic() {
       m_lidarSensor.smartdashboard();
       m_limelight.smartdashboard();
       m_shooter.smartdashboard();
-      m_lift.smartdashboard();
+      m_winch.smartdashboard();
 }
   /**
    * This function is run once each time the robot enters autonomous mode.
@@ -103,7 +103,7 @@ public void robotPeriodic() {
     m_elevator.elevatorButtonControl();
     m_shootCommand.shootButtonControl();
     //m_driveCommands.buttonLineUp();
-    m_lift.buttonLift();
+    m_winch.buttonWinch();
   }
 
   /**

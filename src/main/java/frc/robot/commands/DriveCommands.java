@@ -133,19 +133,19 @@ public class DriveCommands {
         double range = 3;
         // if the robot is too far to the left
         // turn right
-        if (m_LimeLightSystem.getX() < -range) {
-            m_driveSystem.setSpeed(speed, -speed);
-        }
-        // if the robot is too far right
-        // turn left
-        else if (m_LimeLightSystem.getX() > range) {
-            m_driveSystem.setSpeed(-speed, speed);
+        while (m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range) {
+            if (m_LimeLightSystem.getX() < -range) {
+                m_driveSystem.setSpeed(speed, -speed);
+            }
+            // if the robot is too far right
+            // turn left
+            else if (m_LimeLightSystem.getX() > range) {
+                m_driveSystem.setSpeed(-speed, speed);
+            }
         }
         // if robot is at the desired angle
         // stop moving
-        else {
-            m_driveSystem.stopWheels();
-        }
+        m_driveSystem.stopWheels();
 
     }
 
@@ -161,46 +161,37 @@ public class DriveCommands {
         double speed = 0.4;
         // margin of error in inches
         double errorRange = 6;
+        while (distanceError > errorRange || distanceError < -errorRange) {
+            // if the error is greater than 2 inches too far
+            // go forewards at 40% speed
+            if (distanceError > errorRange) {
+                m_driveSystem.setSpeed(speed, speed);
+            }
+            // if the distance error is greater than 2 inches too close
+            // go backwards at 40% speed
+            else if (distanceError < -errorRange) {
+                m_driveSystem.setSpeed(-speed, -speed);
+            }
 
-        // if the error is greater than 2 inches too far
-        // go forewards at 40% speed
-        if (distanceError > errorRange) {
-            m_driveSystem.setSpeed(speed, speed);
-        }
-        // if the distance error is greater than 2 inches too close
-        // go backwards at 40% speed
-        else if (distanceError < -errorRange) {
-            m_driveSystem.setSpeed(-speed, -speed);
         }
         // if the distance is good
         // stop the wheels
-        else {
-            m_driveSystem.stopWheels();
-        }
+        m_driveSystem.stopWheels();
     }
 
     // adjusts the distance of the robot if the button is pressed
     public void lineUp() {
-        m_Timer.reset();
         m_Timer.start();
-        // margin of error the robot has in turning
-        double range = 3;
-        // if(m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range)
-        while (m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range || m_Timer.get() < 5) {
-            turnToGoal();
-        }
-        // else {
+        turnToGoal();
         m_Timer.reset();
         m_Timer.stop();
         adjustDistance();
-        // }
     }
 
     public void buttonLineUp() {
         if (OI.adjustButton.isPressedEvent()) {
             this.m_driveSystem.autonomousFlag = true;
             lineUp();
-        } else {
             this.m_driveSystem.autonomousFlag = false;
         }
     }

@@ -44,9 +44,9 @@ public class Elevator {
      * Control elevator motors using joystick input.
      */
     public void elevatorButtonControl() {
-        if (OI.elevatorButton.isPressedEvent()) {
+        if (OI.elevatorButton.isPressed()) {
             motorPower(speed);
-        } else if (OI.elevatorSpitoutbutton.isPressedEvent()) {
+        } else if (OI.elevatorSpitoutbutton.isPressed()) {
             motorPower(-speed);
         } else {
             motorPower(0);
