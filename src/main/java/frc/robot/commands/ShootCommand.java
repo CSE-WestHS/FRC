@@ -72,7 +72,7 @@ public class ShootCommand {
                 m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
             }
-        } else {
+        } else if(OI.shootButton.isReleasedEvent() || OI.shootButton2.isReleasedEvent()){
             m_Timer.reset();
             m_shooter.motorPower(0);
         }

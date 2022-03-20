@@ -22,7 +22,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
 
   private DigitalInput lidarDIO = new DigitalInput(0);
-  //creates an instance of a DriveSystem, Elevator, LIDARSensor, LimeLightSystem, Intake, Lift, and Shooter
+  //creates an instance of a DriveSystem, Elevator, LIDARSensor, LimeLightSystem, Intake, Winch, and Shooter
   private final DriveSystem m_driveSystem = new DriveSystem();
   private final Elevator m_elevator = new Elevator();
   private final LIDARSensor m_lidarSensor = new LIDARSensor(lidarDIO);
