@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+
 import frc.robot.controls.OI;
 
 /**
@@ -74,9 +75,9 @@ public class Intake {
      * Use buttons to activate intake system.
      */
     public void intakeButtonControl() {
-        if (OI.intakeButton.isPressed()) {
+        if (OI.intakeButton.isPressedEvent()) {
             runLowerMotors(0.45);
-        } else if (OI.spitoutButton.isPressed()) {
+        } else if (OI.spitoutButton.isPressedEvent()) {
             runLowerMotors(-0.45);
         } else {
             stopMotors();

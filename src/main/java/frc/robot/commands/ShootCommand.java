@@ -64,7 +64,7 @@ public class ShootCommand {
         // wait 1 second, turn on elevator motors as well as shoot motors
         // if the button is not pressed,
         // turn off the motors and reset the timer
-        if (OI.shootButton.isPressed() || OI.shootButton2.isPressed()) {
+        if (OI.shootButton.isPressedEvent() || OI.shootButton2.isPressedEvent()) {
             m_Timer.start();
             if (m_Timer.get() < 1) {
                 m_shooter.motorPower(m_shooter.getPower());

@@ -197,7 +197,7 @@ public class DriveCommands {
     }
 
     public void buttonLineUp() {
-        if (OI.adjustButton.isPressed()) {
+        if (OI.adjustButton.isPressedEvent()) {
             this.m_driveSystem.autonomousFlag = true;
             lineUp();
         } else {

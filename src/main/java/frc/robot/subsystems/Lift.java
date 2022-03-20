@@ -29,7 +29,7 @@ public class Lift {
     }
 
     public void buttonLift() {
-        if (OI.liftButton.isPressed()) {
+        if (OI.liftButton.isPressedEvent()) {
             liftMotor.set(0.5);
         } else {
             liftMotor.set(0);
