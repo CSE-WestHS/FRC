@@ -56,11 +56,6 @@ public class DriveSystem {
      * Constructor for the drive system.
      */
     public DriveSystem() {
-        //clearFaults clears any sticky faults that may occur in the CANSparkMaxes
-
-        /*sticky faults are errors in the CANSparkMax hardware 
-        not updating after the error is resolved
-        */
         m_frontLeft.clearFaults();
         m_rearLeft.clearFaults();
         m_frontRight.clearFaults();
@@ -70,13 +65,11 @@ public class DriveSystem {
         m_rearLeft.setSmartCurrentLimit(smartCurrentLimit);
         m_frontRight.setSmartCurrentLimit(smartCurrentLimit);
         m_rearRight.setSmartCurrentLimit(smartCurrentLimit);
-//invert make motors move in the opposite direction
+
         m_leftGroup.setInverted(true); // invert the left side motors
         m_rightGroup.setInverted(false); // invert the right side motors
-        //turn off the wheels
-        stopWheels();
     }
-//puts information on the SmartDashboard 
+
     public void smartdashboard() {
         SmartDashboard.putNumber("Drive/FrontLeft/Velocity", m_encoder_frontLeft.getVelocity());
         SmartDashboard.putNumber("Drive/RearLeft/Velocity", m_encoder_rearLeft.getVelocity());
@@ -133,7 +126,6 @@ public class DriveSystem {
 
         // Get right wheel speed from the right joystick.
         final double rightSpeed = OI.leftJoystick.getY() * kMaxSpeed;
-        //if motors aren't in use by another program
         if (!this.autonomousFlag) {
             setSpeed(leftSpeed, rightSpeed);
         }
@@ -143,9 +135,6 @@ public class DriveSystem {
      * Stop the motors on the robot.
      */
     public void stopWheels() {
-        m_frontLeft.stopMotor();
-        m_frontRight.stopMotor();
-        m_rearLeft.stopMotor();
-        m_rearRight.stopMotor();
+        m_drive.stopMotor();
     }
 }

@@ -26,9 +26,7 @@ public class Shooter {
         shootMotor1.setSmartCurrentLimit(smartCurrentLimit);
         shootMotor2.setSmartCurrentLimit(smartCurrentLimit);
 
-        shootGroup.setInverted(false);
-        //turns off wheels
-        motorPower(0);
+        shootGroup.setInverted(true);
     }
 
     public void smartdashboard() {
@@ -44,7 +42,7 @@ public class Shooter {
      */
     public double getPower() {
         // Constant to be changed when lidar is tested
-        double power = 0.5;
+        double power = 0.825;
 
         // sets distance equal to the reading of the Lidar sensor in cm
         // distances may be updated to feet
@@ -80,7 +78,6 @@ public class Shooter {
      * @param power = -1.0 to 1.0
      */
     public void motorPower(double power) {
-       // shootGroup.set(power);
-       shootMotor1.set(power);
+        shootGroup.set(power);
     }
 }
