@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Button {
     int code;
     Joystick joystick;
+    boolean pushed;
 
     public Button(Joystick stick, int buttonCode) {
         joystick = stick;
@@ -19,5 +20,22 @@ public class Button {
      */
     public boolean isPressed() {
         return joystick.getRawButton(code);
+
+    }
+
+    public boolean isPressedEvent() {
+        if (this.pushed != this.isPressed() && this.isPressed()) {
+            this.pushed = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isReleasedEvent() {
+        if (this.pushed != isPressed() && !this.isPressed()) {
+            this.pushed = false;
+            return true;
+        }
+        return false;
     }
 }

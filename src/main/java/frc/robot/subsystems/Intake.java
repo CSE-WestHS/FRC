@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+
 import frc.robot.controls.OI;
 
 /**
@@ -25,15 +26,20 @@ public class Intake {
      */
 
     public Intake() {
+        /*sticky faults are errors in the CANSparkMax hardware 
+        not updating after the error is resolved
+        */
         intake1.clearFaults();
         intake2.clearFaults();
 
         intake1.setSmartCurrentLimit(smartCurrentLimit);
         intake2.setSmartCurrentLimit(smartCurrentLimit);
-
+//invert make motors move in the opposite direction
         intake2.setInverted(true);
+        //turns off wheels
+        stopMotors();
     }
-
+//puts information on the SmartDashboard 
     public void smartdashboard() {
         SmartDashboard.putNumber("Intake/Mecanum/Current", intake1.getOutputCurrent());
         SmartDashboard.putNumber("Intake/LowerBelt/Current", intake2.getOutputCurrent());
