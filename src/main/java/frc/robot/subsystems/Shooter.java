@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Shooter {
     // private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
     // private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
-    private static CANSparkMax shootMotor1 = new CANSparkMax(6, MotorType.kBrushless);
+    public static CANSparkMax shootMotor1 = new CANSparkMax(6, MotorType.kBrushless);
     private static CANSparkMax shootMotor2 = new CANSparkMax(10, MotorType.kBrushless);
     private final MotorControllerGroup shootGroup = new MotorControllerGroup(shootMotor1, shootMotor2);
 
@@ -27,7 +27,7 @@ public class Shooter {
         shootMotor2.setSmartCurrentLimit(smartCurrentLimit);
 
         shootGroup.setInverted(false);
-        //turns off wheels
+        // turns off wheels
         motorPower(0);
     }
 
@@ -80,7 +80,10 @@ public class Shooter {
      * @param power = -1.0 to 1.0
      */
     public void motorPower(double power) {
-       // shootGroup.set(power);
-       shootMotor1.set(power);
+        shootGroup.set(power);
+    }
+    public void motorPower (double motor1Power, double motor2Power){
+        shootMotor1.set(motor1Power);
+        shootMotor2.set(motor2Power);
     }
 }
