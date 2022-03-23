@@ -6,6 +6,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.controls.OI;
+import frc.robot.subsystems.Winch;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveCommands {
@@ -13,13 +14,15 @@ public class DriveCommands {
     DriveSystem m_driveSystem;
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
+    Winch m_winch;
     private static Timer m_Timer = new Timer();
 
     // Constructor for DriveCommands Class
-    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake) {
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake, Winch m_winch) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
         this.m_intake = m_intake;
+        this.m_winch = m_winch;
         m_Timer.reset();
     }
 
@@ -80,7 +83,7 @@ public class DriveCommands {
         m_Timer.reset();
         m_Timer.start();
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 20 && m_Timer.get() < 5) {
-            m_driveSystem.setSpeed(-0.5, 0.5);
+            m_driveSystem.setSpeed(-0.7, 0.7);
         }
         m_Timer.reset();
         m_Timer.stop();
@@ -89,19 +92,38 @@ public class DriveCommands {
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     }
 
+    public void winchMove(double power) {
+        m_winch.winchMotor.getEncoder().setPosition(0);
+        if (power > 0) {
+
+            while (m_winch.winchMotor.getEncoder().getPosition() < 14) {
+                m_winch.winchMotor.set(power);
+            }
+        } else {
+            while (m_winch.winchMotor.getEncoder().getPosition() > -14) {
+                m_winch.winchMotor.set(power);
+            }
+        }
+        m_winch.winchMotor.getEncoder().setPosition(0);
+        m_winch.winchMotor.set(0);
+    }
+
     public void autonomousDrive() {
         m_Timer.stop();
         m_Timer.reset();
+        winchMove(-0.4);
         dropIntake(-0.5);
         m_Timer.start();
         while (m_Timer.get() < 0.5) {
         }
         m_Timer.stop();
         m_Timer.reset();
-        driveSetDistance(27, -0.5);
-        driveSetDistance(-7, 0.5);
+        driveSetDistance(27, -0.7);
+        driveSetDistance(-7, 0.7);
         turnAround();
-        driveSetDistance(20, -0.5);
+        winchMove(0.4);
+        turnToGoal();
+        driveSetDistance(20, -0.7);
         /*
          * double desiredDistance = 120.0;
          * double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();

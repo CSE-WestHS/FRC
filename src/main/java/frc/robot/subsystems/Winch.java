@@ -4,9 +4,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.controls.OI;
+import frc.robot.util.Debug;
 
 public class Winch {
-    private static CANSparkMax winchMotor = new CANSparkMax(8, MotorType.kBrushless);
+    public CANSparkMax winchMotor = new CANSparkMax(8, MotorType.kBrushless);
     private int smartCurrentLimit = 40;
 
     public Winch() {
@@ -20,6 +21,7 @@ public class Winch {
         winchMotor.setSmartCurrentLimit(smartCurrentLimit);
         // turns off wheels
         winchMotor.set(0);
+        winchMotor.getEncoder().setPosition(0);
     }
 
     public void smartdashboard() {
@@ -29,9 +31,35 @@ public class Winch {
     }
 
     public void buttonWinch() {
+
         if (OI.liftButton.isPressed()) {
-            winchMotor.set(0.5);
-        } else {
+           // winchMotor.getEncoder().setPosition(0);
+             boolean winchUp = winchMotor.getEncoder().getPosition() >= 3;
+            Debug.printOnce(String.valueOf(winchMotor.getEncoder().getPosition()));
+             if(!winchUp) {
+            while (winchMotor.getEncoder().getPosition() < 14) {
+                winchMotor.set(0.4);
+                Debug.printOnce(String.valueOf(winchMotor.getEncoder().getPosition()));
+                 }
+          //   winchMotor.getEncoder().setPosition(0);
+                winchMotor.set(0);
+            }
+        }
+            else if (OI.lowerButton.isPressed()){
+                Debug.printOnce(String.valueOf(winchMotor.getEncoder().getPosition()));
+                winchMotor.getEncoder().setPosition(0);
+                // boolean winchUp = winchMotor.getEncoder().getPosition() >= 3;
+                // if(!winchUp) {
+                while (winchMotor.getEncoder().getPosition() > -14) {
+                    winchMotor.set(-0.4);
+                    Debug.printOnce(String.valueOf(winchMotor.getEncoder().getPosition()));
+                    // }
+                    // winchMotor.getEncoder().setPosition(0);
+                }
+                winchMotor.set(0);
+                winchMotor.getEncoder().setPosition(0);
+                Debug.printOnce(String.valueOf(winchMotor.getEncoder().getPosition()));
+            } else {
             winchMotor.set(0);
         }
     }

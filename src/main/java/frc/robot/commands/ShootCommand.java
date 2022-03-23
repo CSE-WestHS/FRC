@@ -64,7 +64,7 @@ public class ShootCommand {
         // wait 1 second, turn on elevator motors as well as shoot motors
         // if the button is not pressed,
         // turn off the motors and reset the timer
-        if (OI.shootLowGoalButton.isPressedEvent()) {
+        if (OI.shootLowGoalButton.isPressed()) {
             m_Timer.start();
             if (m_Timer.get() < 1) {
                 m_shooter.motorPower(m_shooter.getPower(), 0);
@@ -73,7 +73,7 @@ public class ShootCommand {
                 m_elevator.motorPower(elevatorPower);
             }
 
-        } else if (OI.shootHighGoalButton.isPressedEvent()) {
+        } else if (OI.shootHighGoalButton.isPressed()) {
             m_Timer.start();
             if (m_Timer.get() < 1) {
                 m_shooter.motorPower(m_shooter.getPower());
@@ -81,8 +81,7 @@ public class ShootCommand {
                 m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
             }
-        } else if (OI.shootLowGoalButton.isReleasedEvent() || OI.shootHighGoalButton.isReleasedEvent()) {
-            m_Timer.stop();
+        } else {
             m_Timer.reset();
             m_shooter.motorPower(0);
         }
