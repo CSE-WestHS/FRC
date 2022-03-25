@@ -50,7 +50,7 @@ public void robotPeriodic() {
       m_driveSystem.smartdashboard();
       m_elevator.smartdashboard();
       m_intake.smartdashboard();
-      m_lidarSensor.smartdashboard();
+      //m_lidarSensor.smartdashboard();
       m_limelight.smartdashboard();
       m_shooter.smartdashboard();
       m_winch.smartdashboard();

@@ -83,7 +83,7 @@ public class DriveCommands {
         m_Timer.reset();
         m_Timer.start();
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 20 && m_Timer.get() < 5) {
-            m_driveSystem.setSpeed(-0.7, 0.7);
+            m_driveSystem.setSpeed(0.7, -0.7);
         }
         m_Timer.reset();
         m_Timer.stop();
@@ -118,12 +118,12 @@ public class DriveCommands {
         }
         m_Timer.stop();
         m_Timer.reset();
-        driveSetDistance(27, -0.7);
-        driveSetDistance(-7, 0.7);
+        driveSetDistance(27, -0.6);
+        driveSetDistance(-7, 0.6);
         turnAround();
         winchMove(0.4);
         turnToGoal();
-        driveSetDistance(20, -0.7);
+        driveSetDistance(10, -0.6);
         /*
          * double desiredDistance = 120.0;
          * double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
@@ -155,7 +155,9 @@ public class DriveCommands {
         double range = 3;
         // if the robot is too far to the left
         // turn right
-        while (m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range) {
+        m_Timer.reset();
+        m_Timer.start();
+        while ((m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range) && m_Timer.get() < 2.5) {
             if (m_LimeLightSystem.getX() < -range) {
                 m_driveSystem.setSpeed(speed, -speed);
             }
@@ -183,7 +185,9 @@ public class DriveCommands {
         double speed = 0.4;
         // margin of error in inches
         double errorRange = 6;
-        while (distanceError > errorRange || distanceError < -errorRange) {
+        m_Timer.reset();
+        m_Timer.start();
+        while ((distanceError > errorRange || distanceError < -errorRange) && m_Timer.get() < 3) {
             // if the error is greater than 2 inches too far
             // go forewards at 40% speed
             if (distanceError > errorRange) {
