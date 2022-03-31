@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
   private final Shooter m_shooter = new Shooter();
   private final Winch m_winch = new Winch();
 //creates an instance of the DriveCommands and ShootCommand
-  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake);
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake, m_winch);
   private final ShootCommand m_shootCommand = new ShootCommand(m_elevator, m_shooter, m_intake);
 
   /**
@@ -50,7 +50,7 @@ public void robotPeriodic() {
       m_driveSystem.smartdashboard();
       m_elevator.smartdashboard();
       m_intake.smartdashboard();
-      m_lidarSensor.smartdashboard();
+      //m_lidarSensor.smartdashboard();
       m_limelight.smartdashboard();
       m_shooter.smartdashboard();
       m_winch.smartdashboard();

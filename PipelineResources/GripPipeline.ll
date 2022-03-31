@@ -41,6 +41,3 @@ Step CV_erode0
     cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue, cvErodeOutput);
 }
 
-
-
-

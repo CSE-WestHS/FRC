@@ -6,6 +6,8 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.controls.OI;
+import frc.robot.subsystems.Winch;
+import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveCommands {
@@ -13,13 +15,15 @@ public class DriveCommands {
     DriveSystem m_driveSystem;
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
+    Winch m_winch;
     private static Timer m_Timer = new Timer();
 
     // Constructor for DriveCommands Class
-    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake) {
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake, Winch m_winch) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
         this.m_intake = m_intake;
+        this.m_winch = m_winch;
         m_Timer.reset();
     }
 
@@ -79,29 +83,50 @@ public class DriveCommands {
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 20 && m_Timer.get() < 5) {
-            m_driveSystem.setSpeed(-0.5, 0.5);
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > -20 && m_Timer.get() < 4) {
+            m_driveSystem.setSpeed(0.35, -0.35);
+          //  Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
         }
         m_Timer.reset();
         m_Timer.stop();
         m_driveSystem.stopWheels();
         m_intake.stopMotors();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+       // Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
+    }
+
+    public void winchMove(double power) {
+        m_winch.winchMotor.getEncoder().setPosition(0);
+        if (power > 0) {
+
+            while (m_winch.winchMotor.getEncoder().getPosition() < 14) {
+                m_winch.winchMotor.set(power);
+            }
+        } else {
+            while (m_winch.winchMotor.getEncoder().getPosition() > -14) {
+                m_winch.winchMotor.set(power);
+            }
+        }
+        m_winch.winchMotor.getEncoder().setPosition(0);
+        m_winch.winchMotor.set(0);
     }
 
     public void autonomousDrive() {
         m_Timer.stop();
         m_Timer.reset();
+        winchMove(-0.4);
         dropIntake(-0.5);
         m_Timer.start();
         while (m_Timer.get() < 0.5) {
         }
         m_Timer.stop();
         m_Timer.reset();
-        driveSetDistance(27, -0.5);
-        driveSetDistance(-7, 0.5);
+        driveSetDistance(27, -0.6);
+        driveSetDistance(-7, 0.6);
         turnAround();
-        driveSetDistance(20, -0.5);
+        winchMove(0.4);
+        turnToGoal();
+        driveSetDistance(22, -0.6);
         /*
          * double desiredDistance = 120.0;
          * double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
@@ -133,7 +158,9 @@ public class DriveCommands {
         double range = 3;
         // if the robot is too far to the left
         // turn right
-        while (m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range) {
+        m_Timer.reset();
+        m_Timer.start();
+        while ((m_LimeLightSystem.getX() < -range || m_LimeLightSystem.getX() > range) && m_Timer.get() < 2.5) {
             if (m_LimeLightSystem.getX() < -range) {
                 m_driveSystem.setSpeed(speed, -speed);
             }
@@ -161,7 +188,9 @@ public class DriveCommands {
         double speed = 0.4;
         // margin of error in inches
         double errorRange = 6;
-        while (distanceError > errorRange || distanceError < -errorRange) {
+        m_Timer.reset();
+        m_Timer.start();
+        while ((distanceError > errorRange || distanceError < -errorRange) && m_Timer.get() < 3) {
             // if the error is greater than 2 inches too far
             // go forewards at 40% speed
             if (distanceError > errorRange) {
