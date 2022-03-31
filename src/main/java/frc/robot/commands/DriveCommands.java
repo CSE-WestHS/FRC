@@ -7,11 +7,14 @@ import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.Winch;
-import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * This class uses the DriveSystem, Intake, limeLight, and Winch
+ * to prform various autonomous commands
+ */
 public class DriveCommands {
-    // this class requires a DriveSystem, LimeLight, and Intake to run
+    // this class requires a DriveSystem, LimeLight, Intake, and Winch to run
     DriveSystem m_driveSystem;
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
@@ -27,43 +30,66 @@ public class DriveCommands {
         m_Timer.reset();
     }
 
-    // This command moves the robot forewards a small bit
-    // then backwards for a small bit
-    // then forewards for a small bit
-    // then stops motors
-    // the timer is
+    /**
+     * this method drives the robot foreward 10 rotations
+     * or until the timer reaches 3 seconds.
+     * This provides a jerking motion used to drop the intake arm
+     * from its starting position.
+     * 
+     * @param speed can be between -1.0 and 1.0.
+     *              0 is no speed,
+     *              1 is full speed forewards,
+     *              -1 is full speed backwards.
+     */
     public void dropIntake(double speed) {
+        /*
+         * reseting the encoders is needed when using them to go a set distance
+         * so that they give the proper readings
+         */
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.start();
+
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 10 && m_Timer.get() < 3) {
             m_driveSystem.setSpeed(speed, speed);
         }
+
         /*
-         * m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-         * m_Timer.reset();
-         * while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 0.5 &&
-         * m_Timer.get() < 3) {
-         * m_driveSystem.setSpeed(-speed, -speed);
-         * }
-         * m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-         * m_Timer.reset();
-         * while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 1 &&
-         * m_Timer.get() < 3) {
-         * m_driveSystem.setSpeed(speed, speed);
-         * }
+         * the timer usage is good practice incase a sensor stops working
+         * to prevent a program from running indefinitely
          */
+
+        // timer needs to be stopped and reset after every use
         m_Timer.reset();
         m_Timer.stop();
+        // without stopWheels, the motors would run forever
         m_driveSystem.stopWheels();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-        m_intake.runLowerMotors(0.65);
+        // runs the intake motors until they are stopped
+        m_intake.runMotors(0.65);
 
     }
 
+    /**
+     * This method drives at a set speed until you go a set distance
+     * 
+     * @param rotations is number of wheel turns
+     * @param speed     can be between -1 and 1
+     *                  0 is no speed,
+     *                  1 is full speed forewards,
+     *                  -1 is full speed backwards.
+     */
     public void driveSetDistance(double rotations, double speed) {
+
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
+        /*
+         * because the encoder position can go negative to go backwards,
+         * we check the value of rotations to determine weather we need to
+         * see if the condition for ending the program should
+         * be for increasing rotation values
+         * or decreasing rotation values
+         */
         if (rotations > 0) {
             while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < rotations && m_Timer.get() < 5) {
                 m_driveSystem.setSpeed(speed, speed);
@@ -72,51 +98,83 @@ public class DriveCommands {
             while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > rotations && m_Timer.get() < 5) {
                 m_driveSystem.setSpeed(speed, speed);
             }
+
             m_Timer.reset();
             m_Timer.stop();
+
             m_driveSystem.stopWheels();
             m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         }
     }
 
+    /**
+     * this method is used for turning the robot right around 180 degrees
+     */
     public void turnAround() {
+
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
         while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > -20 && m_Timer.get() < 4) {
             m_driveSystem.setSpeed(0.35, -0.35);
-          //  Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
         }
+
         m_Timer.reset();
         m_Timer.stop();
         m_driveSystem.stopWheels();
+        // stops the intake motors after running from the drop intake command
         m_intake.stopMotors();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
-       // Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
+        // Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
     }
 
+    /**
+     * this method turns the winch motor
+     * to lift or lower the intake arm
+     * 
+     * @param power can be between -1.0 and 1.0.
+     */
     public void winchMove(double power) {
         m_winch.winchMotor.getEncoder().setPosition(0);
+        /*
+         * like with the driveSetDistance() command,
+         * we need to check the power to know if we need to check for forward rotations
+         * or backwards rotations to keep the winch from winding the wrong direction
+         * and not being able to stop
+         */
+        m_Timer.reset();
+        m_Timer.start();
         if (power > 0) {
 
-            while (m_winch.winchMotor.getEncoder().getPosition() < 14) {
+            while (m_winch.winchMotor.getEncoder().getPosition() < 14 && m_Timer.get() < 2) {
                 m_winch.winchMotor.set(power);
             }
         } else {
-            while (m_winch.winchMotor.getEncoder().getPosition() > -14) {
+            while (m_winch.winchMotor.getEncoder().getPosition() > -14 && m_Timer.get() < 2) {
                 m_winch.winchMotor.set(power);
             }
         }
+        m_Timer.stop();
+        m_Timer.reset();
         m_winch.winchMotor.getEncoder().setPosition(0);
         m_winch.winchMotor.set(0);
     }
 
+    /**
+     * this method takes in all the previously made methods in this class
+     * and runs them for use in the autonomous portion of the competition
+     */
     public void autonomousDrive() {
         m_Timer.stop();
         m_Timer.reset();
         winchMove(-0.4);
         dropIntake(-0.5);
         m_Timer.start();
+        // this part does nothing for 0.5 seconds
+        /*
+         * this is used to give the intake some time to fall
+         * after the jerking motion produced
+         */
         while (m_Timer.get() < 0.5) {
         }
         m_Timer.stop();
@@ -127,30 +185,11 @@ public class DriveCommands {
         winchMove(0.4);
         turnToGoal();
         driveSetDistance(22, -0.6);
-        /*
-         * double desiredDistance = 120.0;
-         * double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
-         * double distanceError = desiredDistance - currentDistance;
-         * double errorRange = 6;
-         * m_Timer.reset();
-         * m_Timer.start();
-         * while ((distanceError > errorRange || distanceError < -errorRange)) {
-         * currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
-         * distanceError = desiredDistance - currentDistance;
-         * lineUp();
-         * }
-         * m_Timer.reset();
-         * m_Timer.stop();
-         */
-
     }
 
     /**
-     * Drives from starting position to the target position.
-     * 
-     * @param speed
+     * this method uses the limelight to lineUp with the goal
      */
-
     public void turnToGoal() {
         // speed the robot will turn
         double speed = 0.3;
@@ -170,14 +209,18 @@ public class DriveCommands {
                 m_driveSystem.setSpeed(-speed, speed);
             }
         }
-        // if robot is at the desired angle
+        // once the robot is at the desired angle
         // stop moving
         m_driveSystem.stopWheels();
 
     }
 
+    /**
+     * This method moves the robot until it reaches its optimal distance for
+     * shooting
+     */
     public void adjustDistance() {
-        // the optimal distance is 120 inches or 12 feet
+        // the optimal distance for shooting is 120 inches or 12 feet
         double desiredDistance = 120.0;
         // our current distance is calculated by the limeLight calculaton function
         double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
@@ -203,20 +246,23 @@ public class DriveCommands {
             }
 
         }
-        // if the distance is good
+        // once the distance is good
         // stop the wheels
         m_driveSystem.stopWheels();
     }
 
-    // adjusts the distance of the robot if the button is pressed
+    /**
+     * This method lines the robot up in both distance and turning
+     */
     public void lineUp() {
-        m_Timer.start();
         turnToGoal();
-        m_Timer.reset();
-        m_Timer.stop();
         adjustDistance();
     }
 
+    /**
+     * lines the robot up in both distance and turning
+     * while the button is pressed
+     */
     public void buttonLineUp() {
         if (OI.adjustButton.isPressedEvent()) {
             this.m_driveSystem.autonomousFlag = true;

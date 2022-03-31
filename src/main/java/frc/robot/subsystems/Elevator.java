@@ -1,30 +1,47 @@
 package frc.robot.subsystems;
 
+//the imports are what this class needs from other classes to function properly
+//these can come from other parts of the robot or the internet
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.controls.OI;
 
+/**
+ * The Elevator Class is responsible for controlling the elevator motors
+ * which move the balls from the intake to the shooter
+ */
 public class Elevator {
-    // creates 1 elevator motor, which are CANSparkMax Neo brushless
+    // creates 1 elevator motor, which is a CANSparkMax Neo brushless
     private static CANSparkMax elevatorMotor = new CANSparkMax(5, MotorType.kBrushless);
     private static int smartCurrentLimit = 40;
-    //speed the elevator motors will run at
+    // speed the elevator motors will run at
     private static double speed = 0.65;
 
+    /**
+     * constructor for Elevator class
+     */
     public Elevator() {
         elevatorMotor.clearFaults();
-         //clearFaults clears any sticky faults that may occur in the CANSparkMaxes
+        // clearFaults clears any sticky faults that may occur in the CANSparkMaxes
 
-        /*sticky faults are errors in the CANSparkMax hardware 
-        not updating after the error is resolved
-        */
+        /*
+         * sticky faults are errors in the CANSparkMax hardware
+         * not updating after the error is resolved
+         */
         elevatorMotor.setSmartCurrentLimit(smartCurrentLimit);
-        //turns off wheels
+        /*
+         * turn off the wheels at the start
+         * this is done to prevent the motors from moving if they
+         * were when the robot was turned off
+         */
         motorPower(0);
     }
-//puts information on the SmartDashboard 
+
+    /**
+     * puts information on the SmartDashboard
+     */
     public void smartdashboard() {
         SmartDashboard.putNumber("Elevator/Voltage", elevatorMotor.getBusVoltage());
         SmartDashboard.putNumber("Elevator/Temperature", elevatorMotor.getMotorTemperature());
@@ -44,11 +61,18 @@ public class Elevator {
      * Control elevator motors using joystick input.
      */
     public void elevatorButtonControl() {
+        // if this button is pressed, run the motors forewards (ball goes up)
         if (OI.elevatorButton.isPressed()) {
             motorPower(speed);
-        } else if (OI.elevatorSpitoutbutton.isPressed()) {
+
+        }
+        // if this button is pressed, run the motors backwards (ball goes down)
+        else if (OI.elevatorSpitoutbutton.isPressed()) {
             motorPower(-speed);
-        } else {
+
+        }
+        // if neither buttons are pressed, turn off the motors
+        else {
             motorPower(0);
         }
     }

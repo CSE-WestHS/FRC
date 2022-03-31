@@ -1,9 +1,16 @@
 package frc.robot.subsystems;
 
+//the imports are what this class needs from other classes to function properly
+//these can come from other parts of the robot or the internet
 import edu.wpi.first.wpilibj.DigitalSource;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * This class is a class that connects the LIDAR
+ * to the roboRIO and gives it methods to use
+ * in other parts of the program
+ */
 public class LIDARSensor {
     /*
      * Adjust the Calibration Offset to compensate for differences in each unit.
@@ -30,6 +37,9 @@ public class LIDARSensor {
         counter.reset();
     }
 
+    /**
+     * puts information on the @SmartDashboard
+     */
     public void smartdashboard() {
         SmartDashboard.putNumber("LIDAR/DistanceCM", getDistance());
     }
