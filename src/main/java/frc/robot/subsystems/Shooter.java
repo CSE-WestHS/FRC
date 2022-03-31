@@ -44,7 +44,7 @@ public class Shooter {
      */
     public double getPower() {
         // Constant to be changed when lidar is tested
-        double power = 0.5;
+        double power = 0.6;
 
         // sets distance equal to the reading of the Lidar sensor in cm
         // distances may be updated to feet

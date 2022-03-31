@@ -7,6 +7,7 @@ import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.Winch;
+import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveCommands {
@@ -82,14 +83,16 @@ public class DriveCommands {
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() < 20 && m_Timer.get() < 5) {
-            m_driveSystem.setSpeed(0.7, -0.7);
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > -20 && m_Timer.get() < 4) {
+            m_driveSystem.setSpeed(0.35, -0.35);
+          //  Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
         }
         m_Timer.reset();
         m_Timer.stop();
         m_driveSystem.stopWheels();
         m_intake.stopMotors();
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
+       // Debug.printOnce(String.valueOf(m_driveSystem.m_frontLeft.getEncoder().getPosition()));
     }
 
     public void winchMove(double power) {
@@ -123,7 +126,7 @@ public class DriveCommands {
         turnAround();
         winchMove(0.4);
         turnToGoal();
-        driveSetDistance(10, -0.6);
+        driveSetDistance(22, -0.6);
         /*
          * double desiredDistance = 120.0;
          * double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
