@@ -1,5 +1,6 @@
 package frc.robot.controls;
-
+//the imports are what this class needs from other classes to function properly
+//these can come from other parts of the robot or the internet
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
@@ -22,7 +23,10 @@ public class Button {
         return joystick.getRawButton(code);
 
     }
-
+/**
+ * 
+ * @return weather button has been pushed and is still pushed
+ */
     public boolean isPressedEvent() {
         if (this.pushed != this.isPressed() && this.isPressed()) {
             this.pushed = true;
@@ -30,7 +34,10 @@ public class Button {
         }
         return false;
     }
-
+/**
+ * 
+ * @return weather button has been released and is still released
+ */
     public boolean isReleasedEvent() {
         if (this.pushed != isPressed() && !this.isPressed()) {
             this.pushed = false;

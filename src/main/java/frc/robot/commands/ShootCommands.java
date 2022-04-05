@@ -9,7 +9,12 @@ import frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class ShootCommand {
+/**
+ * This class uses the Elevator, Shooter, and Intake subsystems
+ * to perform autonomous commands along with a command
+ * that shoots moves balls from the elevator to the shooter after it warms up
+ */
+public class ShootCommands {
     // this class needs an Elevator, Shooter, and Intake to run properly
     private static Elevator m_elevator;
     private static Shooter m_shooter;
@@ -20,21 +25,33 @@ public class ShootCommand {
     private static Timer m_Timer = new Timer();
 
     // Constructor for the ShootCommand Class
-    public ShootCommand(Elevator elevator, Shooter shooter, Intake intake) {
+    public ShootCommands(Elevator elevator, Shooter shooter, Intake intake) {
         m_elevator = elevator;
         m_shooter = shooter;
         m_intake = intake;
     }
 
-    // This will turn on the shooter motor, wait one second,
-    // then turn on the elevator motor as well, wait 2 seconds
-    // then turn off motors and reset timer
+    /**
+     * This method moves one ball from the elvator
+     * to the shooter to shoot it out after it warms up
+     */
     public void shootOneBall() {
         m_Timer.reset();
         m_Timer.start();
+
+        /*
+         * the shooter motor is run first without the elevator
+         * to make it so when the balls reach the shooter from the elevator
+         * they are shot out at the right speed
+         */
+
         while (m_Timer.get() < 1) {
             m_shooter.motorPower(m_shooter.getPower());
         }
+        /*
+         * runs the elevator motors with the shooter
+         * after 1 second for 3 seconds
+         */
         m_Timer.reset();
         while (m_Timer.get() < 3) {
             m_shooter.motorPower(m_shooter.getPower());
@@ -42,29 +59,34 @@ public class ShootCommand {
         }
         m_Timer.stop();
         m_Timer.reset();
+        // without these lines, the motors would run forever
         m_shooter.motorPower(0);
         m_elevator.motorPower(0);
     }
 
-    // this shoots one ball, turns on intake,
-    // then shoots another ball, then turns off intake
+    /**
+     * This method shoots the 2 balls it collects during autonomous, one at a time
+     */
     public void autonomousShoot() {
         shootOneBall();
-        m_intake.runLowerMotors(0.65);
+        // runs the intake motors to get the
+        // collected ball into the elevator to be shot
+        m_intake.runMotors(0.65);
         shootOneBall();
         m_intake.stopMotors();
     }
 
     /**
-     * Trigger shoot command sequence via joystick button.
+     * Trigger shoot command sequence via joystick buttons.
      */
     public void shootButtonControl() {
-        // if either shoot button is pressed
-        // turn on timer, turn on the shoot motors
-        // wait 1 second, turn on elevator motors as well as shoot motors
-        // if the button is not pressed,
-        // turn off the motors and reset the timer
+        /*
+         * while either button is pressed
+         * runs the shooter motor to warm up,
+         * then the elevator to bring the balls up to be shot
+         */
         if (OI.shootLowGoalButton.isPressed()) {
+
             m_Timer.start();
             if (m_Timer.get() < 1) {
                 m_shooter.motorPower(m_shooter.getPower(), 0);
@@ -82,6 +104,7 @@ public class ShootCommand {
                 m_elevator.motorPower(elevatorPower);
             }
         } else {
+            // while no buttons are pressed, the shoot motors don't move
             m_Timer.reset();
             m_shooter.motorPower(0);
         }

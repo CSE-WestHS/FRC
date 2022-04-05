@@ -1,17 +1,18 @@
 package frc.robot.subsystems;
 
+//the imports are what this class needs from other classes to function properly
+//these can come from other parts of the robot or the internet
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-
 import frc.robot.controls.OI;
 
 /**
  * The Intake class is responsible for controlling the intake system of the
- * robot this includes both the piece that brings the ball in, the pice that
- * moves it to th.
+ * robot this includes both the piece that brings the ball in
+ * and the piece that moves the ball towards the elevator.
  */
 public class Intake {
     private static CANSparkMax intake1 = new CANSparkMax(7, MotorType.kBrushless);
@@ -26,20 +27,29 @@ public class Intake {
      */
 
     public Intake() {
-        /*sticky faults are errors in the CANSparkMax hardware 
-        not updating after the error is resolved
-        */
+        /*
+         * sticky faults are errors in the CANSparkMax hardware
+         * not updating after the error is resolved
+         */
+        // clearFaults clears any sticky faults that may occur in the CANSparkMaxes
         intake1.clearFaults();
         intake2.clearFaults();
 
         intake1.setSmartCurrentLimit(smartCurrentLimit);
         intake2.setSmartCurrentLimit(smartCurrentLimit);
-//invert make motors move in the opposite direction
+        // invert make motors move in the opposite direction
         intake2.setInverted(true);
-        //turns off wheels
+        /*
+         * turn off the wheels at the start
+         * this is done to prevent the motors from moving if they
+         * were when the robot was turned off
+         */
         stopMotors();
     }
-//puts information on the SmartDashboard 
+
+    /**
+     * puts information on the SmartDashboard
+     */
     public void smartdashboard() {
         SmartDashboard.putNumber("Intake/Mecanum/Current", intake1.getOutputCurrent());
         SmartDashboard.putNumber("Intake/LowerBelt/Current", intake2.getOutputCurrent());
@@ -52,7 +62,7 @@ public class Intake {
     }
 
     /**
-     * Set intake motor speed to 0.
+     * Stop all intake motors.
      */
     public void stopMotors() {
         intake1.set(0);
@@ -63,8 +73,11 @@ public class Intake {
      * Set intake motor speeds.
      * 
      * @param motorSpeed Speed of intake motors from -1 to 1.
+     *                   0 is no speed,
+     *                   1 is full speed forewards,
+     *                   -1 is full speed backwards.
      */
-    public void runLowerMotors(double motorSpeed) {
+    public void runMotors(double motorSpeed) {
         final double xSpeed = -m_linearVelocityLimiter.calculate(motorSpeed) * 2;
 
         intake1.set(motorSpeed);
@@ -75,11 +88,17 @@ public class Intake {
      * Use buttons to activate intake system.
      */
     public void intakeButtonControl() {
+        // if this button is pressed, run motors forewards (ball moves forewards)
         if (OI.intakeButton.isPressed()) {
-            runLowerMotors(0.45);
-        } else if (OI.spitoutButton.isPressed()) {
-            runLowerMotors(-0.45);
-        } else {
+            runMotors(0.45);
+
+        }
+        // if this button is pressed, run motors backwards(ball moves backwards)
+        else if (OI.spitoutButton.isPressed()) {
+            runMotors(-0.45);
+        }
+        // if neither button is pressed, stop the motors
+        else {
             stopMotors();
         }
     }
