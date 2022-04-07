@@ -12,8 +12,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 //the star means that it imports all files from this package
 /*
-doing this is generally bad practice, 
-but no good reason was found not to do it
+doing the star imports is generally bad practice ... but YOLO
 */
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -113,6 +112,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // runs all the commands that use buttons from the subsystems
+    //m_driveCommands.adjustDistance();
+    //m_driveCommands.buttonTurn();
     m_driveSystem.dual_joystick_drive();
     m_intake.intakeButtonControl();
     m_elevator.elevatorButtonControl();

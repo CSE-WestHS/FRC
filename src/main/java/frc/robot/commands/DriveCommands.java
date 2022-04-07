@@ -264,9 +264,23 @@ public class DriveCommands {
      * while the button is pressed
      */
     public void buttonLineUp() {
-        if (OI.adjustButton.isPressedEvent()) {
+       if (OI.adjustButton.isPressedEvent()) {
             this.m_driveSystem.autonomousFlag = true;
             lineUp();
+            this.m_driveSystem.autonomousFlag = false;
+        }
+    }
+    public void buttonTurn() {
+        if (OI.adjustButtoff.isPressed()) {
+            this.m_driveSystem.autonomousFlag = true;
+            turnToGoal();
+            this.m_driveSystem.autonomousFlag = false;
+        }
+    }
+    public void buttonDistance() {
+        if (OI.adjustButtonDistance.isPressed()) {
+            this.m_driveSystem.autonomousFlag = true;
+            adjustDistance();
             this.m_driveSystem.autonomousFlag = false;
         }
     }

@@ -29,6 +29,8 @@ public class OI {
     public static final Button spitoutButton = new Button(rightJoystick, 3);
     public static final Button liftButton = new Button(leftJoystick, 2);
     public static final Button lowerButton = new Button(rightJoystick, 2);
-    public static final Button adjustButton = new Button(rightJoystick, 2);
+    public static final Button adjustButton = new Button(rightJoystick, 5);
+    public static final Button adjustButtoff = new Button(rightJoystick, 9);
+    public static final Button adjustButtonDistance = new Button(rightJoystick, 10);
 
 }
