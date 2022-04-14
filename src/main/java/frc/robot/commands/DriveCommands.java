@@ -270,4 +270,17 @@ public class DriveCommands {
             this.m_driveSystem.autonomousFlag = false;
         }
     }
+    public void buttonTurn() {
+
+        this.m_driveSystem.autonomousFlag = true;
+        turnToGoal();
+        this.m_driveSystem.autonomousFlag = false;
+    }
+
+    public void buttonDistance() {
+
+        this.m_driveSystem.autonomousFlag = true;
+        adjustDistance();
+        this.m_driveSystem.autonomousFlag = false;
+    }
 }
