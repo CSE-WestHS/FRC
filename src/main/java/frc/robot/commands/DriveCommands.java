@@ -221,7 +221,7 @@ public class DriveCommands {
      */
     public void adjustDistance() {
         // the optimal distance for shooting is 120 inches or 12 feet
-        double desiredDistance = 120.0;
+        double desiredDistance = 60.0;
         // our current distance is calculated by the limeLight calculaton function
         double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
         // the distance error is the desired distance - the current distance

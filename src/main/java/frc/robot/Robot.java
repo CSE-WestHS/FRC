@@ -112,8 +112,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // runs all the commands that use buttons from the subsystems
-    //m_driveCommands.adjustDistance();
-    //m_driveCommands.buttonTurn();
+    m_driveCommands.buttonDistance();
+    m_driveCommands.buttonTurn();
     m_driveSystem.dual_joystick_drive();
     m_intake.intakeButtonControl();
     m_elevator.elevatorButtonControl();
