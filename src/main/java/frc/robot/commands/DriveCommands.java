@@ -3,10 +3,12 @@ package frc.robot.commands;
 //the imports are what this class needs from other classes to function properly
 //these can come from other parts of the robot or the internet
 import frc.robot.subsystems.DriveSystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.Winch;
+import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -19,14 +21,16 @@ public class DriveCommands {
     LimeLightSystem m_LimeLightSystem;
     Intake m_intake;
     Winch m_winch;
+    Elevator m_elevator;
     private static Timer m_Timer = new Timer();
-
+    ShootCommands m_ShootCommands;
     // Constructor for DriveCommands Class
-    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake, Winch m_winch) {
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake, Winch m_winch,ShootCommands m_ShootCommands) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
         this.m_intake = m_intake;
         this.m_winch = m_winch;
+        this.m_ShootCommands = m_ShootCommands;
         m_Timer.reset();
     }
 
@@ -221,19 +225,21 @@ public class DriveCommands {
      */
     public void adjustDistance() {
         // the optimal distance for shooting is 120 inches or 12 feet
-        double desiredDistance = 120.0;
+        double desiredDistance = 78.0;
         // our current distance is calculated by the limeLight calculaton function
         double currentDistance = m_LimeLightSystem.calculateDistanceFromGoal();
+        Debug.printOnce("Distance from Goal" + m_LimeLightSystem.calculateDistanceFromGoal());
         // the distance error is the desired distance - the current distance
         // we want the distance error to b as close to 0 as possible
         double distanceError = desiredDistance - currentDistance;
         // speed our robot will go
         double speed = 0.4;
         // margin of error in inches
-        double errorRange = 6;
+        double errorRange = 2;
         m_Timer.reset();
         m_Timer.start();
-        while ((distanceError > errorRange || distanceError < -errorRange) && m_Timer.get() < 3) {
+        while ((distanceError > errorRange || distanceError < -errorRange) && m_Timer.get() < 7) {
+           // Debug.printOnce("Distance from Goal" + m_LimeLightSystem.calculateDistanceFromGoal());
             // if the error is greater than 2 inches too far
             // go forewards at 40% speed
             if (distanceError > errorRange) {
@@ -256,7 +262,8 @@ public class DriveCommands {
      */
     public void lineUp() {
         turnToGoal();
-        adjustDistance();
+       adjustDistance();
+        turnToGoal();
     }
 
     /**
@@ -271,16 +278,20 @@ public class DriveCommands {
         }
     }
     public void buttonTurn() {
+        if(OI.adjustButtonTurn.isPressed()){
+            this.m_driveSystem.autonomousFlag = true;
+            turnToGoal();
+            this.m_driveSystem.autonomousFlag = false;
+        }
 
-        this.m_driveSystem.autonomousFlag = true;
-        turnToGoal();
-        this.m_driveSystem.autonomousFlag = false;
     }
 
     public void buttonDistance() {
-
+if(OI.adjustButtonDistance.isPressed()){
         this.m_driveSystem.autonomousFlag = true;
-        adjustDistance();
+        lineUp();
+        m_ShootCommands.shootOneBall();
         this.m_driveSystem.autonomousFlag = false;
+}
     }
 }
