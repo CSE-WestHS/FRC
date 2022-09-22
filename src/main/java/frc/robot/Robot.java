@@ -77,6 +77,8 @@ public class Robot extends TimedRobot {
     // sets the position value on the drive encoders to 0
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
+    //m_driveCommands. driveSetDistance(27, -0.6);
+
     m_driveCommands.autonomousDrive();
     m_shootCommand.autonomousShoot();
   }

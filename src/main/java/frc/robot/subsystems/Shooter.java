@@ -20,7 +20,7 @@ public class Shooter {
     public static CANSparkMax shootMotorHigher = new CANSparkMax(10, MotorType.kBrushless);
     private final MotorControllerGroup shootGroup = new MotorControllerGroup(shootMotorLower, shootMotorHigher);
 
-    private final RelativeEncoder m_encoder_shoot1 = shootMotorLower.getEncoder();
+    public final RelativeEncoder m_encoder_shoot1 = shootMotorLower.getEncoder();
     private final RelativeEncoder m_encoder_shoot2 = shootMotorHigher.getEncoder();
     // limit to the amount of electricity the motors can use
     private static int smartCurrentLimit = 40;

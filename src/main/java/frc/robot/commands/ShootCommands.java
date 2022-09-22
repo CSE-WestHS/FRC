@@ -91,21 +91,24 @@ public class ShootCommands {
         if (OI.shootLowGoalButton.isPressed()) {
 
             m_Timer.start();
-            if (m_Timer.get() < 1.5) {
+       
+           // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
                 m_shooter.motorPower(m_shooter.getPower(), 0);
-            } else {
-                m_shooter.motorPower(m_shooter.getPower(), 0);
-                m_elevator.motorPower(elevatorPower);
-            }
+            //} else {
+              //  m_shooter.motorPower(m_shooter.getPower(), 0);
+               m_elevator.motorPower(elevatorPower);
+           // }
 
         } else if (OI.shootHighGoalButton.isPressed()) {
             m_Timer.start();
-            if (m_Timer.get() < 1.5) {
+           // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
                 m_shooter.motorPower(0.6);
-            } else {
-                m_shooter.motorPower(m_shooter.getPower());
+                Debug.printOnce("elevator not fireing");
+          //  } else {Debug.printOnce("elevator is fireing"+ Shooter.shootMotorLower.getEncoder().getVelocity());
+
+               // m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
-            }
+          //  }
             Debug.printOnce("Lower Motor Power " + Shooter.shootMotorLower.getEncoder().getVelocity());
             Debug.printOnce("Higher Motor Power " + Shooter.shootMotorHigher.getEncoder().getVelocity());
 
@@ -113,6 +116,6 @@ public class ShootCommands {
             // while no buttons are pressed, the shoot motors don't move
             m_Timer.reset();
             m_shooter.motorPower(0);
-        }
+        } 
     }
 }
