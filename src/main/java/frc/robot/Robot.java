@@ -43,8 +43,8 @@ public class Robot extends TimedRobot {
   private final Shooter m_shooter = new Shooter();
   private final Winch m_winch = new Winch();
   // creates an instance of the DriveCommands and ShootCommand
-  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake, m_winch);
   private final ShootCommands m_shootCommand = new ShootCommands(m_elevator, m_shooter, m_intake);
+  private final DriveCommands m_driveCommands = new DriveCommands(m_driveSystem, m_limelight, m_intake, m_winch, m_shootCommand);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -77,8 +77,10 @@ public class Robot extends TimedRobot {
     // sets the position value on the drive encoders to 0
     m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
+    //m_driveCommands. driveSetDistance(27, -0.6);
+
     m_driveCommands.autonomousDrive();
-    m_shootCommand.autonomousShoot();
+    //m_shootCommand.autonomousShoot();
   }
 
   /**
@@ -113,11 +115,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // runs all the commands that use buttons from the subsystems
+    m_driveCommands.buttonDistance();
+    m_driveCommands.buttonTurn();
     m_driveSystem.dual_joystick_drive();
     m_intake.intakeButtonControl();
     m_elevator.elevatorButtonControl();
     m_shootCommand.shootButtonControl();
-    // m_driveCommands.buttonLineUp();
     m_winch.buttonWinch();
   }
 

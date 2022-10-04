@@ -52,10 +52,10 @@ public class LimeLightSystem {
         // height of the frc 2022 reflective tape off floor
         double goalHeightInches = 104.0;
         // Distance in inches from Limelight to floor
-        double limeLightDistOffFloor = 38.0;
+        double limeLightDistOffFloor = 39.25;
         double targetOffsetAngle_Vertical = getY();
         // angle the Limelight is mounted from being vertical
-        double limeLightAngleMount = 27;
+        double limeLightAngleMount = 40;
         // gets the angle LimeLight is to the goal
         double angleToGoalDegrees = limeLightAngleMount + targetOffsetAngle_Vertical;
         // changes angles to radians

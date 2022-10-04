@@ -5,7 +5,10 @@ package frc.robot.commands;
 import frc.robot.controls.OI;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
+import frc.robot.util.Debug;
 import frc.robot.subsystems.Intake;
+
+import java.io.Console;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -45,16 +48,16 @@ public class ShootCommands {
          * they are shot out at the right speed
          */
 
-        while (m_Timer.get() < 1) {
-            m_shooter.motorPower(m_shooter.getPower());
+        while (m_Timer.get() < 1.5 ) {
+            m_shooter.motorPower(m_shooter.getPower(), 0);
         }
         /*
          * runs the elevator motors with the shooter
          * after 1 second for 3 seconds
          */
         m_Timer.reset();
-        while (m_Timer.get() < 3) {
-            m_shooter.motorPower(m_shooter.getPower());
+        while (m_Timer.get() < 2.5) {
+            m_shooter.motorPower(0.7, 0);
             m_elevator.motorPower(elevatorPower);
         }
         m_Timer.stop();
@@ -88,25 +91,31 @@ public class ShootCommands {
         if (OI.shootLowGoalButton.isPressed()) {
 
             m_Timer.start();
-            if (m_Timer.get() < 1) {
+       
+           // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
                 m_shooter.motorPower(m_shooter.getPower(), 0);
-            } else {
-                m_shooter.motorPower(m_shooter.getPower(), 0);
-                m_elevator.motorPower(elevatorPower);
-            }
+            //} else {
+              //  m_shooter.motorPower(m_shooter.getPower(), 0);
+               m_elevator.motorPower(elevatorPower);
+           // }
 
         } else if (OI.shootHighGoalButton.isPressed()) {
             m_Timer.start();
-            if (m_Timer.get() < 1) {
-                m_shooter.motorPower(m_shooter.getPower());
-            } else {
-                m_shooter.motorPower(m_shooter.getPower());
+           // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
+                m_shooter.motorPower(0.6);
+                Debug.printOnce("elevator not fireing");
+          //  } else {Debug.printOnce("elevator is fireing"+ Shooter.shootMotorLower.getEncoder().getVelocity());
+
+               // m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
-            }
+          //  }
+            Debug.printOnce("Lower Motor Power " + Shooter.shootMotorLower.getEncoder().getVelocity());
+            Debug.printOnce("Higher Motor Power " + Shooter.shootMotorHigher.getEncoder().getVelocity());
+
         } else {
             // while no buttons are pressed, the shoot motors don't move
             m_Timer.reset();
             m_shooter.motorPower(0);
-        }
+        } 
     }
 }

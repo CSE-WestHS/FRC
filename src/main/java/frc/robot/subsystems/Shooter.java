@@ -17,10 +17,10 @@ public class Shooter {
     // private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
     // private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
     public static CANSparkMax shootMotorLower = new CANSparkMax(6, MotorType.kBrushless);
-    private static CANSparkMax shootMotorHigher = new CANSparkMax(10, MotorType.kBrushless);
+    public static CANSparkMax shootMotorHigher = new CANSparkMax(10, MotorType.kBrushless);
     private final MotorControllerGroup shootGroup = new MotorControllerGroup(shootMotorLower, shootMotorHigher);
 
-    private final RelativeEncoder m_encoder_shoot1 = shootMotorLower.getEncoder();
+    public final RelativeEncoder m_encoder_shoot1 = shootMotorLower.getEncoder();
     private final RelativeEncoder m_encoder_shoot2 = shootMotorHigher.getEncoder();
     // limit to the amount of electricity the motors can use
     private static int smartCurrentLimit = 40;
@@ -57,7 +57,7 @@ public class Shooter {
      */
     public double getPower() {
         // Constant to be changed when lidar is tested
-        double power = 0.6;
+        double power = 0.30;
         return power;
     }
 
