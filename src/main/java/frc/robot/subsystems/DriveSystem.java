@@ -16,7 +16,7 @@ import frc.robot.controls.OI;
  * robot.
  */
 public class DriveSystem {
-    public static final double kMaxSpeed = 0.75; // meters per second
+    public static final double kMaxSpeed = 1.0; // meters per second
     public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
     public boolean autonomousFlag = false; // used to check if motors are currently being used
     private static int smartCurrentLimit = 40; // amps, current limit for the smart motor controllers

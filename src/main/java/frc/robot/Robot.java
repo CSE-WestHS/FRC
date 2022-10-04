@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
     //m_driveCommands. driveSetDistance(27, -0.6);
 
     m_driveCommands.autonomousDrive();
-    m_shootCommand.autonomousShoot();
+    //m_shootCommand.autonomousShoot();
   }
 
   /**

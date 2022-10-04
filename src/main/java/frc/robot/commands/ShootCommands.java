@@ -56,8 +56,8 @@ public class ShootCommands {
          * after 1 second for 3 seconds
          */
         m_Timer.reset();
-        while (m_Timer.get() < 2) {
-            m_shooter.motorPower(m_shooter.getPower(), 0);
+        while (m_Timer.get() < 2.5) {
+            m_shooter.motorPower(0.7, 0);
             m_elevator.motorPower(elevatorPower);
         }
         m_Timer.stop();
