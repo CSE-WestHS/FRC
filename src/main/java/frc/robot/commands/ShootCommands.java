@@ -109,8 +109,6 @@ public class ShootCommands {
                // m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
           //  }
-            Debug.printOnce("Lower Motor Power " + Shooter.shootMotorLower.getEncoder().getVelocity());
-            Debug.printOnce("Higher Motor Power " + Shooter.shootMotorHigher.getEncoder().getVelocity());
 
         } else {
             // while no buttons are pressed, the shoot motors don't move
