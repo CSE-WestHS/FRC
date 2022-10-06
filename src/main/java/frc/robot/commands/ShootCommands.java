@@ -57,7 +57,7 @@ public class ShootCommands {
          */
         m_Timer.reset();
         while (m_Timer.get() < 2.5) {
-            m_shooter.motorPower(0.7, 0);
+            m_shooter.motorPower(0.4, 0.4);
             m_elevator.motorPower(elevatorPower);
         }
         m_Timer.stop();
@@ -93,7 +93,7 @@ public class ShootCommands {
             m_Timer.start();
        
            // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
-                m_shooter.motorPower(m_shooter.getPower(), 0);
+                m_shooter.motorPower(0.2, 0.17);
             //} else {
               //  m_shooter.motorPower(m_shooter.getPower(), 0);
                m_elevator.motorPower(elevatorPower);
@@ -102,15 +102,14 @@ public class ShootCommands {
         } else if (OI.shootHighGoalButton.isPressed()) {
             m_Timer.start();
            // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
-                m_shooter.motorPower(0.6);
+                m_shooter.motorPower(0.4,0.5);
+                // 12.5 feet for optimal shot
                 Debug.printOnce("elevator not fireing");
           //  } else {Debug.printOnce("elevator is fireing"+ Shooter.shootMotorLower.getEncoder().getVelocity());
 
                // m_shooter.motorPower(m_shooter.getPower());
                 m_elevator.motorPower(elevatorPower);
           //  }
-            Debug.printOnce("Lower Motor Power " + Shooter.shootMotorLower.getEncoder().getVelocity());
-            Debug.printOnce("Higher Motor Power " + Shooter.shootMotorHigher.getEncoder().getVelocity());
 
         } else {
             // while no buttons are pressed, the shoot motors don't move
