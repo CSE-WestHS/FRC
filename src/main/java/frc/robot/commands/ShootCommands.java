@@ -110,6 +110,7 @@ public class ShootCommands {
                 m_elevator.motorPower(elevatorPower);
           //  }
 
+
         } else {
             // while no buttons are pressed, the shoot motors don't move
             m_Timer.reset();
