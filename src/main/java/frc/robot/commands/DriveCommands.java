@@ -6,7 +6,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
-import frc.robot.controls.OI;
+import frc.robot.controls.OperatorInput;
 import frc.robot.subsystems.Winch;
 import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
@@ -273,14 +273,14 @@ public class DriveCommands {
      * while the button is pressed
      */
     public void buttonLineUp() {
-        if (OI.adjustButton.isPressedEvent()) {
+        if (OperatorInput.adjustButton.isPressedEvent()) {
             this.m_driveSystem.autonomousFlag = true;
             lineUp();
             this.m_driveSystem.autonomousFlag = false;
         }
     }
     public void buttonTurn() {
-        if(OI.adjustButtonTurn.isPressed()){
+        if(OperatorInput.adjustButtonTurn.isPressed()){
             this.m_driveSystem.autonomousFlag = true;
             turnToGoal();
             this.m_driveSystem.autonomousFlag = false;
@@ -289,7 +289,7 @@ public class DriveCommands {
     }
 
     public void buttonDistance() {
-if(OI.adjustButtonDistance.isPressed()){
+if(OperatorInput.adjustButtonDistance.isPressed()){
         this.m_driveSystem.autonomousFlag = true;
         lineUp();
         m_ShootCommands.shootOneBall();

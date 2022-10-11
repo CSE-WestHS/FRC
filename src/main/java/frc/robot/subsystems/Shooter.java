@@ -53,7 +53,7 @@ public class Shooter {
      * Sensor and converts that into a power based on the reading
      * 
      * Tested powers are between 0.75 and 0.9
-     * TODO update method once we get LIDAR working
+     * update method once we get LIDAR working
      */
     public double getPower() {
         // Constant to be changed when lidar is tested

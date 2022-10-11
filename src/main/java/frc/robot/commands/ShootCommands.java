@@ -2,13 +2,11 @@ package frc.robot.commands;
 
 //the imports are what this class needs from other classes to function properly
 //these can come from other parts of the robot or the internet
-import frc.robot.controls.OI;
+import frc.robot.controls.OperatorInput;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shooter;
 import frc.robot.util.Debug;
 import frc.robot.subsystems.Intake;
-
-import java.io.Console;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -88,7 +86,7 @@ public class ShootCommands {
          * runs the shooter motor to warm up,
          * then the elevator to bring the balls up to be shot
          */
-        if (OI.shootLowGoalButton.isPressed()) {
+        if (OperatorInput.shootLowGoalButton.isPressed()) {
 
             m_Timer.start();
        
@@ -99,7 +97,7 @@ public class ShootCommands {
                m_elevator.motorPower(elevatorPower);
            // }
 
-        } else if (OI.shootHighGoalButton.isPressed()) {
+        } else if (OperatorInput.shootHighGoalButton.isPressed()) {
             m_Timer.start();
            // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
                 m_shooter.motorPower(0.6);

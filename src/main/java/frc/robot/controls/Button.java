@@ -1,18 +1,18 @@
 package frc.robot.controls;
 //the imports are what this class needs from other classes to function properly
 //these can come from other parts of the robot or the internet
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * The Button class provides convenience methods to act on named buttons.
  */
 public class Button {
     int code;
-    Joystick joystick;
+    XboxController xboxcontroller;
     boolean pushed;
 
-    public Button(Joystick stick, int buttonCode) {
-        joystick = stick;
+    public Button(XboxController controller, int buttonCode) {
+        xboxcontroller = controller;
         code = buttonCode;
     }
 
@@ -20,7 +20,7 @@ public class Button {
      * Returns true if the button is currently pressed.
      */
     public boolean isPressed() {
-        return joystick.getRawButton(code);
+        return xboxcontroller.getRawButton(code);
 
     }
 /**
