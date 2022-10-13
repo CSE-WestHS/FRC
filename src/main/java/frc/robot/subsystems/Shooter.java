@@ -2,11 +2,9 @@ package frc.robot.subsystems;
 
 //the imports are what this class needs from other classes to function properly
 //these can come from other parts of the robot or the internet
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 //import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -14,38 +12,32 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * shooting mechanism of the robot
  */
 public class Shooter {
-    // private DigitalInput m_digitalInput = new DigitalInput(0); // LIDAR sensor
-    // private final LIDARSensor m_lidarSensor = new LIDARSensor(m_digitalInput);
-    public static CANSparkMax shootMotorLower = new CANSparkMax(6, MotorType.kBrushless);
-    public static CANSparkMax shootMotorHigher = new CANSparkMax(10, MotorType.kBrushless);
-    private final MotorControllerGroup shootGroup = new MotorControllerGroup(shootMotorLower, shootMotorHigher);
-
-    public final RelativeEncoder m_encoder_shoot1 = shootMotorLower.getEncoder();
-    private final RelativeEncoder m_encoder_shoot2 = shootMotorHigher.getEncoder();
-    // limit to the amount of electricity the motors can use
+    private static WPI_TalonFX shootmotorlefta = new WPI_TalonFX(6);
+    private static WPI_TalonFX shootmotorhigher = new WPI_TalonFX(11);
     private static int smartCurrentLimit = 40;
+    
+    // Below values, 1 for normal -1 for inverted
+    //private static int lowerIsInverted = -1;
+    //private static int upperIsInverted = -1;
+
 
     /**
      * Constructor for the Shooter Class
      */
     public Shooter() {
-        shootMotorLower.clearFaults();
-        shootMotorHigher.clearFaults();
-
-        shootMotorLower.setSmartCurrentLimit(smartCurrentLimit);
-        shootMotorHigher.setSmartCurrentLimit(smartCurrentLimit);
-
-        shootGroup.setInverted(false);
         // turns off wheels
         motorPower(0);
+        shootmotorhigher.setInverted(true);
+        shootmotorlefta.setInverted(true);
+
     }
 
     /**
      * puts information on the @SmartDashboard
      */
     public void smartdashboard() {
-        SmartDashboard.putNumber("Shooter/Lower/Velocity", m_encoder_shoot1.getVelocity());
-        SmartDashboard.putNumber("Shooter/Upper/Velocity", m_encoder_shoot2.getVelocity());
+        //SmartDashboard.putNumber("Shooter/Lower/Velocity", m_encoder_shoot1.getVelocity());
+        //SmartDashboard.putNumber("Shooter/Upper/Velocity", m_encoder_shoot2.getVelocity());
     }
 
     /**
@@ -70,7 +62,8 @@ public class Shooter {
      *              -1 is full speed backwards.
      */
     public void motorPower(double power) {
-        shootGroup.set(power);
+        shootmotorlefta.set(ControlMode.PercentOutput, (power));
+        shootmotorhigher.set(ControlMode.PercentOutput, (power));
     }
 
     /**
@@ -80,7 +73,7 @@ public class Shooter {
      * @param motorHigherPower
      */
     public void motorPower(double motorLowerPower, double motorHigherPower) {
-        shootMotorLower.set(motorLowerPower);
-        shootMotorHigher.set(motorHigherPower);
+        shootmotorlefta.set(ControlMode.PercentOutput, motorLowerPower);
+        shootmotorhigher.set(ControlMode.PercentOutput, motorHigherPower);
     }
 }
