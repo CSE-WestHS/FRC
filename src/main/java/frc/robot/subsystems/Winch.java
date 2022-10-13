@@ -5,7 +5,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.controls.OI;
+import frc.robot.controls.OperatorInput;
 import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -53,7 +53,7 @@ public class Winch {
          * if this putton is pressed , raise the winch motor
          * until it reaches 14 rotation or 3 seconds on the timer
          */
-        if (OI.liftButton.isPressed()) {
+        if (OperatorInput.liftButton.isPressed()) {
             m_Timer.reset();
             m_Timer.start();
 
@@ -77,7 +77,7 @@ public class Winch {
              * until it reaches 14 rotation
              * or 3 seconds on the timer
              */
-        } else if (OI.lowerButton.isPressed()) {
+        } else if (OperatorInput.lowerButton.isPressed()) {
             m_Timer.reset();
             m_Timer.start();
 
