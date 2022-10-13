@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import frc.robot.controls.OI;
+import frc.robot.controls.OperatorInput;
 
 /**
  * The Intake class is responsible for controlling the intake system of the
@@ -89,12 +89,12 @@ public class Intake {
      */
     public void intakeButtonControl() {
         // if this button is pressed, run motors forewards (ball moves forewards)
-        if (OI.intakeButton.isPressed()) {
+        if (OperatorInput.intakeButton.isPressed()) {
             runMotors(0.45);
 
         }
         // if this button is pressed, run motors backwards(ball moves backwards)
-        else if (OI.spitoutButton.isPressed()) {
+        else if (OperatorInput.spitoutButton.isPressed()) {
             runMotors(-0.45);
         }
         // if neither button is pressed, stop the motors

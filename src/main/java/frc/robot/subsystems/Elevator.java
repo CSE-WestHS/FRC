@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.controls.OI;
+import frc.robot.controls.OperatorInput;
 
 /**
  * The Elevator Class is responsible for controlling the elevator motors
@@ -62,12 +62,12 @@ public class Elevator {
      */
     public void elevatorButtonControl() {
         // if this button is pressed, run the motors forewards (ball goes up)
-        if (OI.elevatorButton.isPressed()) {
+        if (OperatorInput.elevatorButton.isPressed()) {
             motorPower(speed);
 
         }
         // if this button is pressed, run the motors backwards (ball goes down)
-        else if (OI.elevatorSpitoutbutton.isPressed()) {
+        else if (OperatorInput.elevatorSpitoutbutton.isPressed()) {
             motorPower(-speed);
 
         }
