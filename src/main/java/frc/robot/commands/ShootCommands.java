@@ -86,7 +86,7 @@ public class ShootCommands {
          * runs the shooter motor to warm up,
          * then the elevator to bring the balls up to be shot
          */
-        if (OperatorInput.shootLowGoalButton.isPressed()) {
+        if (OperatorInput.shootLowGoalButton.isPressed() || (OperatorInput.controller.getLeftTriggerAxis() >= 0.75)) {
 
             m_Timer.start();
        
@@ -97,7 +97,7 @@ public class ShootCommands {
                m_elevator.motorPower(elevatorPower);
            // }
 
-        } else if (OperatorInput.shootHighGoalButton.isPressed()) {
+        } else if (OperatorInput.shootHighGoalButton.isPressed() || (OperatorInput.controller.getRightTriggerAxis() >= 0.75)) {
             m_Timer.start();
            // if (m_shooter.m_encoder_shoot1.getVelocity() < 2500) {
                 m_shooter.motorPower(0.4,0.5);
