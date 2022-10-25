@@ -24,8 +24,10 @@ public class DriveCommands {
     Elevator m_elevator;
     private static Timer m_Timer = new Timer();
     ShootCommands m_ShootCommands;
+
     // Constructor for DriveCommands Class
-    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake, Winch m_winch,ShootCommands m_ShootCommands) {
+    public DriveCommands(DriveSystem driveSystem, LimeLightSystem m_LimeLightSystem, Intake m_intake, Winch m_winch,
+            ShootCommands m_ShootCommands) {
         this.m_driveSystem = driveSystem;
         this.m_LimeLightSystem = m_LimeLightSystem;
         this.m_intake = m_intake;
@@ -185,12 +187,12 @@ public class DriveCommands {
         m_Timer.reset();
         driveSetDistance(27, -0.6);
         driveSetDistance(-7, 0.6);
-        
+
         turnAround();
         winchMove(0.4);
         turnToGoal();
         driveSetDistance(22, -0.6);
-        
+
     }
 
     /**
@@ -241,7 +243,8 @@ public class DriveCommands {
         m_Timer.reset();
         m_Timer.start();
         while ((distanceError > errorRange || distanceError < -errorRange) && m_Timer.get() < 7) {
-           // Debug.printOnce("Distance from Goal" + m_LimeLightSystem.calculateDistanceFromGoal());
+            // Debug.printOnce("Distance from Goal" +
+            // m_LimeLightSystem.calculateDistanceFromGoal());
             // if the error is greater than 2 inches too far
             // go forewards at 40% speed
             if (distanceError > errorRange) {
@@ -264,7 +267,7 @@ public class DriveCommands {
      */
     public void lineUp() {
         turnToGoal();
-       adjustDistance();
+        adjustDistance();
         turnToGoal();
     }
 
@@ -279,21 +282,39 @@ public class DriveCommands {
             this.m_driveSystem.autonomousFlag = false;
         }
     }
-    public void buttonTurn() {
-        if(OperatorInput.adjustButtonTurn.isPressed()){
-            this.m_driveSystem.autonomousFlag = true;
-            turnToGoal();
-            this.m_driveSystem.autonomousFlag = false;
+
+    public void aim() {
+        float KpAim = -0.1f;
+        float KpDistance = -0.1f;
+        float min_aim_command = 0.05f;
+
+        if (OperatorInput.adjustButton.isPressed()) {
+            int tx = 0;
+            int ty = 0;
+            float heading_error = -tx;
+            float distance_error = -ty;
+            float steering_adjust = 0.0f;
+
+            if (tx > 1.0) {
+                steering_adjust = KpAim * heading_error - min_aim_command;
+            } else if (tx < -1.0) {
+                steering_adjust = KpAim * heading_error + min_aim_command;
+            }
+
+            float distance_adjust = KpDistance * distance_error;
+
+            float left_command = steering_adjust + distance_adjust;
+            float right_command = steering_adjust + distance_adjust;
+            m_driveSystem.setSpeed(left_command, right_command);
         }
 
     }
 
-    public void buttonDistance() {
-if(OperatorInput.adjustButtonDistance.isPressed()){
-        this.m_driveSystem.autonomousFlag = true;
-        lineUp();
-        m_ShootCommands.shootOneBall();
-        this.m_driveSystem.autonomousFlag = false;
-}
+    private boolean joystick() {
+        return false;
+    }
+
+    public void smartdashboard() {
+
     }
 }
