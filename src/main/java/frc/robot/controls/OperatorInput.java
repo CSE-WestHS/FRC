@@ -20,16 +20,7 @@ public class OperatorInput {
     public static final Button adjustButtonTurn = new Button(controller, 0);
     public static final Button adjustButtonDistance = new Button(controller, 0);
 
-    public Boolean intakeIsPressed(){
-        try  {
-
-            intakeButton.isPressed();
-
-        } catch (Exception e) {
-            
-        }
-        return false;
-    }
+   
     
 }
 
