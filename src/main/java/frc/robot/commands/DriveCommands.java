@@ -286,21 +286,21 @@ public class DriveCommands {
    
     public void aim() {
         float KpAim = -0.075f;
-        float KpDistance = -0.1f;
+        float KpDistance = -0.08f;
         float min_aim_command = 0.05f;
     if(OperatorInput.adjustButton.isPressed()) {
-        double heading_error = m_LimeLightSystem.getX();
-        double distance_error = m_LimeLightSystem.getY();
+        double heading_error = -m_LimeLightSystem.getX();
+        double distance_error = -m_LimeLightSystem.getY();
         double steering_adjust = 0.0f;
         if(m_LimeLightSystem.getX()> 1.0) {
             steering_adjust = KpAim * heading_error - min_aim_command;
         }
         else if(m_LimeLightSystem.getX() < -1.0){
-            steering_adjust = KpAim * heading_error + min_aim_command;
+            steering_adjust =KpAim * heading_error + min_aim_command;
         }
         double distance_adjust = KpDistance * distance_error;
-        double leftspeed = steering_adjust + distance_adjust;
-        double rightspeed = -steering_adjust + distance_adjust;
+        double leftspeed = -steering_adjust + distance_adjust;
+        double rightspeed = steering_adjust + distance_adjust;
         m_driveSystem.setSpeed(leftspeed, rightspeed);
     }
  }
