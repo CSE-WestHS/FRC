@@ -53,7 +53,7 @@ public class Winch {
          * if this putton is pressed , raise the winch motor
          * until it reaches 14 rotation or 3 seconds on the timer
          */
-        if (OperatorInput.liftButton.isPressed() || (OperatorInput.controller.getPOV() == 0)) {
+        if (OperatorInput.liftButton.isPressed()) {
             m_Timer.reset();
             m_Timer.start();
 
@@ -77,7 +77,7 @@ public class Winch {
              * until it reaches 14 rotation
              * or 3 seconds on the timer
              */
-        } else if (OperatorInput.lowerButton.isPressed()|| (OperatorInput.controller.getPOV() == 180)) {
+        } else if (OperatorInput.lowerButton.isPressed()) {
             m_Timer.reset();
             m_Timer.start();
 
