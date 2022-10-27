@@ -283,38 +283,25 @@ public class DriveCommands {
         }
     }
 
+   
     public void aim() {
-        float KpAim = -0.1f;
+        float KpAim = -0.075f;
         float KpDistance = -0.1f;
         float min_aim_command = 0.05f;
-
-        if (OperatorInput.adjustButton.isPressed()) {
-            int tx = 0;
-            int ty = 0;
-            float heading_error = -tx;
-            float distance_error = -ty;
-            float steering_adjust = 0.0f;
-
-            if (tx > 1.0) {
-                steering_adjust = KpAim * heading_error - min_aim_command;
-            } else if (tx < -1.0) {
-                steering_adjust = KpAim * heading_error + min_aim_command;
-            }
-
-            float distance_adjust = KpDistance * distance_error;
-
-            float left_command = steering_adjust + distance_adjust;
-            float right_command = steering_adjust + distance_adjust;
-            m_driveSystem.setSpeed(left_command, right_command);
+    if(OperatorInput.adjustButton.isPressed()) {
+        double heading_error = m_LimeLightSystem.getX();
+        double distance_error = m_LimeLightSystem.getY();
+        double steering_adjust = 0.0f;
+        if(m_LimeLightSystem.getX()> 1.0) {
+            steering_adjust = KpAim * heading_error - min_aim_command;
         }
-
+        else if(m_LimeLightSystem.getX() < -1.0){
+            steering_adjust = KpAim * heading_error + min_aim_command;
+        }
+        double distance_adjust = KpDistance * distance_error;
+        double leftspeed = steering_adjust + distance_adjust;
+        double rightspeed = -steering_adjust + distance_adjust;
+        m_driveSystem.setSpeed(leftspeed, rightspeed);
     }
-
-    private boolean joystick() {
-        return false;
-    }
-
-    public void smartdashboard() {
-
-    }
+ }
 }
