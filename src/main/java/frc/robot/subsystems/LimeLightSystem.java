@@ -5,7 +5,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.controls.OperatorInput;
+import frc.robot.subsystems.DriveSystem;
 /**
  * The LimeLightSystem class is responsible for controlling the limelight camera
  * used to detect objects.
@@ -18,6 +19,7 @@ public class LimeLightSystem {
      */
     public LimeLightSystem() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        
     }
 
     /**
@@ -63,15 +65,5 @@ public class LimeLightSystem {
         // calculates the distance the LimeLight is to the target
         double distToGoal = (goalHeightInches - limeLightDistOffFloor) / Math.tan(angleToGoalRadians);
         return distToGoal;
-    }
-
-    /**
-     * puts information on the @SmartDashboard
-     */
-    public void smartdashboard() {
-        SmartDashboard.putNumber("Limelight/x-offset", getX());
-        SmartDashboard.putNumber("Limelight/y-offset", getY());
-        SmartDashboard.putNumber("Limelight/area", getArea());
-        SmartDashboard.putNumber("Limelight/distance from goal", calculateDistanceFromGoal());
     }
 }
