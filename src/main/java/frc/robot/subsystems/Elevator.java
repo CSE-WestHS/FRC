@@ -62,7 +62,7 @@ public class Elevator {
      */
     public void elevatorButtonControl() {
         // if this button is pressed, run the motors forewards (ball goes up)
-        if (OperatorInput.elevatorButton.isPressed()) {
+        if (OperatorInput.elevatorButton.isPressed() || (OperatorInput.controller.getLeftTriggerAxis() >= 0.75)) {
             motorPower(speed);
 
         }

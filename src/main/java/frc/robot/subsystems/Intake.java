@@ -89,7 +89,7 @@ public class Intake {
      */
     public void intakeButtonControl() {
         // if this button is pressed, run motors forewards (ball moves forewards)
-        if (OperatorInput.intakeButton.isPressed()) {
+        if (OperatorInput.intakeButton.isPressed() || (OperatorInput.controller.getRightTriggerAxis() >= 0.75)) {
             runMotors(0.45);
 
         }
