@@ -170,6 +170,16 @@ public class DriveCommands {
      * this method takes in all the previously made methods in this class
      * and runs them for use in the autonomous portion of the competition
      */
+    public void newAutoDrive(){
+        m_Timer.stop();
+        m_Timer.reset();
+
+        m_Timer.start();
+       // while (m_Timer.get() < 0.3){
+            driveSetDistance(-10, 0.4);
+       // }
+       
+    }
     public void autonomousDrive() {
         m_Timer.stop();
         m_Timer.reset();
