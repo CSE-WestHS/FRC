@@ -21,6 +21,10 @@ public class LimeLightSystem {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         
     }
+    public void smartdashboard(){
+        SmartDashboard.putNumber("X", getX());
+        SmartDashboard.putNumber("Y", getY());
+    }
 
     /**
      * @return The x-offset of the target.
