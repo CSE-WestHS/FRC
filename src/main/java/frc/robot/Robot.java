@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
     // m_lidarSensor.smartdashboard();
     m_shooter.smartdashboard();
     m_winch.smartdashboard();
+    m_limelight.smartdashboard();
   }
 
   /**
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
     m_driveSystem.m_frontRight.getEncoder().setPosition(0);
     //m_driveCommands. driveSetDistance(27, -0.6);
 
-    m_driveCommands.autonomousDrive();
+    m_driveCommands.newAutoDrive();
     //m_shootCommand.autonomousShoot();
   }
 

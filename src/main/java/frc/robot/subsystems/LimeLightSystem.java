@@ -5,8 +5,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.controls.OperatorInput;
-import frc.robot.subsystems.DriveSystem;
 /**
  * The LimeLightSystem class is responsible for controlling the limelight camera
  * used to detect objects.
@@ -20,6 +18,10 @@ public class LimeLightSystem {
     public LimeLightSystem() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
         
+    }
+    public void smartdashboard(){
+        SmartDashboard.putNumber("X", getX());
+        SmartDashboard.putNumber("Y", getY());
     }
 
     /**
