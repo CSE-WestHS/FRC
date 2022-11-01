@@ -174,10 +174,15 @@ public class DriveCommands {
         m_Timer.stop();
         m_Timer.reset();
 
-        m_Timer.start();
+        
        // while (m_Timer.get() < 0.3){
             driveSetDistance(-10, 0.4);
        // }
+       while (m_LimeLightSystem.getY() > 0.5 ) {
+           turnToGoal();
+       }
+       m_Timer.start();
+       m_ShootCommands.autonomousShoot();
        
     }
     public void autonomousDrive() {
