@@ -4,8 +4,6 @@ package frc.robot.subsystems;
 //these can come from other parts of the robot or the internet
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-//import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The Shooter Class is responsible for controlling the
@@ -14,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Shooter {
     private static WPI_TalonFX shootmotorlefta = new WPI_TalonFX(6);
     private static WPI_TalonFX shootmotorhigher = new WPI_TalonFX(11);
-    private static int smartCurrentLimit = 40;
+    
     
     // Below values, 1 for normal -1 for inverted
     //private static int lowerIsInverted = -1;

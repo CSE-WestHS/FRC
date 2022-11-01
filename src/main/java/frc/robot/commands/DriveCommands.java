@@ -6,7 +6,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLightSystem;
 import frc.robot.subsystems.Intake;
-import frc.robot.controls.OperatorInput;
+import frc.robot.controls.OI;
 import frc.robot.subsystems.Winch;
 import frc.robot.util.Debug;
 import edu.wpi.first.wpilibj.Timer;
@@ -291,7 +291,7 @@ public class DriveCommands {
      * while the button is pressed
      */
     public void buttonLineUp() {
-        if (OperatorInput.adjustButton.isPressedEvent()) {
+        if (OI.adjustButton.isPressedEvent()) {
             this.m_driveSystem.autonomousFlag = true;
             lineUp();
             this.m_driveSystem.autonomousFlag = false;
@@ -303,7 +303,7 @@ public class DriveCommands {
         float KpAim = -0.075f;
         float KpDistance = -0.08f;
         float min_aim_command = 0.05f;
-    if(OperatorInput.adjustButton.isPressed()) {
+    if(OI.adjustButton.isPressed()) {
         double heading_error = -m_LimeLightSystem.getX();
         double distance_error = -m_LimeLightSystem.getY();
         double steering_adjust = 0.0f;

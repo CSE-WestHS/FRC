@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.controls.OperatorInput;
+import frc.robot.controls.OI;
 
 /**
  * The DriveSystem class is responsible for controlling the drivetrain of the
@@ -99,10 +99,10 @@ public class DriveSystem {
      */
     public void dual_joystick_drive() {
         // Get left wheel speed from the left joystick.
-         double leftSpeed = OperatorInput.controller.getLeftY() * kMaxSpeed;
+         double leftSpeed = OI.leftJoystick.getY() * kMaxSpeed;
 
         // Get right wheel speed from the right joystick.
-         double rightSpeed = OperatorInput.controller.getRightY() * kMaxSpeed;
+         double rightSpeed = OI.rightJoystick.getY() * kMaxSpeed;
         // if motors aren't in use by another program
         if (!this.autonomousFlag) {
             setSpeed(leftSpeed, rightSpeed);

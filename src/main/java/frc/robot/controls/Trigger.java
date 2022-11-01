@@ -1,5 +1,4 @@
 package frc.robot.controls;
-import frc.robot.controls.OperatorInput;
 public class Trigger {
 String axisName;
     public Trigger(String newAxisName){
