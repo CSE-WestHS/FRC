@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 //import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //the star means that it imports all files from this package
 /*
 doing this is generally bad practice, 
@@ -66,6 +67,8 @@ public class Robot extends TimedRobot {
     // m_lidarSensor.smartdashboard();
     m_shooter.smartdashboard();
     m_winch.smartdashboard();
+    SmartDashboard.putNumber("Upper Motor", m_shooter.getUpperMotorSpeed());
+    SmartDashboard.putNumber("Lower Motor", m_shooter.getLowerMotorSpeed());
   }
 
   /**

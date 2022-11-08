@@ -121,7 +121,7 @@ public class DriveCommands {
         m_driveSystem.m_frontLeft.getEncoder().setPosition(0);
         m_Timer.reset();
         m_Timer.start();
-        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > -40 && m_Timer.get() < 4) {
+        while (m_driveSystem.m_frontLeft.getEncoder().getPosition() > -50 && m_Timer.get() < 4) {
             m_driveSystem.setSpeed(0.35, -0.35);
         }
 

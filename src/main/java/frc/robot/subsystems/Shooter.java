@@ -32,6 +32,12 @@ public class Shooter {
 
     }
 
+    public double getUpperMotorSpeed(){
+            return shootmotorhigher.getSelectedSensorVelocity();
+    }
+    public double getLowerMotorSpeed(){
+        return shootmotorlefta.getSelectedSensorVelocity();
+}
     /**
      * puts information on the @SmartDashboard
      */
