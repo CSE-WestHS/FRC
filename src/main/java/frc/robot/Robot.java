@@ -65,7 +65,6 @@ public class Robot extends TimedRobot {
     m_elevator.smartdashboard();
     m_intake.smartdashboard();
     // m_lidarSensor.smartdashboard();
-    m_limelight.smartdashboard();
     m_shooter.smartdashboard();
     m_winch.smartdashboard();
     SmartDashboard.putNumber("Upper Motor", m_shooter.getUpperMotorSpeed());
@@ -118,13 +117,13 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     // runs all the commands that use buttons from the subsystems
-    m_driveCommands.buttonDistance();
-    m_driveCommands.buttonTurn();
+
     m_driveSystem.dual_joystick_drive();
     m_intake.intakeButtonControl();
     m_elevator.elevatorButtonControl();
     m_shootCommand.shootButtonControl();
     m_winch.buttonWinch();
+    m_driveCommands.aim();
   }
 
   /**

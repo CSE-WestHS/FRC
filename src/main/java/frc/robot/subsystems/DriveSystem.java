@@ -99,10 +99,10 @@ public class DriveSystem {
      */
     public void dual_joystick_drive() {
         // Get left wheel speed from the left joystick.
-        final double leftSpeed = OperatorInput.controller.getLeftY() * kMaxSpeed;
+         double leftSpeed = OperatorInput.controller.getLeftY() * kMaxSpeed;
 
         // Get right wheel speed from the right joystick.
-        final double rightSpeed = OperatorInput.controller.getRightY() * kMaxSpeed;
+         double rightSpeed = OperatorInput.controller.getRightY() * kMaxSpeed;
         // if motors aren't in use by another program
         if (!this.autonomousFlag) {
             setSpeed(leftSpeed, rightSpeed);
